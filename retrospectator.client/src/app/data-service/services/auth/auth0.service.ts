@@ -12,7 +12,7 @@ export class Auth0Service {
     responseType: 'token id_token',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
     redirectUri: AUTH_CONFIG.callbackURL,
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) {}
@@ -25,6 +25,9 @@ export class Auth0Service {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        this.auth0.client.userInfo(authResult.accessToken, function(error, user) {
+          console.log(user);
+        });
         this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
