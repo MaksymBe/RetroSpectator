@@ -1,4 +1,4 @@
-export class ActionPoint {
+export class APoint {
   title: string;
   status: boolean;
   id: number;
