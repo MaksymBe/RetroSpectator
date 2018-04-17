@@ -22,7 +22,7 @@ public class Team {
 
     @GeneratedValue(generator = "hibernate-uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "link" )
+    @Column(name = "link" ,columnDefinition = "CHAR(32)" )
     private String link;
 
     @Column
@@ -45,11 +45,11 @@ public class Team {
         this.id = id;
     }
 
-    public String getKey() {
+    public String getLink() {
         return link;
     }
 
-    public void setKey(String link) {
+    public void setLink(String link) {
         this.link = link;
     }
 
