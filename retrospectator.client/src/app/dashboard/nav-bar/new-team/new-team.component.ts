@@ -7,7 +7,7 @@ import {TeamService} from '../../../data-service/services/team/team.service';
   styleUrls: ['./new-team.component.css']
 })
 export class NewTeamComponent implements OnInit {
-  @Output('changeMode') changeModeEmitter: EventEmitter = new EventEmitter();
+  @Output('changeMode') changeModeEmitter: EventEmitter<null> = new EventEmitter<null>();
 
   private teamTitle: string;
 
