@@ -8,6 +8,8 @@ import { AuthComponent } from './auth/auth.component';
 import { RetroComponent } from './dashboard/retro/retro.component';
 import { RetroHistoryComponent } from './dashboard/retro-history/retro-history.component';
 import { SprintComponent } from './dashboard/sprint/sprint.component';
+import {FormsModule} from '@angular/forms';
+import { PointsListComponent } from './dashboard/points-list/points-list.component';
 
 
 @NgModule({
@@ -17,10 +19,12 @@ import { SprintComponent } from './dashboard/sprint/sprint.component';
     AuthComponent,
     RetroComponent,
     RetroHistoryComponent,
-    SprintComponent
+    SprintComponent,
+    PointsListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
