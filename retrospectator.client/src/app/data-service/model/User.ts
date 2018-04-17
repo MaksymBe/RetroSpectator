@@ -1,4 +1,7 @@
+import {Team} from './Team';
+
 export class User {
+  name: string;
   id: number;
-  teamId: number;
+  teams: Team[];
 }
