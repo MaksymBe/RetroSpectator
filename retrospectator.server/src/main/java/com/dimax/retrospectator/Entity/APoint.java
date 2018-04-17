@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.*;
 import java.sql.Date;
 
-
 @Entity
 @Table
 @JsonView(TeamMaker.Team.class)
-
-@JsonIgnoreProperties({"retro", "user"})
-public class Point {
+@JsonIgnoreProperties({"retro", "retro_id"})
+public class APoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -22,18 +20,14 @@ public class Point {
     private String title;
 
     @Column
-    private String type;
-
-    @Column
     private Date date;
 
+    @Column
+    private String status;
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "retro_id")
     private Retro retro;
-
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author_id")
-    private User user;
 
     public Integer getId() {
         return id;
@@ -51,14 +45,6 @@ public class Point {
         this.title = title;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -67,19 +53,19 @@ public class Point {
         this.date = date;
     }
 
-    public Retro getRetro() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Retro getRetro_id() {
         return retro;
     }
 
-    public void setRetro(Retro retro) {
+    public void setRetro_id(Retro retro_id) {
         this.retro = retro;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
