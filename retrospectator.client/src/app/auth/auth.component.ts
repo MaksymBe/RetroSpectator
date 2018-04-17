@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Auth0Service} from '../data-service/services/auth/auth0.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth: Auth0Service) {
+    auth.handleAuthentication();
+  }
 
   ngOnInit() {
   }

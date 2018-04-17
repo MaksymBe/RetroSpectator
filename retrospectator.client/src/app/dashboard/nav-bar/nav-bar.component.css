@@ -1,0 +1,12 @@
+button {
+  width: 100%;
+}
+.btn-group-vertical {
+  width: 100%;
+}
+
+.dropdown-menu {
+  margin-top: -2px;
+  width: 80%;
+  background-color: rgba(242, 242, 242);
+}
