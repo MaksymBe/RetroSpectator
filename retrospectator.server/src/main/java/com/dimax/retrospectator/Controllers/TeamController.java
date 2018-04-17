@@ -18,7 +18,7 @@ public class TeamController {
 
     @JsonView({TeamMaker.Team.class})
     @GetMapping("/{id}")
-    public ResponseEntity<Team> getTeamById(@PathVariable Integer id) {
+    public ResponseEntity<Team> getTeamById(@PathVariable String id) {
         return ResponseEntity.ok().body(service.getTeamById(id));
     }
 

@@ -3,6 +3,7 @@ package com.dimax.retrospectator.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,14 +16,15 @@ import java.util.List;
 @JsonIgnoreProperties({"retroes"})
 public class Team {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column
+//    private Integer id;
 
-    @GeneratedValue(generator = "hibernate-uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "link" ,columnDefinition = "CHAR(32)" )
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "link" )
     private String link;
 
     @Column
@@ -32,18 +34,19 @@ public class Team {
     private List<Retro> retroes = new ArrayList<>();
 
     @OneToOne( fetch = FetchType.EAGER)
+    @JoinColumn(name="retro_id")
     private Retro retro;
 
     @ManyToMany(mappedBy = "team" ,fetch = FetchType.EAGER)
     private List<User> user = new ArrayList<>();
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public String getLink() {
         return link;
