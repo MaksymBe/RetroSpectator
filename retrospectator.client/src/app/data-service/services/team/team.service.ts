@@ -30,6 +30,6 @@ export class TeamService {
   }
 
   private findById(id): any {
-    return this.teams.filter((team) => team.id === id)[0];
+    return this.teams.find((team) => team.id === id);
   }
 }
