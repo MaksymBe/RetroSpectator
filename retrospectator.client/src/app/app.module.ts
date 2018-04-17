@@ -20,6 +20,8 @@ import { NavBarComponent } from './dashboard/nav-bar/nav-bar.component';
 
 import { ROUTES } from './app.routes';
 import { CallbackComponent } from './auth/callback/callback.component';
+import {TeamService} from './data-service/services/team/team.service';
+import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { CallbackComponent } from './auth/callback/callback.component';
     SprintComponent,
     PointsListComponent,
     CallbackComponent,
-    NavBarComponent
+    NavBarComponent,
+    NewTeamComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,7 @@ import { CallbackComponent } from './auth/callback/callback.component';
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth0Service],
+  providers: [Auth0Service, TeamService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

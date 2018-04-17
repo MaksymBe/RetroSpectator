@@ -10,6 +10,7 @@ export class TeamService {
   private currentTeam: Team;
 
   constructor() {
+    this.teams = [];
   }
 
   getTeams(): Observable<Team[]> {
