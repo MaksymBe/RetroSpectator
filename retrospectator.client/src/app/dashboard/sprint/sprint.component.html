@@ -1,7 +1,7 @@
 <div class="">
-  <input type="text" [(ngModel)]="titleInput" class="form-group" placeholder="Title">
   <button id="reverser" class="btn btn-dark border-0"
           (click)="changePoints()">{{(isMine) ? 'Show Team Points' : 'Show Mine Points'}}</button>
+  <input type="text" [(ngModel)]="titleInput" class="form-group" placeholder="Title">
   <app-points-list type="plus" [points]="pointsPlus" (add)=addPoint($event)></app-points-list>
   <app-points-list type="minus" [points]="pointsMinus" (add)=addPoint($event)></app-points-list>
 </div>
