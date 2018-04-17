@@ -16,17 +16,20 @@ export class TeamService {
     return of(this.teams);
   }
 
-/*  getTeam(id: number): Observable<Team> {
-    return of(this.teams.find());
-  }*/
+  getTeam(id: number): Observable<Team> {
+    return of(this.findById(id));
+  }
 
-/*  chooseTeam(team: Team): Observable<Team> {
-    return
-  }*/
+  chooseTeam(id: number): Observable<Team> {
+    this.currentTeam = this.findById(id);
+    return of(this.currentTeam);
+  }
 
   createTeam(team: Team): Observable<any> {
     return of(this.teams.push(team));
   }
 
-
+  private findById(id): any {
+    return this.teams.filter((team) => team.id === id)[0];
+  }
 }

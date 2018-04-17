@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { AUTH_CONFIG } from './auth0-variables';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {AUTH_CONFIG} from './auth0-variables';
+import {Router} from '@angular/router';
 import * as auth0 from 'auth0-js';
 
 @Injectable()
@@ -15,24 +15,36 @@ export class Auth0Service {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+  }
 
   public login(): void {
     this.auth0.authorize();
   }
 
+  public showProfileInfo(): void {
+    const accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+      console.log('Access Token must exist to fetch profile');
+    }
+
+    this.auth0.client.userInfo(accessToken, function(err, profile) {
+      if (profile) {
+        console.log(profile);
+      }
+    });
+  }
+
+
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        this.auth0.client.userInfo(authResult.accessToken, function(error, user) {
-          console.log(user);
-        });
         this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
