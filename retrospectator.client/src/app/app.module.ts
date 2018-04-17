@@ -10,6 +10,7 @@ import { RetroHistoryComponent } from './dashboard/retro-history/retro-history.c
 import { SprintComponent } from './dashboard/sprint/sprint.component';
 import {FormsModule} from '@angular/forms';
 import { PointsListComponent } from './dashboard/points-list/points-list.component';
+import { NavBarComponent } from './dashboard/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { PointsListComponent } from './dashboard/points-list/points-list.compone
     RetroComponent,
     RetroHistoryComponent,
     SprintComponent,
-    PointsListComponent
+    PointsListComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
