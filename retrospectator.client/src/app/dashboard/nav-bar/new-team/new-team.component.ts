@@ -1,5 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TeamService} from '../../../data-service/services/team/team.service';
+import {MatInputModule} from '@angular/material/input';
+
 
 @Component({
   selector: 'app-new-team',
@@ -22,7 +24,7 @@ export class NewTeamComponent implements OnInit {
       return;
     }
 
-    this.teamService.createTeam({title: this.teamTitle, key: null, id: null});
+    this.teamService.createTeam({title: this.teamTitle, key: undefined, id: undefined, currentRetro: undefined});
     this.changeModeEmitter.emit();
   }
 

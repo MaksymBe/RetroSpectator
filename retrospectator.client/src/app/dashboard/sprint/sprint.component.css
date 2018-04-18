@@ -1,7 +1,8 @@
-input {
+.input-group {
   width: 96%;
   margin-left: 2%;
   margin-bottom: 7px;
+  margin-top: 2px;
 }
 
 #reverser {
