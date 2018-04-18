@@ -37,6 +37,13 @@ public class Retro {
     @OneToMany(mappedBy = "retro")
     private List<APoint> actionPoint = new ArrayList<>();
 
+    public Retro(Team team) {
+        this.team = team;
+    }
+
+    public Retro() {
+    }
+
     public Integer getId() {
         return id;
     }

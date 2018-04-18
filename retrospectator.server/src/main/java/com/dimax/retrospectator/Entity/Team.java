@@ -24,11 +24,12 @@ public class Team {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "link" )
-    private String link;
+    @Column(name = "uid" )
+    private String uid;
+
 
     @Column
-    private String status;
+    private String identifier;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Retro> retroes = new ArrayList<>();
@@ -48,20 +49,20 @@ public class Team {
 //        this.id = id;
 //    }
 
-    public String getLink() {
-        return link;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
-    public String getStatus() {
-        return status;
+    public String getUid() {
+        return uid;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public List<Retro> getRetroes() {
