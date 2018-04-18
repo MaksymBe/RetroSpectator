@@ -1,0 +1,35 @@
+{
+  "team": [
+    {
+      "id": 1,
+      "link": null
+    }
+  ],
+  "user": [
+    {
+      "id": 1
+    }
+  ],
+  "actionPoint": [
+    {
+      "id": 1,
+      "title": "Title a.p.",
+      "date": "2018-04-18",
+      "status": "Done"
+    }
+  ],
+  "point": [
+    {
+      "id": 1,
+      "title": "Point title",
+      "type": "plus",
+      "date": "2018-04-18"
+    }
+  ],
+  "retro": [{
+    "id": 1,
+    "finishDate": "2018-04-18",
+    "impression": "impression retro"
+
+  }]
+}

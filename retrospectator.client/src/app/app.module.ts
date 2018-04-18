@@ -12,7 +12,6 @@ import {  FormsModule } from '@angular/forms';
 import { PointsListComponent } from './dashboard/points-list/points-list.component';
 
 import {Auth0Service} from './data-service/services/auth/auth0.service';
-import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
 import { NavBarComponent } from './dashboard/nav-bar/nav-bar.component';
@@ -22,7 +21,12 @@ import { ROUTES } from './app.routes';
 import { CallbackComponent } from './auth/callback/callback.component';
 import {TeamService} from './data-service/services/team/team.service';
 import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.component';
+
 import {ActionPointsListComponent} from './dashboard/action-points-list/action-points-list.component';
+
+
+import {HttpClientModule} from '@angular/common/http';
+import {JwtModule} from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -42,8 +46,14 @@ import {ActionPointsListComponent} from './dashboard/action-points-list/action-p
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES),
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('access_token'),
+        whitelistedDomains: ['localhost:3000']
+      }
+    }),
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [Auth0Service, TeamService],
   bootstrap: [AppComponent]
