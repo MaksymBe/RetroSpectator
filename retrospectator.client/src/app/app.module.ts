@@ -22,6 +22,8 @@ import { ROUTES } from './app.routes';
 import { CallbackComponent } from './auth/callback/callback.component';
 import {TeamService} from './data-service/services/team/team.service';
 import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.component';
+import {ActionPointsListComponent} from './dashboard/action-points-list/action-points-list.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.componen
     PointsListComponent,
     CallbackComponent,
     NavBarComponent,
-    NewTeamComponent
+    NewTeamComponent,
+    ActionPointsListComponent
   ],
   imports: [
     BrowserModule,
