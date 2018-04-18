@@ -2,7 +2,8 @@
   You are logged in!
   <button (click)="auth.showProfileInfo()">Profile</button>
   <button (click)="test()">Test</button>
+  <button (click)="auth.logout()">Logout</button>
 </h4>
 <h4 *ngIf="!auth.isAuthenticated()">
-  You are not logged in! Please <a (click)="auth.login()">Log In</a> to continue.
+  You are not logged in! Please <button (click)="auth.login()">Log In</button> to continue.
 </h4>
