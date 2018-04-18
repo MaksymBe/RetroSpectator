@@ -14,10 +14,9 @@ export const ROUTES: Routes = [
       { path: '', component: SprintComponent},
       { path: 'new-team', component: SprintComponent},
       { path: ':teamKey', component: SprintComponent},
-      { path: ':teamKey/:mode', component: SprintComponent, children: [
-          { path: 'retro', component: RetroComponent},
-          { path: 'retros', component: RetroHistoryComponent}
-        ]}
+      { path: ':teamKey/retro', component: RetroComponent},
+      { path: ':teamKey/retros', component: RetroHistoryComponent},
+      { path: ':teamKey/:mode', component: SprintComponent}
     ]},
   { path: '**', redirectTo: '' }
 ];

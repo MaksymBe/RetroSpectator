@@ -21,8 +21,13 @@ import { ROUTES } from './app.routes';
 import { CallbackComponent } from './auth/callback/callback.component';
 import {TeamService} from './data-service/services/team/team.service';
 import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.component';
+
+import {ActionPointsListComponent} from './dashboard/action-points-list/action-points-list.component';
+
+
 import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +40,8 @@ import {JwtModule} from '@auth0/angular-jwt';
     PointsListComponent,
     CallbackComponent,
     NavBarComponent,
-    NewTeamComponent
+    NewTeamComponent,
+    ActionPointsListComponent
   ],
   imports: [
     BrowserModule,

@@ -10,10 +10,14 @@ export class PointsListComponent implements OnInit {
 
   @Input() type: string;
   @Input() points: Point[];
+  @Input() noButton: boolean;
+  @Input() title: string;
 
   @Output('add') add: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {}
+  constructor() {
+    this.noButton = false;
+  }
 
   ngOnInit() {}
 
