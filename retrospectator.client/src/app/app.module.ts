@@ -40,7 +40,7 @@ import { NewTeamComponent } from './dashboard/nav-bar/new-team/new-team.componen
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
   ],
   providers: [Auth0Service, TeamService],
   bootstrap: [AppComponent]
