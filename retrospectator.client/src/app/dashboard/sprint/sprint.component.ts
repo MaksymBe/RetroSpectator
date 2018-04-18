@@ -13,6 +13,7 @@ export class SprintComponent implements OnInit {
   private pointsPlus = [];
   private isMine = true;
   private teamKey;
+  private chooseMode = false;
 
   constructor(private activatedRouter: ActivatedRoute, private router: Router) {
   }
@@ -20,9 +21,9 @@ export class SprintComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.params.subscribe((params) => {
       if (params.teamKey === undefined) {
-        // Show choosing of team for user
-        console.log('give me team');
+        this.chooseMode = true;
       }  else {
+        this.chooseMode = false;
         if (params.mode === undefined || params.mode === null) {
           this.router.navigate(['dashboard', params.teamKey, 'my']);
         }
