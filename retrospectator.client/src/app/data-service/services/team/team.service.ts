@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Team} from '../../model/Team';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class TeamService {
@@ -9,12 +10,13 @@ export class TeamService {
   private teams: Team[];
   private currentTeam: Team;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.teams = [];
   }
 
-  getTeams(): Observable<Team[]> {
-    return of(this.teams);
+  getTeams(): Observable<any> {
+    return this.http.get('http://localhost:3000/groups');
+    //return of(this.teams);
   }
 
   getTeam(id: number): Observable<Team> {
