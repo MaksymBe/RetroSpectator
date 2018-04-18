@@ -14,19 +14,28 @@ export class SprintComponent implements OnInit {
   private isMine = true;
   private teamKey;
   private chooseMode = false;
+  private createTeamMode = false;
 
   constructor(private activatedRouter: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+    if (this.router.url === '/dashboard/new-team') {
+      this.createTeamMode = true;
+      this.chooseMode = false;
+      return;
+    }
+
     this.activatedRouter.params.subscribe((params) => {
       if (params.teamKey === undefined) {
         this.chooseMode = true;
       }  else {
         this.chooseMode = false;
+
         if (params.mode === undefined || params.mode === null) {
           this.router.navigate(['dashboard', params.teamKey, 'my']);
         }
+
         if (params.mode === 'all') {
           this.getTeamPoints(params.teamKey);
         } else if (params.mode === 'my') {
@@ -46,6 +55,7 @@ export class SprintComponent implements OnInit {
   getMyPoints(teamKey) {
 
   }
+
   addPoint(type) {
     if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
       return;

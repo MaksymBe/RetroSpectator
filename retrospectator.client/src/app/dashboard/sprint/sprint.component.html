@@ -1,4 +1,14 @@
-<div class="">
+<div *ngIf="chooseMode" class="d-flex flex-column text-center align-items-center active-mode">
+  <h3>Choose team</h3>
+  <img src="assets/team.svg" alt="team">
+</div>
+
+<div *ngIf="createTeamMode" class="d-flex flex-column text-center align-items-center active-mode">
+  <h3>Create team</h3>
+  <img src="assets/createTeam.svg" alt="createTeam">
+</div>
+
+<div class="" *ngIf="!chooseMode && !createTeamMode">
 
   <button  class="btn btn-dark border-0 reverser" style="margin-left: 13%; margin-right: 2%"
           (click)="changePoints()">{{(isMine) ? 'Team Points' : 'My Points'}}</button>
@@ -14,15 +24,11 @@
     <input class="form-control" type="text" aria-label="Title" aria-describedby="point-title" [(ngModel)]="titleInput">
   </div>
 
-  <div *ngIf="chooseMode">
-    <img src="team.svg" alt="team">
-  </div>
-  <app-points-list *ngIf="!chooseMode"
+  <app-points-list
     type="plus"
     [points]="pointsPlus"
     (add)=addPoint($event)></app-points-list>
   <app-points-list
-    *ngIf="!chooseMode"
     type="minus"
     [points]="pointsMinus"
     (add)=addPoint($event)></app-points-list>
