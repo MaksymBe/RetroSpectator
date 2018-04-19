@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
+import {Point} from '../../data-service/model/Point';
 
 @Component({
   selector: 'app-sprint',
@@ -9,8 +10,7 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 export class SprintComponent implements OnInit {
   private titleInput: string;
 
-  private pointsMinus = [];
-  private pointsPlus = [];
+  private points: {minus: Point[], plus: Point[]}
   private isMine = true;
   private teamKey;
   private chooseMode = false;
@@ -50,12 +50,25 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  getTeamPoints(teamKey) {
+  changePoints() {
+    if (this.isMine) {
+      this.points = this.getTeamPoints(this.teamKey);
+      this.router.navigate(['dashboard', this.teamKey, 'all']);
+    } else {
+      this.points = this.getMyPoints(this.teamKey);
+      this.router.navigate(['dashboard', this.teamKey, 'my']);
+    }
+
+    this.isMine = !this.isMine;
+  }
+
+  getTeamPoints(teamKey): {minus: Point[], plus: Point[]} {
 
   }
-  getMyPoints(teamKey) {
+  getMyPoints(teamKey): {minus: Point[], plus: Point[]} {
 
   }
+
 
   addPoint(type) {
     if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
@@ -63,7 +76,6 @@ export class SprintComponent implements OnInit {
     }
 
     if (type === 'minus') {
-      this.pointsMinus.push({type: 'minus', title: this.titleInput});
     }
     if (type === 'plus') {
       this.pointsPlus.push({type: 'plus', title: this.titleInput});
@@ -72,15 +84,5 @@ export class SprintComponent implements OnInit {
     this.titleInput = '';
   }
 
-  changePoints() {
-    if (this.isMine) {
-      this.getTeamPoints(this.teamKey);
-      this.router.navigate(['dashboard', this.teamKey, 'all']);
-    } else {
-      this.getMyPoints(this.teamKey);
-      this.router.navigate(['dashboard', this.teamKey, 'my']);
-    }
 
-    this.isMine = !this.isMine;
-  }
 }
