@@ -1,5 +1,6 @@
 package com.dimax.retrospectator.Services;
 
+import com.dimax.retrospectator.Entity.AuthUser;
 import com.dimax.retrospectator.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,11 @@ public class UserService {
         return user;
     }
 
-    public User getUser(User user) {
-        if (repository.existsByIdentifierAndProvider(user.getIdentifier(), user.getProvider())) {
-            return repository.getByIdentifierAndProvider(user.getIdentifier(), user.getProvider());
+    public User getUser(AuthUser authUser) {
+        if (repository.existsBySub(authUser.getSub())) {
+            return repository.findBySub(authUser.getSub());
         }
+        User user = new User(authUser);
         return  repository.save(user);
     }
 }

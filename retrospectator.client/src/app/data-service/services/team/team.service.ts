@@ -15,7 +15,7 @@ export class TeamService {
   }
 
   getTeams(): Observable<any> {
-    return this.http.get('http://localhost:3000/groups');
+    return this.http.get('http://localhost:3000/team');
     //return of(this.teams);
   }
 

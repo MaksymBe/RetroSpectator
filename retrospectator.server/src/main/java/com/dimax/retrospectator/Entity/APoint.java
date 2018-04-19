@@ -8,7 +8,6 @@ import java.sql.Date;
 
 @Entity
 @Table
-@JsonView(TeamMaker.Team.class)
 @JsonIgnoreProperties({"retro", "retro_id"})
 public class APoint {
     @Id

@@ -1,9 +1,6 @@
 package com.dimax.retrospectator.Entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table
-@JsonView(TeamMaker.Team.class)
-@JsonIgnoreProperties({"team", "team_id"})
+@JsonIgnoreProperties({"team", "team_id", "point", "actionPoint"})
 public class Retro {
 
     @Id
