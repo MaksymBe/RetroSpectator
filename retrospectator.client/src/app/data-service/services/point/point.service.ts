@@ -22,11 +22,11 @@ export class PointService {
   }
 
   createPoint(point: Point): Observable<Point> {
-    return null;
+    return <Observable<Point>>this.http.post(environment.apiHost + 'point', point);
   }
 
-  updatePoint(team: Team): Observable<any> {
-    return null;
+  updatePoint(point: Point): Observable<Point> {
+    return <Observable<Point>>this.http.patch(environment.apiHost + `point/${point.id}`, point);
   }
 
   private getPoints(route: string) {
