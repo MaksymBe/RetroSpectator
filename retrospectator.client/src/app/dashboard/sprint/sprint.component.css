@@ -5,9 +5,16 @@
   margin-top: 2px;
 }
 
-#reverser {
-  margin-left: 20%;
-  width: 60%;
+.reverser {
+  width: 35%;
   margin-bottom: 3px;
+}
+
+.active-mode img {
+  width: 80%;
+}
+.active-mode {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 16%;
 }
 
