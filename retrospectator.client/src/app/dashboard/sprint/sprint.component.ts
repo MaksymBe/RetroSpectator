@@ -45,6 +45,7 @@ export class SprintComponent implements OnInit {
         }
 
         this.teamKey = params.teamKey;
+        localStorage.setItem('teamKey', this.teamKey);
       }
     });
   }
