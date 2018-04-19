@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
+import {Point} from '../../data-service/model/Point';
+import {PointService} from '../../data-service/services/point/point.service';
 
 @Component({
   selector: 'app-sprint',
@@ -9,14 +11,15 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 export class SprintComponent implements OnInit {
   private titleInput: string;
 
-  private pointsMinus = [];
-  private pointsPlus = [];
+  private points: {minus: Point[], plus: Point[]};
   private isMine = true;
   private teamKey;
   private chooseMode = false;
   private createTeamMode = false;
 
-  constructor(private activatedRouter: ActivatedRoute, private router: Router) {
+  constructor(private activatedRouter: ActivatedRoute,
+              private router: Router,
+              private pointService: PointService) {
   }
 
   ngOnInit() {
@@ -45,30 +48,9 @@ export class SprintComponent implements OnInit {
         }
 
         this.teamKey = params.teamKey;
+        localStorage.setItem('teamKey', this.teamKey);
       }
     });
-  }
-
-  getTeamPoints(teamKey) {
-
-  }
-  getMyPoints(teamKey) {
-
-  }
-
-  addPoint(type) {
-    if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
-      return;
-    }
-
-    if (type === 'minus') {
-      this.pointsMinus.push({type: 'minus', title: this.titleInput});
-    }
-    if (type === 'plus') {
-      this.pointsPlus.push({type: 'plus', title: this.titleInput});
-    }
-
-    this.titleInput = '';
   }
 
   changePoints() {
@@ -82,4 +64,39 @@ export class SprintComponent implements OnInit {
 
     this.isMine = !this.isMine;
   }
+
+  getTeamPoints(teamKey) {
+    this.pointService.getTeamPoints(teamKey).subscribe(points => this.points(points));
+  }
+
+  getMyPoints(teamKey) {
+    this.pointService.getMyPoints(teamKey).subscribe((points) => this.points = points);
+  }
+
+  addPoint(type) {
+    if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
+      return;
+    }
+
+    this.pointService.createPoint( {
+          title: this.titleInput,
+          date: getDate(),
+          type: type
+        }
+    ).subscribe(point => {
+      if (!point) {
+        return;
+      }
+
+      this.points[type].push(point);
+    });
+    this.titleInput = '';
+  }
+}
+
+function getDate() {
+  const date = new Date();
+  return date.getFullYear() + '-' +
+        (date.getMonth() < 10) ? '0' + date.getMonth() : date.getMonth() +  '-' +
+        (date.getDate() < 10) ? '0' + date.getDate() : date.getDate();
 }
