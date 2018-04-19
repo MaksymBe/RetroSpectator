@@ -20,7 +20,6 @@ export class NavBarComponent implements OnInit {
     this.teamService.getTeams().subscribe((teams) => {
       this.teams = teams;
       if (teams.length === 0) {
-        console.log(this.router.url);
         this.router.navigate(['dashboard', 'new-team']);
       }
     });

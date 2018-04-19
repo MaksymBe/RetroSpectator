@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
 import {APoint} from '../../data-service/model/APoint';
+import {ActionPointService} from '../../data-service/services/action-point/action-point.service';
+import {PointService} from '../../data-service/services/point/point.service';
 
 @Component({
   selector: 'app-retro',
@@ -17,7 +19,11 @@ export class RetroComponent implements OnInit {
     retroId: 2}];
   private titleInput: string;
 
-  constructor(private activetedRouter: ActivatedRoute) { }
+  constructor(private activetedRouter: ActivatedRoute,
+              private actionPointService: ActionPointService,
+              private pointService: PointService) {
+    this.points = {minus: [], plus: []};
+  }
 
   ngOnInit() {
     this.activetedRouter.params.subscribe(params => {
@@ -26,14 +32,27 @@ export class RetroComponent implements OnInit {
   }
 
   getTeamPoints(teamIdentifier) {
-    this.points = {minus: [], plus: []};
+    this.pointService.getTeamPoints(teamIdentifier).subscribe(points => {
+      this.points = points;
+    });
+
+    this.actionPointService.getActionPointsByTeam(teamIdentifier).subscribe(actionPoints => {
+      this.actionPoints = actionPoints;
+    });
   }
 
   addActionPoint() {
-    this.actionPoints.push({title: this.titleInput,
-      status: true,
-      id: 1,
-      retroId: 2});
+    const newActionPoint = new APoint();
+    newActionPoint.status = false;
+    newActionPoint.title = this.titleInput;
+
+    this.activetedRouter.params.subscribe(params => {
+      this.actionPointService.addActionPoint(params.teamKey, newActionPoint).subscribe(actionPoint => {
+        if (actionPoint !== null) {
+          this.actionPoints.push(actionPoint);
+        }
+      });
+    });
 
     this.titleInput = '';
   }

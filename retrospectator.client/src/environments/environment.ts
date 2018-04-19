@@ -10,5 +10,6 @@ export const environment = {
     domain: 'internin6k.eu.auth0.com',
     callbackURL: 'http://localhost:4200/callback',
     audience: 'https://internin6k.eu.auth0.com/api/v2/'
-  }
+  },
+  apiHost: 'http://localhost:3000/'
 };

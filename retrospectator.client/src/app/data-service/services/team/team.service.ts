@@ -3,36 +3,25 @@ import {Team} from '../../model/Team';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class TeamService {
 
-  private teams: Team[];
-  private currentTeam: Team;
 
   constructor(private http: HttpClient) {
-    this.teams = [];
+
   }
 
   getTeams(): Observable<any> {
-    return this.http.get('http://localhost:3000/team');
-    //return of(this.teams);
+    return this.http.get(environment.apiHost + 'team/my');
   }
 
   getTeam(id: number): Observable<Team> {
-    return of(this.findById(id));
+    return <Observable<Team>>this.http.get(environment.apiHost + `team/${id}`);
   }
 
-  chooseTeam(id: number): Observable<Team> {
-    this.currentTeam = this.findById(id);
-    return of(this.currentTeam);
-  }
-
-  createTeam(team: Team): Observable<any> {
-    return of(this.teams.push(team));
-  }
-
-  private findById(id): any {
-    return this.teams.find((team) => team.id === id);
+  createTeam(team: any): Observable<any> {
+    return this.http.post(environment.apiHost + `team/`, team);
   }
 }

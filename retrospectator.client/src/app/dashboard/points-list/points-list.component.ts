@@ -12,8 +12,10 @@ export class PointsListComponent implements OnInit {
   @Input() points: Point[];
   @Input() noButton: boolean;
   @Input() title: string;
+  @Input() pointToEdit: Point;
 
   @Output('add') add: EventEmitter<string> = new EventEmitter<string>();
+  @Output('edit') edit: EventEmitter<Point> = new EventEmitter<Point>();
 
   constructor() {
     this.noButton = false;
@@ -25,12 +27,23 @@ export class PointsListComponent implements OnInit {
     this.add.emit(this.type);
   }
 
-  getButtonLabel(): string{
+  getButtonLabel(): string {
     if (this.type === 'minus') {
       return '-';
     } else if (this.type === 'plus') {
       return '+';
     }
     return 'add';
+  }
+
+  editTitle(point) {
+    console.log(this.pointToEdit);
+    this.edit.emit(point);
+  }
+  checkEditing(point) {
+    if (point === this.pointToEdit) {
+      return 'editing';
+    }
+    return '';
   }
 }

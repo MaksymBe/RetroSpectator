@@ -15,6 +15,11 @@ export class DashboardComponent implements OnInit {
     if (!this.userService.isAuthenticated()) {
       this.router.navigate(['']);
     }
+
+    const teamKey = localStorage.getItem('teamKey');
+    if (teamKey !== undefined && teamKey !== null && teamKey !== 'null') {
+      this.router.navigate(['dashboard/' + teamKey + '/my']);
+    }
   }
 
 }
