@@ -40,7 +40,7 @@ export class RetroComponent implements OnInit {
   }
 
   addActionPoint() {
-    let newActionPoint = new APoint();
+    const newActionPoint = new APoint();
     newActionPoint.status = false;
     newActionPoint.title = this.titleInput;
 

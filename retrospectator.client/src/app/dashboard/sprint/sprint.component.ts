@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
+import {PointService} from '../../data-service/services/point/point.service';
 
 @Component({
   selector: 'app-sprint',
@@ -10,13 +11,15 @@ import {Point} from '../../data-service/model/Point';
 export class SprintComponent implements OnInit {
   private titleInput: string;
 
-  private points: {minus: Point[], plus: Point[]}
+  private points: {minus: Point[], plus: Point[]};
   private isMine = true;
   private teamKey;
   private chooseMode = false;
   private createTeamMode = false;
 
-  constructor(private activatedRouter: ActivatedRoute, private router: Router) {
+  constructor(private activatedRouter: ActivatedRoute,
+              private router: Router,
+              private pointService: PointService) {
   }
 
   ngOnInit() {
@@ -63,10 +66,16 @@ export class SprintComponent implements OnInit {
   }
 
   getTeamPoints(teamKey): {minus: Point[], plus: Point[]} {
-
+    this.pointsService.getTeamPoints(teamKey).subscribe(this.parsePoints);
   }
-  getMyPoints(teamKey): {minus: Point[], plus: Point[]} {
 
+  getMyPoints(): {minus: Point[], plus: Point[]} {
+    this.pointService.getMyPoints().subscribe(this.parsePoints);
+  }
+
+  private parsePoints(points) {
+    this.points.minus = points.filter( point => point.type === 'minus');
+    this.points.plus = points.filter( point => point.type === 'plus');
   }
 
 

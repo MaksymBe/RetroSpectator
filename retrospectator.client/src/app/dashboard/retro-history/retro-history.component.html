@@ -1,3 +1,9 @@
-<p>
-  retro-history works!
-</p>
+<div>
+  <ul class="list-group-flush">
+    <a class="list-group-item"
+        *ngFor="let retro of retros"
+        [href]="getLink(retro.id)">
+        {{retro.finishDate}}
+    </a>
+  </ul>
+</div>
