@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Point} from '../../model/Point';
 import {environment} from '../../../../environments/environment';
 import 'rxjs/add/operator/map';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class PointService {

@@ -21,7 +21,9 @@ export class RetroComponent implements OnInit {
 
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,
-              private pointService: PointService) { }
+              private pointService: PointService) {
+    this.points = {minus: [], plus: []};
+  }
 
   ngOnInit() {
     this.activetedRouter.params.subscribe(params => {

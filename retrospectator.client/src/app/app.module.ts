@@ -28,6 +28,7 @@ import {ActionPointsListComponent} from './dashboard/action-points-list/action-p
 import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import {PointService} from './data-service/services/point/point.service';
+import {ActionPointService} from './data-service/services/action-point/action-point.service';
 
 
 @NgModule({
@@ -56,7 +57,7 @@ import {PointService} from './data-service/services/point/point.service';
     }),
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth0Service, TeamService, PointService],
+  providers: [Auth0Service, TeamService, PointService, ActionPointService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
