@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
 import {PointService} from '../../data-service/services/point/point.service';
@@ -11,7 +11,7 @@ import {PointService} from '../../data-service/services/point/point.service';
 export class SprintComponent implements OnInit {
   private titleInput: string;
 
-  private points: {minus: Point[], plus: Point[]};
+  private points: { minus: Point[], plus: Point[] };
   private isMine = true;
   private teamKey;
   private chooseMode = false;
@@ -32,7 +32,7 @@ export class SprintComponent implements OnInit {
     this.activatedRouter.params.subscribe((params) => {
       if (params.teamKey === undefined) {
         this.chooseMode = true;
-      }  else {
+      } else {
         this.chooseMode = false;
 
         if (params.mode === undefined || params.mode === null) {
@@ -66,7 +66,7 @@ export class SprintComponent implements OnInit {
   }
 
   getTeamPoints(teamKey) {
-    this.pointService.getTeamPoints(teamKey).subscribe(points => this.points(points));
+    this.pointService.getTeamPoints(teamKey).subscribe(points => this.points = points);
   }
 
   getMyPoints(teamKey) {
@@ -78,12 +78,7 @@ export class SprintComponent implements OnInit {
       return;
     }
 
-    this.pointService.createPoint( {
-          title: this.titleInput,
-          date: getDate(),
-          type: type
-        }
-    ).subscribe(point => {
+    this.pointService.createPoint(new Point(this.titleInput, type, getDate())).subscribe(point => {
       if (!point) {
         return;
       }
@@ -94,9 +89,9 @@ export class SprintComponent implements OnInit {
   }
 }
 
-function getDate() {
+function getDate(): string {
   const date = new Date();
-  return date.getFullYear() + '-' +
-        (date.getMonth() < 10) ? '0' + date.getMonth() : date.getMonth() +  '-' +
-        (date.getDate() < 10) ? '0' + date.getDate() : date.getDate();
+  return <string>(date.getFullYear() + '-' +
+  (date.getMonth() < 10) ? '0' + date.getMonth() : date.getMonth() + '-' +
+  (date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
 }
