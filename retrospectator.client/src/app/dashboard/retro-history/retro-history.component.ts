@@ -17,7 +17,7 @@ export class RetroHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.retros = getRetros(params.teamKey);
+      this.retros = this.getRetros(params.teamKey);
     });
   }
 
