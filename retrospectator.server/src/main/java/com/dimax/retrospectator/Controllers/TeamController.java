@@ -6,8 +6,11 @@ import com.dimax.retrospectator.Services.TeamService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 
 @RestController
@@ -25,8 +28,13 @@ public class TeamController {
     }
 
     @PostMapping("")
-//    @PreAuthorize("authentication")
     public ResponseEntity<Team> createTeam(@RequestBody Team body){
         return ResponseEntity.ok().body(service.saveTeam(body));
-    };
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<Team>> getTeamById(Principal principal, Authentication a) {
+        System.out.println(principal);
+        return ResponseEntity.ok().body(service.getTeam());
+    }
 }

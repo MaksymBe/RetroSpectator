@@ -1,27 +1,23 @@
 package com.dimax.retrospectator.Config;
 
-import com.auth0.jwt.impl.JWTParser;
 import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableWebSecurity
-@EnableTransactionManagement
+@EnableWebSecurity(debug = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Value("${auth0.audience}")
-  private String audience;
+    private String audience;
 
-  @Value("${auth0.issuer}")
-  private String issuer;
-
+    @Value("${auth0.issuer}")
+    private String issuer;
 
 
     @Override
@@ -29,7 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtWebSecurityConfigurer
                 .forRS256(audience, issuer)
                 .configure(http)
-                .cors().and().csrf().disable().authorizeRequests()
+                .cors().and().csrf().disable()
+                .authorizeRequests()
                 .anyRequest().authenticated();
     }
 
@@ -39,7 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        security.httpBasic().disable();
 //        security.csrf().disable();
 //    }
-
 
 
 }

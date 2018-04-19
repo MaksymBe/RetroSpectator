@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Service
@@ -35,6 +36,10 @@ public class TeamService {
         String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
         createdTeam.setIdentifier(identifier);
         return createdTeam;
+    }
+    @Transactional
+    public List<Team> getTeam(){
+        return repository.findAll();
     }
 
 
