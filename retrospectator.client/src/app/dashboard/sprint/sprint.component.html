@@ -22,14 +22,20 @@
       </span>
     </div>
     <input class="form-control" type="text" aria-label="Title" aria-describedby="point-title" [(ngModel)]="titleInput">
+    <button *ngIf="editPointMode"
+            (click)="editPoint()">Save</button>
   </div>
 
   <app-points-list
     type="plus"
     [points]="points.plus"
-    (add)=addPoint($event)></app-points-list>
+    (add)=addPoint($event)
+    (edit)="switchEditMode($event)"
+    [(pointToEdit)]="pointToEdit"></app-points-list>
   <app-points-list
     type="minus"
     [points]="points.minus"
-    (add)=addPoint($event)></app-points-list>
+    (add)=addPoint($event)
+    (edit)="switchEditMode($event)"
+    [(pointToEdit)]="pointToEdit"></app-points-list>
 </div>

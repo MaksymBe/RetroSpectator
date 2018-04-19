@@ -16,10 +16,13 @@ export class SprintComponent implements OnInit {
   private teamKey;
   private chooseMode = false;
   private createTeamMode = false;
+  private editPointMode = false;
+  private pointToEdit;
 
   constructor(private activatedRouter: ActivatedRoute,
               private router: Router,
               private pointService: PointService) {
+    this.points = {minus: [], plus: []};
   }
 
   ngOnInit() {
@@ -70,7 +73,11 @@ export class SprintComponent implements OnInit {
   }
 
   getMyPoints(teamKey) {
-    this.pointService.getMyPoints(teamKey).subscribe((points) => this.points = points);
+    this.pointService.getMyPoints(teamKey).subscribe((points) => {
+      console.log(points);
+      this.points = points;
+      console.log(this.points);
+    });
   }
 
   addPoint(type) {
@@ -86,6 +93,19 @@ export class SprintComponent implements OnInit {
       this.points[type].push(point);
     });
     this.titleInput = '';
+  }
+
+  switchEditMode(point) {
+    this.editPointMode = !this.editPointMode;
+    (this.editPointMode) ? this.pointToEdit = point : this.pointToEdit = {};
+    this.titleInput = this.pointToEdit.title;
+  }
+  editPoint() {
+    this.pointToEdit.title = this.titleInput;
+    this.pointService.updatePoint(this.pointToEdit).subscribe(res => {
+      this.editPointMode = false;
+      this.titleInput = '';
+    });
   }
 }
 

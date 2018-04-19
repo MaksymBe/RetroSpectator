@@ -3,7 +3,9 @@
   <ul class="list-group">
     <button *ngIf="!noButton" (click)="addPoint()" class="btn-dark"> {{getButtonLabel()}}</button>
 
-    <li *ngFor="let point of points" class="list-group-item">
+    <li *ngFor="let point of points"
+        (click)="editTitle(point)"
+        class="list-group-item {{ checkEditing(point) }}">
       {{point.title}}
     </li>
   </ul>

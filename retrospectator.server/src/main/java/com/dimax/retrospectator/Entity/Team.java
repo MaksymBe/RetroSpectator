@@ -12,14 +12,8 @@ import java.util.List;
 
 @Entity
 @Table
-@JsonView(TeamMaker.Team.class)
-@JsonIgnoreProperties({"retroes"})
+@JsonIgnoreProperties({"retroes", "user", "retro", "uid"})
 public class Team {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column
-//    private Integer id;
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -27,9 +21,19 @@ public class Team {
     @Column(name = "uid" )
     private String uid;
 
-
     @Column
     private String identifier;
+
+    @Column
+    private String title;
+
+    public String getName() {
+        return title;
+    }
+
+    public void setName(String title) {
+        this.title = title;
+    }
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Retro> retroes = new ArrayList<>();
@@ -38,16 +42,13 @@ public class Team {
     @JoinColumn(name="retro_id")
     private Retro retro;
 
+
     @ManyToMany(mappedBy = "team" ,fetch = FetchType.EAGER)
     private List<User> user = new ArrayList<>();
 
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    public Team() {
+    }
+
 
     public String getIdentifier() {
         return identifier;

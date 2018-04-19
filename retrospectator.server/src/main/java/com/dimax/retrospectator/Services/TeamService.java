@@ -3,6 +3,7 @@ package com.dimax.retrospectator.Services;
 import com.dimax.retrospectator.Base64Formater;
 import com.dimax.retrospectator.Entity.Retro;
 import com.dimax.retrospectator.Entity.Team;
+import com.dimax.retrospectator.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +28,15 @@ public class TeamService {
     }
 
     @Transactional
-    public Team saveTeam(Team team) {
+    public Team saveTeam(Team team, User user) {
         Team createdTeam = repository.save(team);
         Retro retro = new Retro(createdTeam);
         entityManager.persist(retro);
         createdTeam.setRetro(retro);
-
         String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
+
         createdTeam.setIdentifier(identifier);
+        createdTeam.getUser().add(user);
         return createdTeam;
     }
     @Transactional

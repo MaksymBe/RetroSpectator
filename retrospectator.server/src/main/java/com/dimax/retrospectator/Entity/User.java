@@ -2,6 +2,7 @@ package com.dimax.retrospectator.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Table
-@JsonView(TeamMaker.Team.class)
-@JsonIgnoreProperties({"team","points"})
+@JsonIgnoreProperties({"team", "points"})
 public class User {
 
     @Id
@@ -18,6 +18,7 @@ public class User {
     @Column
 
     private Integer id;
+
 
 
     @ManyToMany(cascade = {CascadeType.ALL})
@@ -32,10 +33,8 @@ public class User {
     private List<Point> points = new ArrayList<>();
 
     @Column
-    private String provider;
+    private String sub;
 
-    @Column
-    private Long identifier;
 
     @Column
     private String nickname;
@@ -46,20 +45,22 @@ public class User {
     @Column
     private String picUrl;
 
-    public String getProvider() {
-        return provider;
+    public User() {
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public User(AuthUser authUser) {
+        this.sub = authUser.getSub();
+        this.nickname = authUser.getNickname();
+        this.name = authUser.getName();
+        this.picUrl = authUser.getPicture();
     }
 
-    public Long getIdentifier() {
-        return identifier;
+    public String getSub() {
+        return sub;
     }
 
-    public void setIdentifier(Long identifier) {
-        this.identifier = identifier;
+    public void setSub(String sub) {
+        this.sub = sub;
     }
 
     public String getNickname() {
