@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    public boolean existsByIdentifierAndProvider(Long identifier, String provider );
+    public User getByIdentifierAndProvider(Long identifier, String provider );
 }

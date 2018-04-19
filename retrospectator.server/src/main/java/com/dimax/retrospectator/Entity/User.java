@@ -31,6 +31,61 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Point> points = new ArrayList<>();
 
+    @Column
+    private String provider;
+
+    @Column
+    private Long identifier;
+
+    @Column
+    private String nickname;
+
+    @Column
+    private String name;
+
+    @Column
+    private String picUrl;
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public Long getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(Long identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public Integer getId() {
         return id;
     }

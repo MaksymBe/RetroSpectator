@@ -10,8 +10,15 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
-    public User getUserById(Integer id){
+    public User getUserById(Integer id) {
         User user = repository.findById(id).get();
         return user;
+    }
+
+    public User getUser(User user) {
+        if (repository.existsByIdentifierAndProvider(user.getIdentifier(), user.getProvider())) {
+            return repository.getByIdentifierAndProvider(user.getIdentifier(), user.getProvider());
+        }
+        return  repository.save(user);
     }
 }
