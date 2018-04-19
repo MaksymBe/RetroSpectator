@@ -13,6 +13,6 @@ export class ActionPointService {
   }
 
   addActionPoint(teamKey: number, actionPoint: APoint): Observable<APoint> {
-    return <Observable<APont>>this.http.post('http://localhost:3000/' + teamKey + 'action-points', actionPoint);
+    return <Observable<APoint>>this.http.post('http://localhost:3000/' + teamKey + 'action-points', actionPoint);
   }
 }

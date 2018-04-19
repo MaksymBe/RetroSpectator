@@ -55,43 +55,48 @@ export class SprintComponent implements OnInit {
 
   changePoints() {
     if (this.isMine) {
-      this.points = this.getTeamPoints(this.teamKey);
+      this.getTeamPoints(this.teamKey);
       this.router.navigate(['dashboard', this.teamKey, 'all']);
     } else {
-      this.points = this.getMyPoints(this.teamKey);
+      this.getMyPoints(this.teamKey);
       this.router.navigate(['dashboard', this.teamKey, 'my']);
     }
 
     this.isMine = !this.isMine;
   }
 
-  getTeamPoints(teamKey): {minus: Point[], plus: Point[]} {
-    this.pointsService.getTeamPoints(teamKey).subscribe(this.parsePoints);
+  getTeamPoints(teamKey) {
+    this.pointService.getTeamPoints(teamKey).subscribe(points => this.points(points));
   }
 
-  getMyPoints(): {minus: Point[], plus: Point[]} {
-    this.pointService.getMyPoints().subscribe(this.parsePoints);
+  getMyPoints(teamKey) {
+    this.pointService.getMyPoints(teamKey).subscribe((points) => this.points = points);
   }
-
-  private parsePoints(points) {
-    this.points.minus = points.filter( point => point.type === 'minus');
-    this.points.plus = points.filter( point => point.type === 'plus');
-  }
-
 
   addPoint(type) {
     if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
       return;
     }
 
-    if (type === 'minus') {
-    }
-    if (type === 'plus') {
-      this.pointsPlus.push({type: 'plus', title: this.titleInput});
-    }
+    this.pointService.createPoint( {
+          title: this.titleInput,
+          date: getDate(),
+          type: type
+        }
+    ).subscribe(point => {
+      if (!point) {
+        return;
+      }
 
+      this.points[type].push(point);
+    });
     this.titleInput = '';
   }
+}
 
-
+function getDate() {
+  const date = new Date();
+  return date.getFullYear() + '-' +
+        (date.getMonth() < 10) ? '0' + date.getMonth() : date.getMonth() +  '-' +
+        (date.getDate() < 10) ? '0' + date.getDate() : date.getDate();
 }

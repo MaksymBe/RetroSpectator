@@ -22,7 +22,7 @@ export class RetroHistoryComponent implements OnInit {
   }
 
   getRetros(teamIdentifier): Retro[] {
-    const retros;
+    let retros;
     this.retroService.getRetrosByTeam().subscribe(r => {
       retros = r;
     });
