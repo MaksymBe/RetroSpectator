@@ -10,3 +10,9 @@ button {
   width: 80%;
   background-color: rgba(242, 242, 242);
 }
+
+@media (orientation: landscape) {
+  .count div {
+    height: 60px;
+  }
+}

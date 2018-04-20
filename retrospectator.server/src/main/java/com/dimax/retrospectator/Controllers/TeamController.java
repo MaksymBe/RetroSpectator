@@ -14,38 +14,34 @@ import javax.servlet.ServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
 @RequestMapping(value = "/team")
 @CrossOrigin(origins = "*")
-@Scope("request")
 public class TeamController {
 
     @Autowired
-    TeamService service;
+    TeamService teamRepository;
 
-    @GetMapping("/{id}")
 
-    public ResponseEntity<Team> getTeamById(@PathVariable String id) {
-        return ResponseEntity.ok().body(service.getTeamById(id));
+    @GetMapping("/{identifier}")
+    public ResponseEntity<Team> getTeamById(@PathVariable String identifier) {
+        return ResponseEntity.ok().body(teamRepository.getTeamById(identifier));
     }
 
     @PostMapping("")
     public ResponseEntity<Team> createTeam(@RequestBody Team body, ServletRequest request){
         User user = (User) request.getAttribute("user");
-
-        Team team = service.saveTeam(body, user);
-
-
+        Team team = teamRepository.saveTeam(body, user);
         return ResponseEntity.ok().body(team);
     }
 
 
-    @GetMapping("")
-    public ResponseEntity<List<Team>> getTeamById(ServletRequest request, Principal principal, Authentication a) {
-
-        System.out.println(principal);
-        return ResponseEntity.ok().body(service.getTeam());
+    @GetMapping("/my")
+    public ResponseEntity<Set<Team>> getTeam(ServletRequest request) {
+            User user = (User) request.getAttribute("user");
+        return ResponseEntity.ok().body(user.getTeam());
     }
 }

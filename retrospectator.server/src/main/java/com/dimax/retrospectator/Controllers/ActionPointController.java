@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "*")
 public class ActionPointController {
     @Autowired
-    ActionPointService service;
+    ActionPointService actionPointRepository;
 }

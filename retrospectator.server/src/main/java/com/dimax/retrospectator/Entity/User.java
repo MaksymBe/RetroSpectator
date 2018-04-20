@@ -6,35 +6,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
-@JsonIgnoreProperties({"team", "points"})
+@JsonIgnoreProperties({"team", "points", "sub"})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-
     private Integer id;
 
-
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "user_team",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "team_id")}
-    )
-    private List<Team> team = new ArrayList<>();
+    @ManyToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
+    private Set<Team> team = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private List<Point> points = new ArrayList<>();
 
     @Column
     private String sub;
-
 
     @Column
     private String nickname;
@@ -95,11 +88,11 @@ public class User {
         this.id = id;
     }
 
-    public List<Team> getTeam() {
+    public Set<Team> getTeam() {
         return team;
     }
 
-    public void setTeam(List<Team> team) {
+    public void setTeam(Set <Team> team) {
         this.team = team;
     }
 

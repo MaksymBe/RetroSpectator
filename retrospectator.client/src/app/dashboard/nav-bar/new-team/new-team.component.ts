@@ -13,7 +13,7 @@ export class NewTeamComponent implements OnInit {
   @Output('changeMode') changeModeEmitter: EventEmitter<null> = new EventEmitter<null>();
   @Output('teamCreated') teamCreated: EventEmitter<Team> = new EventEmitter<Team>();
 
-  private teamTitle: string;
+  public teamTitle: string;
 
   constructor(private teamService: TeamService) {
   }
@@ -29,8 +29,8 @@ export class NewTeamComponent implements OnInit {
     this.teamService.createTeam({title: this.teamTitle})
       .subscribe(team => {
         this.teamCreated.emit(team);
+        this.changeModeEmitter.emit();
       });
-    this.changeModeEmitter.emit();
   }
 
   changeMode() {

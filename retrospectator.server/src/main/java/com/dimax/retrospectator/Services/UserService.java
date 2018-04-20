@@ -4,6 +4,7 @@ import com.dimax.retrospectator.Entity.AuthUser;
 import com.dimax.retrospectator.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -11,11 +12,12 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
+    @Transactional
     public User getUserById(Integer id) {
         User user = repository.findById(id).get();
         return user;
     }
-
+    @Transactional
     public User getUser(AuthUser authUser) {
         if (repository.existsBySub(authUser.getSub())) {
             return repository.findBySub(authUser.getSub());

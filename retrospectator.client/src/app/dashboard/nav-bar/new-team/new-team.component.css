@@ -1,7 +1,5 @@
 #form {
   width: 88%;
-  margin-left: 6%;
-  margin-top: 50%;
   height: 25%;
   /*background-color: #a9afbb;*/
   border-radius: 4px;
@@ -30,4 +28,14 @@ button {
 h3 {
   color: white;
   margin-left: 5%;
+}
+
+@media (orientation: landscape) {
+  #mask {
+    top: -45px;
+  }
+  #form {
+    height: 45%;
+    margin-top: 0;
+  }
 }

@@ -18,3 +18,11 @@
   margin-top: 16%;
 }
 
+
+@media (orientation: landscape) {
+  .active-mode {
+    width: 35%;
+    margin-top: 3%;
+    margin: auto;
+  }
+}
