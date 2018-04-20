@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TeamService} from '../../../data-service/services/team/team.service';
 import {MatInputModule} from '@angular/material/input';
+import {Team} from '../../../data-service/model/Team';
 
 
 @Component({
@@ -10,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 })
 export class NewTeamComponent implements OnInit {
   @Output('changeMode') changeModeEmitter: EventEmitter<null> = new EventEmitter<null>();
+  @Output('teamCreated') teamCreated: EventEmitter<Team> = new EventEmitter<Team>();
 
   public teamTitle: string;
 
@@ -24,7 +26,10 @@ export class NewTeamComponent implements OnInit {
       return;
     }
 
-    this.teamService.createTeam({title: this.teamTitle, identifier: undefined, id: undefined, currentRetro: undefined});
+    this.teamService.createTeam({title: this.teamTitle})
+      .subscribe(team => {
+        this.teamCreated.emit(team);
+      });
     this.changeModeEmitter.emit();
   }
 

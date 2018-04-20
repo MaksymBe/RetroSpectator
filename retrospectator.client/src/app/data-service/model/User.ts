@@ -1,7 +1,6 @@
-import {Team} from './Team';
-
 export class User {
+  nickname: string;
   name: string;
   id: number;
-  teams: Team[];
+  picUrl: string;
 }

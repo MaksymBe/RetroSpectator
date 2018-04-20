@@ -1,16 +1,23 @@
 import {Injectable} from '@angular/core';
 import {User} from '../../model/User';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class UserService {
 
-  private currentUser: User;
+  private urlModifier = 'user';
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  setUser(user: User): User {
-    this.currentUser = user;
-    return user;
+  getUserInfo(): Observable<User> {
+    return <Observable<User>>this.http.get(environment.apiHost + `${this.urlModifier}/me`);
   }
+
+  getUsersByTeam(teamId: string): Observable<User[]> {
+    return <Observable<User[]>>this.http.get(environment.apiHost + `${this.urlModifier}/${teamId}/all`);
+  }
+
 }

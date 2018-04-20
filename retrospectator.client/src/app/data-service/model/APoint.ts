@@ -1,6 +1,5 @@
 export class APoint {
   title: string;
-  status: boolean;
+  status: number;
   id: number;
-  retroId: number;
 }

@@ -6,3 +6,9 @@ header {
 .jumbotron-fluid {
   margin-left: 15px;
 }
+
+@media (orientation: landscape) {
+  header {
+    height: 44px;
+  }
+}
