@@ -5,14 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ActionPointService {
 
     @Autowired
-    ActionPointRepository repository;
+    ActionPointRepository actionPointRepository;
 
     @Autowired
     TeamRepository teamRepository;
+
+    @Autowired
+    RetroRepository retroRepository;
 
     @Transactional
     public ActionPoint createActionPoint(ActionPoint actionPoint, String identifier){
@@ -21,8 +26,29 @@ public class ActionPointService {
         Retro retro = team.getRetro();
         actionPoint.setRetro(retro);
 
-        ActionPoint createdActionPoint = repository.save(actionPoint);
+        ActionPoint createdActionPoint = actionPointRepository.save(actionPoint);
         return createdActionPoint;
 
     }
+
+    @Transactional
+    public List<ActionPoint> getActionPointsForTeam(String identifier){
+        Team team = teamRepository.findByIdentifier(identifier);
+        return team.getRetro().getActionPoint();
+    }
+
+    @Transactional
+    public List<ActionPoint> getActionPointsForRetro(int id, String identifier){
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Retro> retroes = team.getRetroes();
+        for(Retro retro : retroes){
+            if(retro.getId() == id){
+                return retro.getActionPoint();
+            }
+        }
+
+        Retro retro = retroRepository.getOne(id);
+        return  null;
+    }
+
 }

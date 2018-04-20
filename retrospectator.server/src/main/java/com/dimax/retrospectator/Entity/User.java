@@ -23,7 +23,7 @@ public class User {
     @ManyToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
     private Set<Team> team = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Point> points = new ArrayList<>();
 
     @Column

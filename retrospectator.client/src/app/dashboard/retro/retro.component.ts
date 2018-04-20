@@ -46,7 +46,7 @@ export class RetroComponent implements OnInit {
     newActionPoint.title = this.titleInput;
 
     this.activetedRouter.params.subscribe(params => {
-      this.actionPointService.addActionPoint(params.teamKey, newActionPoint).subscribe(actionPoint => {
+      this.actionPointService.createActionPoint(newActionPoint, params.teamKey).subscribe(actionPoint => {
         if (actionPoint !== null) {
           this.actionPoints.push(actionPoint);
         }
