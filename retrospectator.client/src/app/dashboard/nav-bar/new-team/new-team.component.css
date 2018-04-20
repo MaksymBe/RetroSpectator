@@ -31,3 +31,13 @@ h3 {
   color: white;
   margin-left: 5%;
 }
+
+@media (orientation: landscape) {
+  #mask {
+    top: -45px;
+  }
+  #form {
+    height: 45%;
+    margin-top: 0;
+  }
+}
