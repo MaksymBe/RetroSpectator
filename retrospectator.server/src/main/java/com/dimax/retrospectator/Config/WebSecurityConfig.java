@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 

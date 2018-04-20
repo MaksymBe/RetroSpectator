@@ -4,6 +4,8 @@ import com.dimax.retrospectator.Entity.Point;
 import com.dimax.retrospectator.Entity.User;
 import com.dimax.retrospectator.Services.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
@@ -18,24 +20,27 @@ public class PointController {
     PointService pointRepository;
 
     @PostMapping("/{identifier}")
-    public Point createPoint(@PathVariable String identifier,
-                             @RequestBody Point point,
-                             ServletRequest request)
-    {
+    public ResponseEntity<Point> createPoint(@PathVariable String identifier,
+                                            @RequestBody Point point,
+                                            ServletRequest request) {
+
         User user = (User) request.getAttribute("user");
-        return  pointRepository.createPoint(point, user, identifier);
+        Point createdPoint = pointRepository.createPoint(point, user, identifier);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPoint);
 
     }
 
     @GetMapping("/{identifier}/my")
-    public List<Point> getPointForUser(@PathVariable String identifier, ServletRequest request){
-        User user = (User)request.getAttribute("user");
-        return pointRepository.getMyPointsForTeam(user, identifier);
+    public ResponseEntity<List<Point>> getPointForUser(@PathVariable String identifier, ServletRequest request) {
+        User user = (User) request.getAttribute("user");
+        List<Point> points = pointRepository.getMyPointsForTeam(user, identifier);
+        return ResponseEntity.ok(points);
     }
 
     @GetMapping("/{identifier}/all")
-    public List<Point> getPointForTeam(@PathVariable String identifier){
-        return pointRepository.getAllPointsForTeam(identifier);
+    public ResponseEntity<List<Point>> getPointForTeam(@PathVariable String identifier) {
+        List<Point> points = pointRepository.getAllPointsForTeam(identifier);
+        return ResponseEntity.ok(points);
     }
 
 }

@@ -38,9 +38,17 @@ public class ActionPointService {
     }
 
     @Transactional
-    public List<ActionPoint> getActionPointsForRetro(int id){
+    public List<ActionPoint> getActionPointsForRetro(int id, String identifier){
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Retro> retroes = team.getRetroes();
+        for(Retro retro : retroes){
+            if(retro.getId() == id){
+                return retro.getActionPoint();
+            }
+        }
+
         Retro retro = retroRepository.getOne(id);
-        return  retro.getActionPoint();
+        return  null;
     }
 
 }

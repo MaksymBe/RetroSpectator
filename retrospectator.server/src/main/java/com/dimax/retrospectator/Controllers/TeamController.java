@@ -27,8 +27,9 @@ public class TeamController {
 
 
     @GetMapping("/{identifier}")
-    public ResponseEntity<Team> getTeamById(@PathVariable String identifier) {
-        return ResponseEntity.ok().body(teamRepository.getTeamById(identifier));
+    public ResponseEntity<Team> getTeamById(@PathVariable String identifier, ServletRequest request) {
+       User user = (User)request.getAttribute("user");
+        return ResponseEntity.ok().body(teamRepository.getTeamById(identifier, user));
     }
 
     @PostMapping("")
