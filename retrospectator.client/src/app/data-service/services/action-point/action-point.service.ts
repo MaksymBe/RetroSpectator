@@ -14,7 +14,7 @@ export class ActionPointService {
 
   }
 
-  getActionPoints(teamId: string): Observable<any> {
+  getActionPointsByTeam(teamId: string): Observable<any> {
     return this.http.get(environment.apiHost + `${this.urlModifier}/${teamId}`);
   }
 
