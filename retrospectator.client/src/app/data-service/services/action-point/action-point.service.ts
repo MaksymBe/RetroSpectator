@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {APoint} from '../../model/APoint';
 import {environment} from '../../../../environments/environment';
-import {Point} from '../../model/Point';
 
 @Injectable()
 export class ActionPointService {

@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../../environments/environment';
-import {Point} from '../../model/Point';
 import {HttpClient} from '@angular/common/http';
 import {Retro} from '../../model/Retro';
 
