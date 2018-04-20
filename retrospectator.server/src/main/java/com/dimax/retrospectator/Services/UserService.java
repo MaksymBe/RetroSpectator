@@ -25,4 +25,14 @@ public class UserService {
         User user = new User(authUser);
         return  repository.save(user);
     }
+
+    @Transactional
+    public boolean existsBySub(String sub){
+        return repository.existsBySub(sub);
+    }
+
+    @Transactional
+    public User getBySub(String sub){
+        return repository.findBySub(sub);
+    }
 }

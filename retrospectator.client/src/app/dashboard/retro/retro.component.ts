@@ -13,9 +13,7 @@ import {PointService} from '../../data-service/services/point/point.service';
 export class RetroComponent implements OnInit {
 
   private points: {minus: Point[], plus: Point[]};
-  public actionPoints: APoint[] = [{title: 'ap',
-    status: 1,
-    id: 1}];
+  public actionPoints: APoint[];
   private titleInput: string;
 
   constructor(private activetedRouter: ActivatedRoute,
@@ -33,10 +31,12 @@ export class RetroComponent implements OnInit {
   getTeamPoints(teamIdentifier) {
     this.pointService.getTeamPoints(teamIdentifier).subscribe(points => {
       this.points = points;
+      console.log(points);
     });
 
     this.actionPointService.getActionPointsByTeam(teamIdentifier).subscribe(actionPoints => {
       this.actionPoints = actionPoints;
+      console.log(actionPoints);
     });
   }
 

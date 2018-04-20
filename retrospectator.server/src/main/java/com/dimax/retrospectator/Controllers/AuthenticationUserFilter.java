@@ -3,6 +3,7 @@ package com.dimax.retrospectator.Controllers;
 
 import com.dimax.retrospectator.Entity.AuthUser;
 import com.dimax.retrospectator.Entity.User;
+import com.dimax.retrospectator.Services.UserRepository;
 import com.dimax.retrospectator.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,11 +36,19 @@ public class AuthenticationUserFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        String  sub = authentication.getPrincipal().toString();
         if (authentication.isAuthenticated() && userRepository != null) {
-            AuthUser authUser = getAuthUser(authentication);
-            User user = userRepository.getUser(authUser);
-            request.setAttribute("user", user);
+
+            if(!userRepository.existsBySub(sub)) {
+
+                AuthUser authUser = getAuthUser(authentication);
+                User user = userRepository.getUser(authUser);
+                request.setAttribute("user", user);
+
+            } else {
+                User user = userRepository.getBySub(sub);
+                request.setAttribute("user", user);
+            }
         }
 
         chain.doFilter(request, response);

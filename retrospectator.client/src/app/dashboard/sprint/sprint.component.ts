@@ -28,11 +28,11 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.router.url === '/dashboard/new-team') {
-      this.createTeamMode = true;
-      this.chooseMode = false;
-      return;
-    }
+    // if (this.router.url === '/dashboard/new-team') {
+    //   this.createTeamMode = true;
+    //   this.chooseMode = false;
+    //   return;
+    // }
 
     this.activatedRouter.params.subscribe((params) => {
       this.teamService.getTeam(this.teamKey).subscribe(team => {
@@ -82,9 +82,7 @@ export class SprintComponent implements OnInit {
 
   getMyPoints(teamKey) {
     this.pointService.getMyPoints(teamKey).subscribe((points) => {
-      console.log(points);
       this.points = points;
-      console.log(this.points);
     });
   }
 
@@ -118,7 +116,7 @@ export class SprintComponent implements OnInit {
 
   goToRetro() {
     this.activatedRouter.params.subscribe(params => {
-      this.router.navigate(['dashboard/', params.teamKey, '/retro']);
+      this.router.navigate(['dashboard', params.teamKey, 'retro']);
     });
   }
 }

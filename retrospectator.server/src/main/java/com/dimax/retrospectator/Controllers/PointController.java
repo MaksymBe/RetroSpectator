@@ -20,21 +20,21 @@ public class PointController {
     PointService pointRepository;
 
     @PostMapping("/{identifier}")
-    public ResponseEntity<Point> createPoint(@PathVariable String identifier,
+    public Point createPoint(@PathVariable String identifier,
                                             @RequestBody Point point,
                                             ServletRequest request) {
 
         User user = (User) request.getAttribute("user");
         Point createdPoint = pointRepository.createPoint(point, user, identifier);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPoint);
+        return createdPoint;
 
     }
 
     @GetMapping("/{identifier}/my")
-    public ResponseEntity<List<Point>> getPointForUser(@PathVariable String identifier, ServletRequest request) {
+    public List<Point> getPointForUser(@PathVariable String identifier, ServletRequest request) {
         User user = (User) request.getAttribute("user");
         List<Point> points = pointRepository.getMyPointsForTeam(user, identifier);
-        return ResponseEntity.ok(points);
+        return points;
     }
 
     @GetMapping("/{identifier}/all")
