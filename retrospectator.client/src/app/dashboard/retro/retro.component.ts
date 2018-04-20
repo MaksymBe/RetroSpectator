@@ -14,9 +14,8 @@ export class RetroComponent implements OnInit {
 
   private points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[] = [{title: 'ap',
-    status: true,
-    id: 1,
-    retroId: 2}];
+    status: 1,
+    id: 1}];
   private titleInput: string;
 
   constructor(private activetedRouter: ActivatedRoute,
@@ -43,7 +42,7 @@ export class RetroComponent implements OnInit {
 
   addActionPoint() {
     const newActionPoint = new APoint();
-    newActionPoint.status = false;
+    newActionPoint.status = 0;
     newActionPoint.title = this.titleInput;
 
     this.activetedRouter.params.subscribe(params => {

@@ -7,15 +7,17 @@ import {environment} from '../../../../environments/environment';
 @Injectable()
 export class UserService {
 
+  private urlModifier = 'user';
+
   constructor(private http: HttpClient) {
   }
 
   getUserInfo(): Observable<User> {
-    return <Observable<User>>this.http.get(environment.apiHost + 'user/me');
+    return <Observable<User>>this.http.get(environment.apiHost + `${this.urlModifier}/me`);
   }
 
   getUsersByTeam(teamId: string): Observable<User[]> {
-    return <Observable<User[]>>this.http.get(environment.apiHost + `user/${teamId}/all`);
+    return <Observable<User[]>>this.http.get(environment.apiHost + `${this.urlModifier}/${teamId}/all`);
   }
 
 }
