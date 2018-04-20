@@ -26,7 +26,7 @@ export class NewTeamComponent implements OnInit {
       return;
     }
 
-    this.teamService.createTeam({title: this.teamTitle, identifier: undefined, id: undefined, currentRetro: undefined})
+    this.teamService.createTeam({title: this.teamTitle})
       .subscribe(team => {
         this.teamCreated.emit(team);
       });

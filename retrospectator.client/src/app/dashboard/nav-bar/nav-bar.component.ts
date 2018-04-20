@@ -19,7 +19,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.teamService.getTeams().subscribe((teams) => {
       this.teams = teams;
-      if (teams.length === 0) {
+      if (teams === null || teams.length === 0) {
         this.router.navigate(['dashboard', 'new-team']);
       }
     });
