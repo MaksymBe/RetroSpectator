@@ -5,8 +5,10 @@ import com.dimax.retrospectator.Services.ActionPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/actionpoint")
+@RequestMapping("/action-point")
 @CrossOrigin(origins = "*")
 public class ActionPointController {
     @Autowired
@@ -17,4 +19,13 @@ public class ActionPointController {
         return actionPointRepository.createActionPoint(actionPoint, identifier);
     }
 
+    @GetMapping("/{identifier}")
+    public List<ActionPoint> getActionPointForTeam(@PathVariable String identifier){
+        return  actionPointRepository.getActionPointsForTeam(identifier);
+    }
+
+    @GetMapping("/{retroId}")
+    public List<ActionPoint> getActionPointForRetro(@PathVariable int retroId){
+        return actionPointRepository.getActionPointsForRetro(retroId);
+    }
 }
