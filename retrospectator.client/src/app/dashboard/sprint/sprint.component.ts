@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
 import {PointService} from '../../data-service/services/point/point.service';
+import {TeamService} from '../../data-service/services/team/team.service';
 
 @Component({
   selector: 'app-sprint',
@@ -21,7 +22,8 @@ export class SprintComponent implements OnInit {
 
   constructor(private activatedRouter: ActivatedRoute,
               private router: Router,
-              private pointService: PointService) {
+              private pointService: PointService,
+              private teamService: TeamService) {
     this.points = {minus: [], plus: []};
   }
 
@@ -33,6 +35,12 @@ export class SprintComponent implements OnInit {
     }
 
     this.activatedRouter.params.subscribe((params) => {
+      this.teamService.getTeam(this.teamKey).subscribe(team => {
+        if (team === null) {
+          this.router.navigate(['dashboard']);
+        }
+      } );
+
       if (params.teamKey === undefined) {
         this.chooseMode = true;
       } else {
@@ -59,10 +67,10 @@ export class SprintComponent implements OnInit {
   changePoints() {
     if (this.isMine) {
       this.getTeamPoints(this.teamKey);
-      this.router.navigate(['dashboard', this.teamKey, 'all']);
+      this.router.navigate(['dashboard', localStorage.getItem('teamKey'), 'all']);
     } else {
       this.getMyPoints(this.teamKey);
-      this.router.navigate(['dashboard', this.teamKey, 'my']);
+      this.router.navigate(['dashboard', localStorage.getItem('teamKey'), 'my']);
     }
 
     this.isMine = !this.isMine;
@@ -105,6 +113,12 @@ export class SprintComponent implements OnInit {
     this.pointService.updatePoint(this.pointToEdit).subscribe(res => {
       this.editPointMode = false;
       this.titleInput = '';
+    });
+  }
+
+  goToRetro() {
+    this.activatedRouter.params.subscribe(params => {
+      this.router.navigate(['dashboard/', params.teamKey, '/retro']);
     });
   }
 }
