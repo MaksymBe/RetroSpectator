@@ -85,7 +85,7 @@ export class SprintComponent implements OnInit {
       return;
     }
 
-    this.pointService.createPoint(new Point(this.titleInput, type, getDate())).subscribe(point => {
+    this.pointService.createPoint(new Point(this.titleInput, type, getDate()), this.teamKey).subscribe(point => {
       if (!point) {
         return;
       }

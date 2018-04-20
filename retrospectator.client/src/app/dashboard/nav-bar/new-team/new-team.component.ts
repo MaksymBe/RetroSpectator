@@ -29,8 +29,8 @@ export class NewTeamComponent implements OnInit {
     this.teamService.createTeam({title: this.teamTitle})
       .subscribe(team => {
         this.teamCreated.emit(team);
+        this.changeModeEmitter.emit();
       });
-    this.changeModeEmitter.emit();
   }
 
   changeMode() {
