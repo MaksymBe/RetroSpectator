@@ -31,7 +31,7 @@ public class Retro {
     private List<Point> point = new ArrayList<>();
 
     @OneToMany(mappedBy = "retro")
-    private List<APoint> actionPoint = new ArrayList<>();
+    private List<ActionPoint> actionPoint = new ArrayList<>();
 
     public Retro(Team team) {
         this.team = team;
@@ -80,11 +80,11 @@ public class Retro {
         this.point = point;
     }
 
-    public List<APoint> getActionPoint() {
+    public List<ActionPoint> getActionPoint() {
         return actionPoint;
     }
 
-    public void setActionPoint(List<APoint> actionPoint) {
+    public void setActionPoint(List<ActionPoint> actionPoint) {
         this.actionPoint = actionPoint;
     }
 }

@@ -13,7 +13,8 @@
   <button  class="btn btn-dark border-0 reverser" style="margin-left: 13%; margin-right: 2%"
           (click)="changePoints()">{{(isMine) ? 'Team Points' : 'My Points'}}</button>
   <a class="btn btn-dark border-0 reverser"
-     [href]="'dashboard/'+ teamKey +'/retro'">Retro</a>
+     [href]
+     (click)="router.navigate(['dashboard/', teamKey, '/retro'])">Retro</a>
 
   <div class="input-group mb-3">
     <div class="input-group-prepend">
