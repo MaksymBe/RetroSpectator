@@ -11,7 +11,7 @@
     <div class="dropdown-menu">
       <a class="dropdown-item border-top border-white"
          *ngFor="let team of teams"
-         [href]="'dashboard/' + team.identifier + '/my'">{{team.title}}</a>
+         routerLink="dashboard/{{team.identifier}}/my">{{team.title}}</a>
     </div>
     <button type="button"
             class="btn btn-dark
@@ -19,5 +19,7 @@
             border-white"
             (click)="isCreatingMode = !isCreatingMode">CREATE NEW</button>
   </div>
-  <app-new-team *ngIf="isCreatingMode" (changeMode)="isCreatingMode = !isCreatingMode"></app-new-team>
+  <app-new-team *ngIf="isCreatingMode"
+                (changeMode)="isCreatingMode = !isCreatingMode"
+                (teamCreated)="addTeam($event)"></app-new-team>
 </div>

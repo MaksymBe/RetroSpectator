@@ -27,4 +27,9 @@ export class NavBarComponent implements OnInit {
       this.isCreatingMode = true;
     }
   }
+
+  addTeam(team: Team) {
+    this.teams.push(team);
+    this.router.navigate(['dashboard', team.identifier, 'my']);
+  }
 }
