@@ -1,0 +1,6 @@
+cd retrospectator.client
+npm start
+cd ..
+cd retrospectator.server
+mvn spring-boot:run
+
