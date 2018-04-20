@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -19,9 +20,13 @@ public class TeamService {
     @Autowired
     TeamRepository repository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     public Team getTeamById(String identifier) {
         Team team = repository.findByIdentifier(identifier);
         return team;
@@ -33,15 +38,22 @@ public class TeamService {
         Retro retro = new Retro(createdTeam);
         entityManager.persist(retro);
         createdTeam.setRetro(retro);
-        String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
-
-        createdTeam.setIdentifier(identifier);
         createdTeam.getUser().add(user);
+        String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
+        createdTeam.setIdentifier(identifier);
         return createdTeam;
     }
+
+
     @Transactional
-    public List<Team> getTeam(){
-        return repository.findAll();
+    public Set<Team> getTeam(User user){
+        return user.getTeam();
+    }
+
+    @Transactional
+    public Set<User> getUsersForCurrentTeam(String identifier){
+        Team team = repository.findByIdentifier(identifier);
+        return team.getUser();
     }
 
 

@@ -11,7 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 export class NewTeamComponent implements OnInit {
   @Output('changeMode') changeModeEmitter: EventEmitter<null> = new EventEmitter<null>();
 
-  private teamTitle: string;
+  public teamTitle: string;
 
   constructor(private teamService: TeamService) {
   }

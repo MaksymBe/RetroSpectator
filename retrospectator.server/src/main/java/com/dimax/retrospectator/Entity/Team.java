@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -27,13 +29,6 @@ public class Team {
     @Column
     private String title;
 
-    public String getName() {
-        return title;
-    }
-
-    public void setName(String title) {
-        this.title = title;
-    }
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Retro> retroes = new ArrayList<>();
@@ -42,13 +37,24 @@ public class Team {
     @JoinColumn(name="retro_id")
     private Retro retro;
 
-
-    @ManyToMany(mappedBy = "team" ,fetch = FetchType.EAGER)
-    private List<User> user = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_team",
+            joinColumns = {@JoinColumn(name = "uid")},
+            inverseJoinColumns = {@JoinColumn(name = "id")}
+    )
+    private Set<User> user = new HashSet<>();
 
     public Team() {
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getIdentifier() {
         return identifier;
@@ -82,11 +88,11 @@ public class Team {
         this.retro = retro;
     }
 
-    public List<User> getUser() {
+    public Set<User> getUser() {
         return user;
     }
 
-    public void setUser(List<User> user) {
+    public void setUser(Set<User> user) {
         this.user = user;
     }
 }

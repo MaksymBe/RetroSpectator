@@ -22,7 +22,7 @@ public class APoint {
     private Date date;
 
     @Column
-    private String status;
+    private short status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "retro_id")
@@ -52,11 +52,11 @@ public class APoint {
         this.date = date;
     }
 
-    public String getStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(short status) {
         this.status = status;
     }
 

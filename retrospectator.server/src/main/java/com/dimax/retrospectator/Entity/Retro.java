@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table
-@JsonIgnoreProperties({"team", "team_id", "point", "actionPoint"})
+@JsonIgnoreProperties({"team", "point", "actionPoint"})
 public class Retro {
 
     @Id
