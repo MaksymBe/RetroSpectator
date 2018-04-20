@@ -11,5 +11,5 @@ export const environment = {
     callbackURL: 'http://localhost:4200/callback',
     audience: 'https://internin6k.eu.auth0.com/api/v2/'
   },
-  apiHost: 'http://localhost:3000/'
+  apiHost: 'http://165.227.146.23:3000/'
 };
