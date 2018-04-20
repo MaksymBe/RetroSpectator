@@ -10,7 +10,7 @@ import {Auth0Service} from '../data-service/services/auth/auth0.service';
 export class DashboardComponent implements OnInit {
 
   constructor(private userService: Auth0Service,
-              private router: Router) { }
+              private router: Router, public auth: Auth0Service) { }
 
   ngOnInit() {
     if (!this.userService.isAuthenticated()) {
