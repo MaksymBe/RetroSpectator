@@ -9,24 +9,26 @@ import {Retro} from '../../model/Retro';
 @Injectable()
 export class RetroService {
 
+  private urlModifier = 'retro';
+
   constructor(private http: HttpClient) {
 
   }
 
   getCurrentRetro(teamId: string): Observable<any> {
-    return this.getRetro(`retro/${teamId}/current`);
+    return this.getRetro(`${this.urlModifier}/${teamId}/current`);
   }
 
   getRetrosByTeam(teamId: string): Observable<any> {
-    return this.getRetro(`retro/${teamId}/all`);
+    return this.getRetro(`${this.urlModifier}/${teamId}/all`);
   }
 
   updateRetro(retro: Retro): Observable<Retro> {
-    return <Observable<Retro>>this.http.patch(environment.apiHost + `retro/${retro.id}`, retro);
+    return <Observable<Retro>>this.http.patch(environment.apiHost + `${this.urlModifier}/${retro.id}`, retro);
   }
 
   closeRetro(teamId: string, impression: string) {
-    return this.http.patch(environment.apiHost + `retro/`, impression);
+    return this.http.patch(environment.apiHost + `${this.urlModifier}/`, impression);
   }
 
   private getRetro(route: string) {

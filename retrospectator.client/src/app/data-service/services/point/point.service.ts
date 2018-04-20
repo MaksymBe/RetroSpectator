@@ -10,24 +10,26 @@ import {of} from 'rxjs/observable/of';
 @Injectable()
 export class PointService {
 
+  private urlModifier = 'point';
+
   constructor(private http: HttpClient) {
 
   }
 
   getMyPoints(teamId: string): Observable<any> {
-    return this.getPoints(`/point/${teamId}/my`);
+    return this.getPoints(`${this.urlModifier}/${teamId}/my`);
   }
 
   getTeamPoints(teamId: string): Observable<any> {
-    return this.getPoints(`/point/${teamId}/all`);
+    return this.getPoints(`${this.urlModifier}/${teamId}/all`);
   }
 
-  createPoint(point: Point): Observable<Point> {
-    return <Observable<Point>>this.http.post(environment.apiHost + 'point', point);
+  createPoint(point: Point, teamId: string): Observable<Point> {
+    return <Observable<Point>>this.http.post(environment.apiHost + `${this.urlModifier}/${teamId}`, point);
   }
 
   updatePoint(point: Point): Observable<Point> {
-    return <Observable<Point>>this.http.patch(environment.apiHost + `point/${point.id}`, point);
+    return <Observable<Point>>this.http.patch(environment.apiHost + `${this.urlModifier}/${point.id}`, point);
   }
 
   private getPoints(route: string) {
