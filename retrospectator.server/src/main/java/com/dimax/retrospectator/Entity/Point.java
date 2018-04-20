@@ -9,7 +9,7 @@ import java.sql.Date;
 
 @Entity
 @Table
-@JsonIgnoreProperties({"retro"})
+@JsonIgnoreProperties({"retro", "user"})
 public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
