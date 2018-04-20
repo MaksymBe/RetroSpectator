@@ -28,7 +28,7 @@ export class RetroService {
   }
 
   closeRetro(teamId: string, impression: string) {
-    return this.http.patch(environment.apiHost + `${this.urlModifier}/`, impression);
+    return this.http.patch(environment.apiHost + `${this.urlModifier}/${teamId}/finish`, impression);
   }
 
   private getRetro(route: string) {
