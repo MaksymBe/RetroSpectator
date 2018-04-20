@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 
 import { TeamService } from '../../data-service/services/team/team.service';
 import {Team} from '../../data-service/model/Team';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,9 +12,12 @@ import {Router} from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   private teams = [];
+  public currentTeam = {title: 'Team'};
   isCreatingMode = false;
 
-  constructor(private teamService: TeamService, private router: Router) {  }
+  constructor(private teamService: TeamService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {  }
 
   ngOnInit() {
     this.teamService.getTeams().subscribe((teams) => {
@@ -22,8 +25,14 @@ export class NavBarComponent implements OnInit {
       if (teams === null || teams.length === 0) {
         this.router.navigate(['dashboard', 'new-team']);
       }
+
+      const teamId = localStorage.getItem('teamKey');
+      if (teamId !==  null) {
+        this.currentTeam = this.teams.filter(team => team.identifier === teamId)[0];
+      }
     });
     if (this.router.url === '/dashboard/new-team') {
+      this.currentTeam = {title: 'Team'};
       this.isCreatingMode = true;
     }
   }
@@ -31,5 +40,10 @@ export class NavBarComponent implements OnInit {
   addTeam(team: Team) {
     this.teams.push(team);
     this.router.navigate(['dashboard', team.identifier, 'my']);
+  }
+
+  changeTeam(team: Team) {
+    this.currentTeam = team;
+    this.router.navigate(['dashboard/', team.identifier, '/my']);
   }
 }

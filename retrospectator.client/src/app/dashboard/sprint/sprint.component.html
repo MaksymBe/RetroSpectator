@@ -1,10 +1,10 @@
-<div *ngIf="chooseMode" class="d-flex flex-column text-center align-items-center active-mode">
+<div *ngIf="chooseMode" class="d-flex flex-column justify-content-center align-items-center active-mode">
   <h3>Choose team</h3>
   <img src="assets/team.svg" alt="team">
 </div>
 
-<div *ngIf="createTeamMode" class="d-flex flex-column text-center align-items-center active-mode">
-  <h3>Create team</h3>
+<div *ngIf="createTeamMode" class="d-flex flex-column justify-content-center align-items-center active-mode">
+  <h3>You have no teams</h3>
   <img src="assets/createTeam.svg" alt="createTeam">
 </div>
 
@@ -13,7 +13,7 @@
   <button  class="btn btn-dark border-0 reverser" style="margin-left: 13%; margin-right: 2%"
           (click)="changePoints()">{{(isMine) ? 'Team Points' : 'My Points'}}</button>
   <a class="btn btn-dark border-0 reverser"
-     [href]
+     [href] style="color: white"
      (click)="router.navigate(['dashboard/', teamKey, '/retro'])">Retro</a>
 
   <div class="input-group mb-3">
