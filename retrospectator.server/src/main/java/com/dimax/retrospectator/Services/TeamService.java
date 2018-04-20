@@ -36,7 +36,7 @@ public class TeamService {
             if(userInTeam.getId() == user.getId()) inTeam = true;
         }
 
-        if (inTeam){
+        if (!inTeam){
             team.getUser().add(user);
             repository.save(team);
         }

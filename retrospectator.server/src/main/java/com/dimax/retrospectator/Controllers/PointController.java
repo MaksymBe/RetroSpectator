@@ -38,9 +38,11 @@ public class PointController {
     }
 
     @GetMapping("/{identifier}/all")
-    public ResponseEntity<List<Point>> getPointForTeam(@PathVariable String identifier) {
+    public List<Point> getPointForTeam(@PathVariable String identifier) {
         List<Point> points = pointRepository.getAllPointsForTeam(identifier);
-        return ResponseEntity.ok(points);
+//        return ResponseEntity.status(HttpStatus.OK).body(points);
+    return points;
     }
+
 
 }
