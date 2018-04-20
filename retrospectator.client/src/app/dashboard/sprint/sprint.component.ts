@@ -28,11 +28,11 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.router.url === '/dashboard/new-team') {
-      this.createTeamMode = true;
-      this.chooseMode = false;
-      return;
-    }
+    // if (this.router.url === '/dashboard/new-team') {
+    //   this.createTeamMode = true;
+    //   this.chooseMode = false;
+    //   return;
+    // }
 
     this.activatedRouter.params.subscribe((params) => {
       this.teamService.getTeam(this.teamKey).subscribe(team => {
