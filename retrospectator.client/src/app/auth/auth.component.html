@@ -1,4 +1,4 @@
-
-<h4 *ngIf="!auth.isAuthenticated()">
-  You are not logged in! Please <button (click)="auth.login()">Log In</button> to continue.
+<h4 *ngIf="!auth.isAuthenticated()" class="placeholder">
+  <img src="assets/login.svg" alt="team">
+  <h3>You are not logged in! Please <a (click)="auth.login()">log in</a> to continue.</h3>
 </h4>
