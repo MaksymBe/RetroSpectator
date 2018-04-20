@@ -35,11 +35,11 @@ export class SprintComponent implements OnInit {
     }
 
     this.activatedRouter.params.subscribe((params) => {
-      /*this.teamService.getTeam(this.teamKey).subscribe(team => {
+      this.teamService.getTeam(this.teamKey).subscribe(team => {
         if (team === null) {
           this.router.navigate(['dashboard']);
         }
-      } );*/
+      } );
 
       if (params.teamKey === undefined) {
         this.chooseMode = true;
