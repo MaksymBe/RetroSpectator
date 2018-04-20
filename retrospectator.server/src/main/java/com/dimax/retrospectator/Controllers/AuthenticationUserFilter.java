@@ -38,15 +38,15 @@ public class AuthenticationUserFilter implements Filter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String  sub = authentication.getPrincipal().toString();
         if (authentication.isAuthenticated() && userRepository != null) {
+            User user = userRepository.getBySub(sub);
 
-            if(!userRepository.existsBySub(sub)) {
+            if(user == null) {
 
                 AuthUser authUser = getAuthUser(authentication);
-                User user = userRepository.getUser(authUser);
+                user = userRepository.getUser(authUser);
                 request.setAttribute("user", user);
 
             } else {
-                User user = userRepository.getBySub(sub);
                 request.setAttribute("user", user);
             }
         }

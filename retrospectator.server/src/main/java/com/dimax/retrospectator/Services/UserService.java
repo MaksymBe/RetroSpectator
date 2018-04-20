@@ -19,9 +19,9 @@ public class UserService {
     }
     @Transactional
     public User getUser(AuthUser authUser) {
-        if (repository.existsBySub(authUser.getSub())) {
-            return repository.findBySub(authUser.getSub());
-        }
+//        if (repository.existsBySub(authUser.getSub())) {
+//            return repository.findBySub(authUser.getSub());
+//        }
         User user = new User(authUser);
         return  repository.save(user);
     }
