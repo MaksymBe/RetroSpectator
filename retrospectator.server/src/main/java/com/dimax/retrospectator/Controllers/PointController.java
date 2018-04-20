@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/point")
@@ -24,6 +25,17 @@ public class PointController {
         User user = (User) request.getAttribute("user");
         return  pointRepository.createPoint(point, user, identifier);
 
+    }
+
+    @GetMapping("/{identifier}/my")
+    public List<Point> getPointForUser(@PathVariable String identifier, ServletRequest request){
+        User user = (User)request.getAttribute("user");
+        return pointRepository.getMyPointsForTeam(user, identifier);
+    }
+
+    @GetMapping("/{identifier}/all")
+    public List<Point> getPointForTeam(@PathVariable String identifier){
+        return pointRepository.getAllPointsForTeam(identifier);
     }
 
 }

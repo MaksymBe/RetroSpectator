@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PointService {
@@ -32,10 +34,27 @@ public class PointService {
         point.setUser(user);
         point.setRetro(retro);
         repository.save(point);
-        //retro.getPoint().add(point);
-//        entityManager.persist(retro);
-
         return point;
 
+    }
+
+    @Transactional
+    public List<Point> getMyPointsForTeam(User user, String identifier){
+            Team team = teamRepository.findByIdentifier(identifier);
+            List<Point> points = team.getRetro().getPoint();
+            List<Point> pointForUser = new ArrayList<>();
+            for (Point point : points){
+                if(point.getUser().getId() == user.getId()){
+                    pointForUser.add(point);
+                }
+            }
+            return pointForUser;
+    }
+
+    @Transactional
+    public List<Point> getAllPointsForTeam(String identifier){
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Point> points = team.getRetro().getPoint();
+        return points;
     }
 }
