@@ -29,6 +29,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import {PointService} from './data-service/services/point/point.service';
 import {ActionPointService} from './data-service/services/action-point/action-point.service';
+import {UserService} from './data-service/services/user/user.service';
+import {RetroService} from './data-service/services/retro/retro.service';
 
 
 @NgModule({
@@ -57,7 +59,7 @@ import {ActionPointService} from './data-service/services/action-point/action-po
     }),
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth0Service, TeamService, PointService, ActionPointService],
+  providers: [Auth0Service, TeamService, PointService, ActionPointService, UserService, RetroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

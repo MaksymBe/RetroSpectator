@@ -13,7 +13,7 @@ import {PointService} from '../../data-service/services/point/point.service';
 export class RetroComponent implements OnInit {
 
   private points: {minus: Point[], plus: Point[]};
-  private actionPoints: APoint[] = [{title: 'ap',
+  public actionPoints: APoint[] = [{title: 'ap',
     status: true,
     id: 1,
     retroId: 2}];

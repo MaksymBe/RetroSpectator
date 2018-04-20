@@ -17,7 +17,7 @@ export class TeamService {
     return this.http.get(environment.apiHost + 'team/my');
   }
 
-  getTeam(id: number): Observable<Team> {
+  getTeam(id: string): Observable<Team> {
     return <Observable<Team>>this.http.get(environment.apiHost + `team/${id}`);
   }
 
