@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table
 @JsonIgnoreProperties({"retro", "retro_id"})
-public class APoint {
+public class ActionPoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -27,6 +27,11 @@ public class APoint {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "retro_id")
     private Retro retro;
+
+    @PrePersist
+    protected void onCreate() {
+        this.date = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -60,11 +65,11 @@ public class APoint {
         this.status = status;
     }
 
-    public Retro getRetro_id() {
+    public Retro getRetro() {
         return retro;
     }
 
-    public void setRetro_id(Retro retro_id) {
+    public void setRetro(Retro retro) {
         this.retro = retro;
     }
 }
