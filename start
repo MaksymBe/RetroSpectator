@@ -1,5 +1,6 @@
+#!/bin/bash
 cd retrospectator.client
-npm start
+ng serve --host 0.0.0.0
 cd ..
 cd retrospectator.server
 mvn spring-boot:run
