@@ -7,11 +7,11 @@
                 dropdown-toggle"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false">TEAM</button>
+            aria-expanded="false">{{currentTeam.title}}</button>
     <div class="dropdown-menu">
       <a class="dropdown-item border-top border-white"
          *ngFor="let team of teams"
-         (click)="router.navigate(['dashboard/', team.identifier, '/my'])">{{team.title}}</a>
+         (click)="changeTeam(team)">{{team.title}}</a>
     </div>
     <button type="button"
             class="btn btn-dark
