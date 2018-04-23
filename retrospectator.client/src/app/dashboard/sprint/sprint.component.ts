@@ -114,6 +114,9 @@ export class SprintComponent implements OnInit {
     this.editPointMode = !this.editPointMode;
     (this.editPointMode) ? this.pointToEdit = point : this.pointToEdit = {};
     this.titleInput = this.pointToEdit.title;
+    if (!this.editPointMode) {
+      this.pointType = 'plus';
+    }
   }
 
   editPoint() {

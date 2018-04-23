@@ -35,7 +35,8 @@
         Minus
       </span>
         <span class="input-group-text" *ngIf="editPointMode" [style.opacity]="pointType === 'edit' ? '1': '0.5'"
-                (click)="changePointType('edit')">Save
+                (click)="changePointType('edit'); pointHandler()">
+          Save
         </span>
     </div>
 
