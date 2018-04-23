@@ -5,6 +5,7 @@ import {APoint} from '../../data-service/model/APoint';
 import {ActionPointService} from '../../data-service/services/action-point/action-point.service';
 import {PointService} from '../../data-service/services/point/point.service';
 import {RetroService} from '../../data-service/services/retro/retro.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-retro',
@@ -34,6 +35,7 @@ export class RetroComponent implements OnInit {
       }*/
       this.getTeamPoints(params.teamKey);
       this.teamKey = params.teamKey;
+      console.log("TODO");
     });
   }
 
