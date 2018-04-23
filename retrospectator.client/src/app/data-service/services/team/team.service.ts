@@ -30,6 +30,6 @@ export class TeamService {
   }
 
   updateTeam(team: Team): Observable<any> {
-    return this.http.patch(environment.apiHost + `${this.urlModifier}`, team );
+    return this.http.patch(environment.apiHost + `${this.urlModifier}` + `/${team.identifier}` , team );
   }
 }

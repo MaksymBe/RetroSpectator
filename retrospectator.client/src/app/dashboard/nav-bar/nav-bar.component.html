@@ -9,12 +9,22 @@
       <a class="dropdown-item border-top border-white"
          *ngFor="let team of teams"
          (click)="changeTeam(team)">{{team.title}}</a>
+      <button
+        class="btn btn-dark border-bottom border-white"
+        (click)="isRenamingMode = !isRenamingMode">RENAME CURRENT TEAM</button>
+      <button
+        class="btn btn-dark border-bottom border-white"
+        (click)="isCreatingMode = !isCreatingMode">CREATE NEW</button>
     </div>
-    <button
-            class="btn btn-dark border-bottom border-white"
-            (click)="isCreatingMode = !isCreatingMode">CREATE NEW</button>
+
   </div>
+  <app-new-team *ngIf="isRenamingMode"
+                (changeMode)="isRenamingMode = !isRenamingMode"
+                (newTeamTitle)="renameTeam($event)"
+                title="Rename"></app-new-team>
+
   <app-new-team *ngIf="isCreatingMode"
                 (changeMode)="isCreatingMode = !isCreatingMode"
-                (teamCreated)="addTeam($event)"></app-new-team>
+                (newTeamTitle)="addTeam($event)"
+                title="Create"></app-new-team>
 </div>

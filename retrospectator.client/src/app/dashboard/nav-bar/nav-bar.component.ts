@@ -14,6 +14,7 @@ export class NavBarComponent implements OnInit {
   public teams = [];
   public currentTeam = {title: 'Team'};
   isCreatingMode = false;
+  isRenamingMode = false;
 
   constructor(private teamService: TeamService,
               private router: Router,
@@ -37,10 +38,22 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  addTeam(team: Team) {
-    this.teams.push(team);
-    this.currentTeam = team;
-    this.router.navigate(['dashboard', team.identifier, 'my']);
+  addTeam(newTeam: Team) {
+    this.teamService.createTeam({title: newTeam.title})
+      .subscribe(team => {
+        this.teams.push(team);
+        this.currentTeam = team;
+        this.isCreatingMode = !this.isCreatingMode;
+        this.router.navigate(['dashboard', team.identifier, 'my']);
+      });
+  }
+  renameTeam(team: Team) {
+    this.teamService.updateTeam({title: team.title, identifier: localStorage.getItem('teamKey')})
+      .subscribe(resTeam => {
+        console.log(resTeam);
+        this.isRenamingMode = !this.isRenamingMode;
+        this.currentTeam = resTeam;
+      });
   }
 
   changeTeam(team: Team) {
