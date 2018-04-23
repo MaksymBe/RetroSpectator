@@ -10,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class RetroHistoryComponent implements OnInit {
 
-  private retros: Retro[];
+  public retros: Retro[];
 
   constructor(private retroService: RetroService,
               private activatedRoute: ActivatedRoute) { }

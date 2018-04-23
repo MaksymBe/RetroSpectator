@@ -10,15 +10,16 @@ import {TeamService} from '../../data-service/services/team/team.service';
   styleUrls: ['./sprint.component.css']
 })
 export class SprintComponent implements OnInit {
-  private titleInput: string;
+  public titleInput: string;
 
-  private points: { minus: Point[], plus: Point[] };
+  public points: { minus: Point[], plus: Point[] };
   private isMine = true;
   private teamKey;
   private chooseMode = false;
   private createTeamMode = false;
-  private editPointMode = false;
-  private pointToEdit;
+  public editPointMode = false;
+  public pointToEdit;
+  public pointType = 'plus';
 
   constructor(private activatedRouter: ActivatedRoute,
               private router: Router,
@@ -86,17 +87,13 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  addPoint(type) {
-    if (this.titleInput === '' || this.titleInput === undefined || this.titleInput === null) {
-      return;
-    }
-
-    this.pointService.createPoint(new Point(this.titleInput, type, getDate()), this.teamKey).subscribe(point => {
+  addPoint() {
+       this.pointService.createPoint(new Point(this.titleInput, this.pointType, getDate()), this.teamKey).subscribe(point => {
       if (!point) {
         return;
       }
 
-      this.points[type].push(point);
+      this.points[this.pointType].push(point);
     });
     this.titleInput = '';
   }
@@ -106,6 +103,7 @@ export class SprintComponent implements OnInit {
     (this.editPointMode) ? this.pointToEdit = point : this.pointToEdit = {};
     this.titleInput = this.pointToEdit.title;
   }
+
   editPoint() {
     this.pointToEdit.title = this.titleInput;
     this.pointService.updatePoint(this.pointToEdit).subscribe(res => {
@@ -118,6 +116,14 @@ export class SprintComponent implements OnInit {
     this.activatedRouter.params.subscribe(params => {
       this.router.navigate(['dashboard', params.teamKey, 'retro']);
     });
+  }
+
+  changePointType(pointType: string) {
+    if (pointType === this.pointType && this.titleInput !== '' && this.titleInput !== undefined && this.titleInput !== null) {
+      this.addPoint();
+    } else if (pointType !== this.pointType){
+      this.pointType = pointType;
+    }
   }
 }
 

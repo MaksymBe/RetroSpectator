@@ -6,8 +6,9 @@ ul{
 li {
   list-style-type: none;
 }
-button {
-
+span {
+  display: flex;
+  justify-content: center;
 }
 
 .editing {

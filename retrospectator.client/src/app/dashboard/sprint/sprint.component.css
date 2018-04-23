@@ -21,6 +21,11 @@
   margin-bottom: 20px;
 }
 
+.input-group-text{
+  cursor: pointer;
+
+}
+
 
 @media (orientation: landscape) {
   .active-mode {
