@@ -29,11 +29,11 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
-     if ( this.router.url === '/dashboard/new-team') {
-       this.createTeamMode = true;
-       this.chooseMode = false;
-       return;
-     }
+    if (this.router.url === '/dashboard/new-team') {
+      this.createTeamMode = true;
+      this.chooseMode = false;
+      return;
+    }
 
     this.activatedRouter.params.subscribe((params) => {
       // this.teamService.getTeam(this.teamKey).subscribe(team => {
@@ -65,6 +65,17 @@ export class SprintComponent implements OnInit {
     });
   }
 
+  pointHandler() {
+    if (this.titleInput !== '' && this.titleInput !== undefined && this.titleInput !== null) {
+      if (this.pointType === 'edit') {
+        this.editPoint();
+        this.pointType = 'plus';
+      } else if (this.pointType === 'minus' || this.pointType === 'plus') {
+        this.addPoint();
+      }
+    }
+  }
+
   changePoints() {
     if (this.isMine) {
       this.getTeamPoints(this.teamKey);
@@ -88,7 +99,7 @@ export class SprintComponent implements OnInit {
   }
 
   addPoint() {
-       this.pointService.createPoint(new Point(this.titleInput, this.pointType, getDate()), this.teamKey).subscribe(point => {
+    this.pointService.createPoint(new Point(this.titleInput, this.pointType, getDate()), this.teamKey).subscribe(point => {
       if (!point) {
         return;
       }
@@ -98,7 +109,8 @@ export class SprintComponent implements OnInit {
     this.titleInput = '';
   }
 
-  switchEditMode(point) {
+  switchEditMode(point, type) {
+    this.changePointType(type);
     this.editPointMode = !this.editPointMode;
     (this.editPointMode) ? this.pointToEdit = point : this.pointToEdit = {};
     this.titleInput = this.pointToEdit.title;
@@ -119,11 +131,7 @@ export class SprintComponent implements OnInit {
   }
 
   changePointType(pointType: string) {
-    if (pointType === this.pointType && this.titleInput !== '' && this.titleInput !== undefined && this.titleInput !== null) {
-      this.addPoint();
-    } else if (pointType !== this.pointType){
-      this.pointType = pointType;
-    }
+    this.pointType = pointType;
   }
 }
 
