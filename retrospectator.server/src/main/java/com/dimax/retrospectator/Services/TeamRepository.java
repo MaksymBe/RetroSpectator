@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Integer> {
     public Team findByIdentifier(String link);
+    public Team getByIdentifier(String link);
 }

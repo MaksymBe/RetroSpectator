@@ -70,11 +70,15 @@ public class TeamService {
     }
 
     @Transactional
-    public Team updateTeamById(Team team, int id) {
-        if(!repository.existsById(id))
+    public Team updateTeamById(Team team, String id) {
+        if(repository.findByIdentifier(id) == null)
             return null;
 
-        Team updatedTeam = entityManager.merge(team);
+        Team updatedTeam = repository.getByIdentifier(id);
+
+        updatedTeam.setTitle(team.getTitle());
+        repository.save(updatedTeam);
+
         return updatedTeam;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/retro")
 @CrossOrigin(origins = "*")
@@ -28,12 +30,10 @@ public class RetroController {
         return ResponseEntity.ok(retro);
     }
 
-    @PostMapping("/{identifier}/finish")
-    public ResponseEntity finishRetro(@PathVariable String identifier){
-        retroRepository.createNewRetro(identifier);
-        return ResponseEntity.ok().build();
+    @PatchMapping("/{identifier}/finish")
+    public ResponseEntity<Retro> startNewRetro(@Valid @RequestBody String impression, @PathVariable String identifier) {
+        Retro retro = retroRepository.startNewRetro(identifier, impression);
+        return ResponseEntity.ok(retro);
     }
-
-
 
 }

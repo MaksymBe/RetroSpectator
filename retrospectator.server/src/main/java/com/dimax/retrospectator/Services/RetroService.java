@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+
 @Service
 public class RetroService {
 
@@ -32,5 +34,23 @@ public class RetroService {
         Retro retro = new Retro(team);
 //        entityManager.persist(retro);
         retroRepository.save(retro);
+    }
+
+    @Transactional
+    public Retro startNewRetro(String identifier, String impression) {
+        Retro lastRetro = getCurrentRetro(identifier);
+
+        lastRetro.setFinishDate(new Date(System.currentTimeMillis()));
+        lastRetro.setImpression(impression);
+        retroRepository.save(lastRetro);
+
+        Retro currentRetro = new Retro();
+        currentRetro.setTeam(teamRepository.getByIdentifier(identifier));
+        retroRepository.save(currentRetro);
+
+        Team team = teamRepository.getByIdentifier(identifier);
+        team.setRetro(currentRetro);
+        teamRepository.save(team);
+        return currentRetro;
     }
 }

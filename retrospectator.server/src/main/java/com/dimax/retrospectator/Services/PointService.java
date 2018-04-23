@@ -74,10 +74,10 @@ public class PointService {
         if(!repository.existsById(id)) {
             return null;
         }
+        Point pointToUpdate = repository.getOne(id);
+        pointToUpdate.setTitle(point.getTitle());
+        repository.save(pointToUpdate);
 
-        point.setId(id);
-        Point updatedPoint = entityManager.merge(point);
-
-        return updatedPoint;
+        return pointToUpdate;
     }
 }

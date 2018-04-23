@@ -41,8 +41,8 @@ public class TeamController {
         return ResponseEntity.ok().body(user.getTeam());
     }
 
-    @PatchMapping("/{identifier")
-    public ResponseEntity<Team> updateTeam(@Valid @RequestBody Team team, @PathVariable int id) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Team> updateTeam(@Valid @RequestBody Team team, @PathVariable String id) {
         Team updatedTeam = teamService.updateTeamById(team,id);
 
         if(updatedTeam == null) {
