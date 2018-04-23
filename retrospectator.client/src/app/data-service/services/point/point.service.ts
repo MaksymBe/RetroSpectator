@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Point} from '../../model/Point';
 import {environment} from '../../../../environments/environment';
 import 'rxjs/add/operator/map';
+import {APoint} from '../../model/APoint';
 
 @Injectable()
 export class PointService {
@@ -31,7 +32,11 @@ export class PointService {
     return <Observable<Point>>this.http.patch(environment.apiHost + `${this.urlModifier}/${point.id}`, point);
   }
 
-  private getPoints(route: string) {
+  deletePoint(id: number): Observable<any>  {
+    return this.http.delete(environment.apiHost + `${this.urlModifier}/${id}`);
+  }
+
+  private getPoints(route: string): Observable<any> {
     return this.http.get(environment.apiHost + route)
       .map(points => splitPointsByType(points));
   }

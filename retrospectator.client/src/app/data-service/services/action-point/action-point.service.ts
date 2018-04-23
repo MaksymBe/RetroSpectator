@@ -24,4 +24,8 @@ export class ActionPointService {
   updatePoint(point: APoint): Observable<APoint> {
     return <Observable<APoint>>this.http.patch(environment.apiHost + `${this.urlModifier}/${point.id}`, point);
   }
+
+  deletePoint(id: number): Observable<any> {
+    return this.http.delete(environment.apiHost + `${this.urlModifier}/${id}`);
+  }
 }

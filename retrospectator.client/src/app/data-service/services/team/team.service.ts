@@ -24,4 +24,12 @@ export class TeamService {
   createTeam(team: any): Observable<any> {
     return this.http.post(environment.apiHost + `${this.urlModifier}/`, team);
   }
+
+  deleteTeam(id: string): Observable<any> {
+    return this.http.delete(environment.apiHost + `${this.urlModifier} / ${id}`);
+  }
+
+  updateTeam(team: Team): Observable<any> {
+    return this.http.patch(environment.apiHost + `${this.urlModifier}`, team );
+  }
 }
