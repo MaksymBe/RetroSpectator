@@ -57,4 +57,27 @@ public class PointService {
         List<Point> points = team.getRetro().getPoint();
         return points;
     }
+
+    @Transactional
+    public Point deletePointById(int id) {
+        if(!repository.existsById(id))
+            return null;
+
+        Point point = repository.findById(id).get();
+        repository.deleteById(id);
+
+        return point;
+    }
+
+    @Transactional
+    public Point updatePointById(Point point,int id) {
+        if(!repository.existsById(id)) {
+            return null;
+        }
+
+        point.setId(id);
+        Point updatedPoint = entityManager.merge(point);
+
+        return updatedPoint;
+    }
 }
