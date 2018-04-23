@@ -17,17 +17,14 @@ export class RetroHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.retros = this.getRetros(params.teamKey);
+      this.getRetros(params.teamKey);
     });
   }
 
-  getRetros(teamIdentifier): Retro[] {
-    let retros;
+  getRetros(teamIdentifier): void {
     this.retroService.getRetrosByTeam(teamIdentifier).subscribe(r => {
-      retros = r;
+      this.retros = r;
     });
-
-    return retros;
   }
 
   getLink(retroId) {
