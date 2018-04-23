@@ -1,10 +1,7 @@
 <div class="mb-3 dropdown count">
-  <div class="btn-group-vertical">
-    <button type="button"
-            class="btn
-                btn-dark rounded-0
-                border-bottom border-white
-                dropdown-toggle"
+  <div class="btn-group-verticals">
+    <button
+            class="btn btn-dark border-bottom border-white dropdown-toggle"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">{{currentTeam.title}}</button>
@@ -13,10 +10,8 @@
          *ngFor="let team of teams"
          (click)="changeTeam(team)">{{team.title}}</a>
     </div>
-    <button type="button"
-            class="btn btn-dark
-            rounded-0 border-bottom
-            border-white"
+    <button
+            class="btn btn-dark border-bottom border-white"
             (click)="isCreatingMode = !isCreatingMode">CREATE NEW</button>
   </div>
   <app-new-team *ngIf="isCreatingMode"
