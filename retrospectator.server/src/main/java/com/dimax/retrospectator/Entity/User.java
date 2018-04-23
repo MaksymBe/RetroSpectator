@@ -26,7 +26,7 @@ public class User {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Point> points = new ArrayList<>();
 
-    @Column
+    @Column(unique = true)
     private String sub;
 
     @Column
