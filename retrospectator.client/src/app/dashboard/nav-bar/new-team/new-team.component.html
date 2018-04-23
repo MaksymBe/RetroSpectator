@@ -1,6 +1,6 @@
 <div id="mask" class="d-flex flex-column justify-content-center align-items-center">
   <div id="form" class="d-flex flex-column justify-content-center border-white bg-dark border">
-    <h3>Create new team</h3>
+    <h3>{{title}} team</h3>
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -13,7 +13,7 @@
 
     <div class="d-flex justify-content-center">
       <button class="btn btn-dark border border-white"
-              (click)="createTeam()">Create</button>
+              (click)="createTeam()">{{title}}</button>
       <button (click)="changeMode()"
               class="btn btn-danger border border-white">Cancel</button>
     </div>

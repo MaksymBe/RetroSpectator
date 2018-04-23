@@ -1,7 +1,9 @@
-<div class="mb-2">
+<div class="mb-2 ">
   <h4>{{title}}</h4>
   <ul class="list-group">
-    <span  class="btn-dark "> {{getButtonLabel()}}</span>
+
+    <span *ngIf="!noButton" class="btn-dark "> {{getButtonLabel()}}</span>
+
 
     <li *ngFor="let point of points"
         (click)="editTitle(point)"

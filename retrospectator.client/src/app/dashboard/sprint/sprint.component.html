@@ -24,21 +24,20 @@
         Title
       </span>
     </div>
-    <input #pointTitle (keyup.enter)="addPoint(pointTitle)" class="form-control" type="text" aria-label="Title"
+    <input  (keyup.enter)="pointHandler()" class="form-control" type="text" aria-label="Title"
            aria-describedby="point-title" [(ngModel)]="titleInput">
     <div class="input-group-prepend">
-    <span class="input-group-text"  (click)="changePointType('plus')" [style.opacity]="pointType === 'plus' ? '1': '0.5'"
+    <span class="input-group-text"  (click)="changePointType('plus'); pointHandler()" [style.opacity]="pointType === 'plus' ? '1': '0.5'"
           >
         Plus
       </span>
-      <span class="input-group-text" (click)="changePointType('minus')" [style.opacity]="pointType === 'plus' ? '0.5': '1'">
+      <span class="input-group-text" (click)="changePointType('minus'); pointHandler()" [style.opacity]="pointType === 'minus' ? '1': '0.5'">
         Minus
       </span>
-
-
-        <button *ngIf="editPointMode"
-                (click)="editPoint()">Save
-        </button>
+        <span class="input-group-text" *ngIf="editPointMode" [style.opacity]="pointType === 'edit' ? '1': '0.5'"
+                (click)="changePointType('edit'); pointHandler()">
+          Save
+        </span>
     </div>
 
     </div>
@@ -46,11 +45,11 @@
       <app-points-list
         type="plus"
         [points]="points.plus"
-        (edit)="switchEditMode($event)"
+        (edit)="switchEditMode($event, 'edit')"
         [(pointToEdit)]="pointToEdit"></app-points-list>
       <app-points-list
         type="minus"
         [points]="points.minus"
-        (edit)="switchEditMode($event)"
+        (edit)="switchEditMode($event, 'edit')"
         [(pointToEdit)]="pointToEdit"></app-points-list>
     </div>
