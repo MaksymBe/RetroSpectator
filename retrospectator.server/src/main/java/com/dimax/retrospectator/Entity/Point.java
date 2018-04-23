@@ -1,6 +1,7 @@
 package com.dimax.retrospectator.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.sql.Date;
 
 @Entity
 @Table
-@JsonIgnoreProperties({"retro", "user"})
+@JsonIgnoreProperties({"retro"})
 public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,7 @@ public class Point {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
+    @JsonProperty("author")
     private User user;
 
     public Integer getId() {

@@ -26,6 +26,7 @@ public class TeamService {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Transactional
     public Team getTeamById(String identifier, User user) {
         Team team = repository.findByIdentifier(identifier);
@@ -68,5 +69,12 @@ public class TeamService {
         return team.getUser();
     }
 
+    @Transactional
+    public Team updateTeamById(Team team, int id) {
+        if(!repository.existsById(id))
+            return null;
 
+        Team updatedTeam = entityManager.merge(team);
+        return updatedTeam;
+    }
 }
