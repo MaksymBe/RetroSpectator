@@ -4,6 +4,7 @@ import {Point} from '../../data-service/model/Point';
 import {APoint} from '../../data-service/model/APoint';
 import {ActionPointService} from '../../data-service/services/action-point/action-point.service';
 import {PointService} from '../../data-service/services/point/point.service';
+import {RetroService} from '../../data-service/services/retro/retro.service';
 
 @Component({
   selector: 'app-retro',
@@ -15,16 +16,24 @@ export class RetroComponent implements OnInit {
   public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
+  private teamKey: string;
 
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,
-              private pointService: PointService) {
+              private pointService: PointService,
+              private retroService: RetroService) {
     this.points = {minus: [], plus: []};
   }
 
   ngOnInit() {
     this.activetedRouter.params.subscribe(params => {
+      /*if (params.retroId !== undefined && params.retroId !== null) {
+        this.retroService.getRetroById(params.retroId).subscribe(retro => {
+          this.points = {minus: retro.}
+        });
+      }*/
       this.getTeamPoints(params.teamKey);
+      this.teamKey = params.teamKey;
     });
   }
 
@@ -54,5 +63,9 @@ export class RetroComponent implements OnInit {
     });
 
     this.titleInput = '';
+  }
+
+  finishRetro(impression: string) {
+    this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
   }
 }
