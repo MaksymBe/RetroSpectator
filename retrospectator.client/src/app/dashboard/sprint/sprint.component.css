@@ -38,3 +38,17 @@
 
   }
 }
+
+.points-wrapper {
+  display: block;
+}
+
+@media(orientation: landscape){
+  .points-wrapper{
+    display: flex;
+  }
+
+  .points-wrapper app-points-list{
+    width: 50%;
+  }
+}
