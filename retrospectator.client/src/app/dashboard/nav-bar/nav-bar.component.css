@@ -8,8 +8,8 @@ button {
 }
 
 .dropdown-menu {
-  width: 100%;
-  background-color: rgba(242, 242, 242, 100);
+  width: 98%;
+  background-color: rgba(242, 242, 242, 80);
 }
 .dropdown-item {
   background-color: rgb(242, 242, 242);

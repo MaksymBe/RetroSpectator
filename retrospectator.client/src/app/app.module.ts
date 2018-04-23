@@ -32,6 +32,7 @@ import {ActionPointService} from './data-service/services/action-point/action-po
 import {UserService} from './data-service/services/user/user.service';
 import {RetroService} from './data-service/services/retro/retro.service';
 import {environment} from '../environments/environment';
+import { PointComponent } from './dashboard/points-list/point/point.component';
 
 
 
@@ -47,7 +48,8 @@ import {environment} from '../environments/environment';
     CallbackComponent,
     NavBarComponent,
     NewTeamComponent,
-    ActionPointsListComponent
+    ActionPointsListComponent,
+    PointComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import {environment} from '../environments/environment';
     JwtModule.forRoot({
       config: {
         tokenGetter: environment.getToken,
-        whitelistedDomains: ['localhost:3000']
+        whitelistedDomains: ['localhost:3000', '165.227.146.253:3000']
       }
     }),
     RouterModule.forRoot(ROUTES)
@@ -65,7 +67,6 @@ import {environment} from '../environments/environment';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
 }
 
 
