@@ -67,7 +67,6 @@ import { PointComponent } from './dashboard/points-list/point/point.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
 }
 
 

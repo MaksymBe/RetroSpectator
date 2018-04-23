@@ -1,20 +1,25 @@
 <div class="mb-3 dropdown count">
-  <div class="btn-group-verticals">
+  <div class="btn-group btn-group-verticals">
     <button
-            class="btn btn-dark border-bottom border-white dropdown-toggle"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false">{{ this.currentTeam.title}} </button>
+      class="btn btn-dark border-bottom border-white dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false">{{ this.currentTeam.title}}
+    </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item border-top border-white"
-         *ngFor="let team of teams"
-         (click)="changeTeam(team)">{{team.title}}</a>
-      <button
-        class="btn btn-dark border-bottom border-white"
-        (click)="isRenamingMode = !isRenamingMode">RENAME CURRENT TEAM</button>
-      <button
-        class="btn btn-dark border-bottom border-white"
-        (click)="isCreatingMode = !isCreatingMode">CREATE NEW</button>
+      <button type="button" class="dropdown-item border-top border-white"
+              *ngFor="let team of teams"
+              (click)="changeTeam(team)">{{team.title}}
+      </button>
+      <div class="dropdown-divider"></div>
+      <button type="button"
+              class="dropdown-item"
+              (click)="isRenamingMode = !isRenamingMode">RENAME CURRENT TEAM
+      </button>
+      <button type="button"
+              class="dropdown-item"
+              (click)="isCreatingMode = !isCreatingMode">CREATE NEW
+      </button>
     </div>
 
   </div>
