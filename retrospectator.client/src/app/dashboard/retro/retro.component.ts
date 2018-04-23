@@ -12,7 +12,7 @@ import {PointService} from '../../data-service/services/point/point.service';
 })
 export class RetroComponent implements OnInit {
 
-  private points: {minus: Point[], plus: Point[]};
+  public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
 

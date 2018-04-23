@@ -13,10 +13,10 @@ export class SprintComponent implements OnInit {
   public titleInput: string;
 
   public points: { minus: Point[], plus: Point[] };
-  private isMine = true;
+  public isMine = true;
   private teamKey;
-  private chooseMode = false;
-  private createTeamMode = false;
+  public chooseMode = false;
+  public createTeamMode = false;
   public editPointMode = false;
   public pointToEdit;
   public pointType = 'plus';

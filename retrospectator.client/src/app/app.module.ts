@@ -56,7 +56,7 @@ import {environment} from '../environments/environment';
     JwtModule.forRoot({
       config: {
         tokenGetter: environment.getToken,
-        whitelistedDomains: ['localhost:3000']
+        whitelistedDomains: ['localhost:3000', '165.227.146.253:3000']
       }
     }),
     RouterModule.forRoot(ROUTES)
