@@ -1,4 +1,10 @@
-<li *ngIf="!enableFormToEdit" class="list-group-item " > {{point.title}}  <button class="float-right"  #li (click)="editPoint(li.value)">Edit</button></li>
+<li *ngIf="!enableFormToEdit"
+    class="list-group-item " >
+  {{point.title}}
+  <button class="float-right"  #li
+          (click)="editPoint(li.value)"
+          src="assets/edit.svg"></button>
+</li>
 
 <app-edit-point-form *ngIf="enableFormToEdit"
                      [pointTitle]="point.title"

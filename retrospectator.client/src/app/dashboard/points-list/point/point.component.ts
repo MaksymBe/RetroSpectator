@@ -32,7 +32,6 @@ export class PointComponent implements OnInit {
 
     const point: Point = Object.assign({}, this.point);
     point.title = newTitle;
-    console.log('sdgsdg');
     this.pointService.updatePoint(point).subscribe(res => {this.point.title = res.title;
     this.enableFormToEdit = false;
     } );
