@@ -69,12 +69,14 @@
 }
 
 .team-item button {
+  margin-left: 0.5em;
   float: right;
 }
 
 .disc-btn {
   background: url("../../assets/disconnect.svg") no-repeat center;
-  width: 1.3em;
-  height: 1.3em;
+  margin: auto 0;
+  width: 1em;
+  height: 1em;
   border: 0;
 }

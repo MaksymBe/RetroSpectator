@@ -19,7 +19,9 @@ export class HeaderBarComponent implements OnInit {
   public teams = [];
 
   constructor(public auth: Auth0Service, public userService: UserService, public router: Router, public teamService: TeamService) {
-    this.userService.getUserInfo().subscribe(user => this.user = user);
+    this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
+      setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
+    });
   }
 
   ngOnInit() {
