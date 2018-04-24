@@ -19,6 +19,8 @@ export class RetroComponent implements OnInit {
   public actionPoints: APoint[];
   public titleInput: string;
   public retro: Retro;
+  public retroImpression: string;
+  public finishingRetro: boolean;
   private teamKey: string;
 
   constructor(private activetedRouter: ActivatedRoute,
@@ -37,8 +39,8 @@ export class RetroComponent implements OnInit {
         });
       } else {
         this.getTeamPoints(params.teamKey);
-        this.teamKey = params.teamKey;
       }
+      this.teamKey = params.teamKey;
     });
   }
 
@@ -77,6 +79,8 @@ export class RetroComponent implements OnInit {
   }
 
   finishRetro(impression: string) {
-    this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
+    if (impression !== ''){
+      this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
+    }
   }
 }

@@ -2,3 +2,30 @@ input {
   width: 60%;
 }
 
+#finishing-retro {
+  position: absolute;
+  width: 100%;
+  z-index: 100000;
+  background-color: rgba(52, 53, 58, 0.69);
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+#finishing-retro h3 {
+  color: white;
+  margin-bottom: 20px;
+}
+#finishing-retro a {
+  font-weight: 600;
+}
+#finishing-retro .container {
+  background-color: #34353a;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 5px;
+  border: whitesmoke 1px solid;
+}
+#finishing-retro button {
+  width: 35%;
+}
+
