@@ -1,13 +1,16 @@
 <li class="mt-2">
   <form class="form-inline flex-row">
-    <div class="form-group mx-sm-6 mb-2 d-flex col-10 ">
-      <label for="inputPointTitle" class="sr-only">Edit your point</label>
-      <input type="text" class="form-control w-100" id="inputPointTitle" [value]="pointTitle" #newTitleInput >
-    </div >
-    <div class="d-flex col-2 justify-content-between pr-2">
-      <button type="submit" class="btn btn-primary mb-2 float-right h-100 mr-1" (click)="changePoint(newTitleInput.value)">+</button>
-      <button type="button" class="btn btn-danger mb-2 float-right h-100 ml-1" (click)="cancelForm(true)">X</button>
-    </div>
+    <input type="text" class="form-control" id="inputPointTitle"  [value]="pointTitle" #newTitleInput >
 
+    <div class="float-right">
+      <button type="submit"
+              class="mb-2 mr-1"
+              (click)="changePoint(newTitleInput.value)"
+              style="background-image: url('../../../assets/edit.svg')"></button>
+      <button type="button"
+              class="mb-2 ml-1"
+              (click)="cancelForm(true)"
+              style="background-image: url('../../../assets/previous.svg')"></button>
+    </div>
   </form>
 </li>
