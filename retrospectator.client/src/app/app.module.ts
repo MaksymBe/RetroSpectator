@@ -20,7 +20,7 @@ import {NavBarComponent} from './dashboard/nav-bar/nav-bar.component';
 import {ROUTES} from './app.routes';
 import {CallbackComponent} from './auth/callback/callback.component';
 import {TeamService} from './data-service/services/team/team.service';
-import {NewTeamComponent} from './dashboard/nav-bar/new-team/new-team.component';
+import {NewTeamComponent} from './header-bar/new-team/new-team.component';
 
 import {ActionPointsListComponent} from './dashboard/action-points-list/action-points-list.component';
 
