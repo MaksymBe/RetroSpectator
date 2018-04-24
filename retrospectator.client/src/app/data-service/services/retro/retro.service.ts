@@ -32,4 +32,8 @@ export class RetroService {
   private getRetro(route: string) {
     return this.http.get(environment.apiHost + route);
   }
+
+  getRetroById(teamIdentifier: string, id: number) {
+    return this.http.get(environment.apiHost + `retro/${teamIdentifier}/${id}`);
+  }
 }

@@ -2,7 +2,7 @@
   <ul class="list-group-flush">
     <a class="list-group-item"
         *ngFor="let retro of retros"
-         routerLink="{{getLink(retro.identifier)}}">
+         (click)="rotate(retro)">
         <p>{{retro.impression}}</p>
         <p class="float-right">{{retro.finishDate}}</p>
     </a>
