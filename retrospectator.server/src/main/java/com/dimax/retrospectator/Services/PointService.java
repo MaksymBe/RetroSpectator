@@ -80,4 +80,11 @@ public class PointService {
 
         return pointToUpdate;
     }
+
+    @Transactional
+    public List<Point> getAllPointsByRetro(int id) {
+        Retro retro = retroRepository.findById(id).get();
+        List<Point> points = repository.findAllByRetro(retro);
+        return points;
+    }
 }

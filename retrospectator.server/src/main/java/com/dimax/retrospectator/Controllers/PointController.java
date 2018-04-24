@@ -62,4 +62,10 @@ public class PointController {
 
         return ResponseEntity.ok(updatedPoint);
     }
+
+    @GetMapping("/retro/{retroId}")
+    public ResponseEntity<List<Point>> getPointsByRetroId(@PathVariable int retroId) {
+        List<Point> points = pointService.getAllPointsByRetro(retroId);
+        return ResponseEntity.ok().body(points);
+    }
 }
