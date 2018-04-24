@@ -4,6 +4,7 @@ import com.dimax.retrospectator.Entity.Point;
 import com.dimax.retrospectator.Entity.User;
 import com.dimax.retrospectator.Services.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,9 @@ public class PointController {
     public List<Point> getPointForUser(@PathVariable String identifier, ServletRequest request) {
         User user = (User) request.getAttribute("user");
         List<Point> points = pointService.getMyPointsForTeam(user, identifier);
+        if(points == null){
+            ResponseEntity.status(HttpStatus.NOT_FOUND);
+        }
         return points;
     }
 
@@ -55,6 +59,7 @@ public class PointController {
 
     @PatchMapping("/{pointId}")
     public ResponseEntity<Point> updatePointById(@Valid @RequestBody Point point, @PathVariable int pointId) {
+
         Point updatedPoint = pointService.updatePointById(point, pointId);
 
         if(updatedPoint == null)
