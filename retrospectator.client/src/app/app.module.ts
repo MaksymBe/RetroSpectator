@@ -33,6 +33,7 @@ import {UserService} from './data-service/services/user/user.service';
 import {RetroService} from './data-service/services/retro/retro.service';
 import {environment} from '../environments/environment';
 import { PointComponent } from './dashboard/points-list/point/point.component';
+import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-form.component';
 
 
 
@@ -49,7 +50,8 @@ import { PointComponent } from './dashboard/points-list/point/point.component';
     NavBarComponent,
     NewTeamComponent,
     ActionPointsListComponent,
-    PointComponent
+    PointComponent,
+    EditPointFormComponent
   ],
   imports: [
     BrowserModule,
