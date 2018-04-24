@@ -1,23 +1,2 @@
-<header class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="">RetroSpectator</a>
-    <form class="form-inline">
-      <button id="qsLoginBtn"
-              class="btn btn-primary my-2 my-sm-0"
-              *ngIf="!auth.isAuthenticated()"
-              (click)="auth.login()" type="button">
-        Log In
-      </button>
-
-      <button id="qsLogoutBtn"
-              class="btn btn-primary my-2 my-sm-0"
-              *ngIf="auth.isAuthenticated()"
-              (click)="auth.logout()" type="button">
-        Log Out
-      </button>
-
-    </form>
-  </div>
-</header>
+<app-header-bar></app-header-bar>
 <router-outlet></router-outlet>
-

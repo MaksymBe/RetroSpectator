@@ -17,7 +17,7 @@ export class RetroComponent implements OnInit {
   public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
-  private teamKey: string;
+  public teamKey: string;
 
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,
