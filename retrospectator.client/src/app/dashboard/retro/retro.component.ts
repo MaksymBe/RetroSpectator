@@ -34,8 +34,7 @@ export class RetroComponent implements OnInit {
         });
       }*/
       this.getTeamPoints(params.teamKey);
-      this.teamKey = params.teamKey;
-      console.log("TODO");
+      this.teamKey = params.teamKe;
     });
   }
 
