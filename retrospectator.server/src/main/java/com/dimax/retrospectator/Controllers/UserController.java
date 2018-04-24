@@ -1,5 +1,6 @@
 package com.dimax.retrospectator.Controllers;
 
+import com.dimax.retrospectator.Entity.User;
 import com.dimax.retrospectator.Services.TeamService;
 import com.dimax.retrospectator.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity getUserById(ServletRequest request) {
-        return ResponseEntity.ok().body(request.getAttribute("user"));
+        User user = (User)request.getAttribute("user");
+        return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("/{identifier}/all")

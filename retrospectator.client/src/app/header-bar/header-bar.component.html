@@ -1,0 +1,52 @@
+<app-new-team *ngIf="isCreatingMode"
+              (changeMode)="isCreatingMode = !isCreatingMode"
+              (newTeamTitle)="addTeam($event)"
+              title="Create"></app-new-team>
+<header class="navbar navbar-dark bg-dark header-bar">
+
+  <div  class="container-fluid row">
+    <div class="left-bar" *ngIf="auth.isAuthenticated()">
+      <div class="btn-group">
+        <button
+          class="round-btn teams-btn dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">Teams
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item team-item"
+             *ngFor="let team of teams"
+             (click)="changeTeam(team)">{{team.title}}
+            <button class="disc-btn" (click)="deleteTeam(team); $event.stopPropagation();"></button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <a class="navbar-brand" style="color: white" routerLink="">RetroSpectator</a>
+
+    <div class="btn-group right-bar">
+      <div *ngIf="!auth.isAuthenticated()">
+        <button id="qsLoginBtn"
+                class="btn btn-primary btn-sm"
+                (click)="auth.login()" type="button">
+          Log In
+        </button>
+      </div>
+
+      <div *ngIf="auth.isAuthenticated()" class="d-flex">
+        <button class="round-btn add-btn" (click)="isCreatingMode = !isCreatingMode" title="Create lobby"></button>
+        <button id="qsLogoutBtn"
+                class="round-btn user-btn"
+                (click)="auth.logout()"
+                (mouseenter)="authButtonHovered=true"
+                (mouseleave)="authButtonHovered=false"
+                [ngStyle]="authButtonHovered?{}:{'background-image': user?'url(' + user.picUrl + ') ': 'white'}">
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</header>

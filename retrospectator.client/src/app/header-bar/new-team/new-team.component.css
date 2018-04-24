@@ -1,14 +1,15 @@
 #form {
-  width: 88%;
-  height: 25%;
+  width: 88vw;
+  height: 25vh;
   /*background-color: #a9afbb;*/
   border-radius: 4px;
 }
 #mask {
-  top: -65px;
+  top: 0;
+  left: 0;
   position: absolute;
   z-index: 40000000;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: rgba(6, 6, 6, 0.7);
 }

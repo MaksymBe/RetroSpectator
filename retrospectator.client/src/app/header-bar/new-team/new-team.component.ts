@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TeamService} from '../../../data-service/services/team/team.service';
+import {TeamService} from '../../data-service/services/team/team.service';
 import {MatInputModule} from '@angular/material/input';
-import {Team} from '../../../data-service/model/Team';
+import {Team} from '../../data-service/model/Team';
 
 
 @Component({

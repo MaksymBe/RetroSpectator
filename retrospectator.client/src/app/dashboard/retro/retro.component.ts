@@ -18,10 +18,11 @@ export class RetroComponent implements OnInit {
   public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
+  public teamKey: string;
   public retro: Retro;
   public retroImpression: string;
   public finishingRetro: boolean;
-  private teamKey: string;
+
 
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,

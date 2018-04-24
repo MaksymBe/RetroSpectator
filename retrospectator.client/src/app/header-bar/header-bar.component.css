@@ -1,0 +1,80 @@
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+.right-bar {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  height: 2em;
+}
+
+.left-bar {
+  position: absolute;
+  left: 0.5em;
+  top: 0.5em;
+  height: 2em;
+}
+
+.header-bar {
+  height: 3em;
+}
+
+.user-btn {
+  border: 2px solid white;
+  cursor: pointer;
+  box-sizing: border-box;
+  background-size: 1.8em 1.8em;
+}
+
+.user-btn:hover {
+  background: url("../../assets/logout.svg") no-repeat center;
+  background-size: 1.6em 1.6em;
+  border: 0;
+}
+
+.round-btn {
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  background-color: transparent;
+}
+
+.add-btn {
+  background: url("../../assets/add.svg") no-repeat center;
+  background-size: 1.4em 1.4em;
+  border: 0;
+  margin-right: 0.4em;
+}
+
+.teams-btn {
+  border: 1px solid white;
+  height: 2em;
+  width: auto;
+  color: white;
+  border-radius: 10%;
+}
+
+.team-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0.5em;
+  width: 100%;
+}
+
+.team-item:hover {
+  background-color: lightgrey;
+}
+
+.team-item button {
+  float: right;
+}
+
+.disc-btn {
+  background: url("../../assets/disconnect.svg") no-repeat center;
+  width: 1.3em;
+  height: 1.3em;
+  border: 0;
+}

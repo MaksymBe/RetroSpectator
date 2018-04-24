@@ -4,7 +4,7 @@
       class="btn btn-dark border-bottom border-white dropdown-toggle"
       data-toggle="dropdown"
       aria-haspopup="true"
-      aria-expanded="false">{{ this.currentTeam.title}}
+      aria-expanded="false">{{this.currentTeam.title}}
     </button>
     <div class="dropdown-menu">
       <button type="button" class="dropdown-item border-top border-white"
@@ -15,10 +15,6 @@
       <button type="button"
               class="dropdown-item"
               (click)="isRenamingMode = !isRenamingMode">RENAME CURRENT TEAM
-      </button>
-      <button type="button"
-              class="dropdown-item"
-              (click)="isCreatingMode = !isCreatingMode">CREATE NEW
       </button>
     </div>
 

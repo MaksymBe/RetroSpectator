@@ -20,7 +20,7 @@ import {NavBarComponent} from './dashboard/nav-bar/nav-bar.component';
 import {ROUTES} from './app.routes';
 import {CallbackComponent} from './auth/callback/callback.component';
 import {TeamService} from './data-service/services/team/team.service';
-import {NewTeamComponent} from './dashboard/nav-bar/new-team/new-team.component';
+import {NewTeamComponent} from './header-bar/new-team/new-team.component';
 
 import {ActionPointsListComponent} from './dashboard/action-points-list/action-points-list.component';
 
@@ -33,7 +33,9 @@ import {UserService} from './data-service/services/user/user.service';
 import {RetroService} from './data-service/services/retro/retro.service';
 import {environment} from '../environments/environment';
 import { PointComponent } from './dashboard/points-list/point/point.component';
+import { HeaderBarComponent } from './header-bar/header-bar.component';
 import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-form.component';
+
 
 
 
@@ -51,6 +53,7 @@ import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-f
     NewTeamComponent,
     ActionPointsListComponent,
     PointComponent,
+    HeaderBarComponent,
     EditPointFormComponent
   ],
   imports: [
