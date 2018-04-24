@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class ActionPointService {
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = team.getRetro();
         actionPoint.setRetro(retro);
+        actionPoint.setDate(new Date());
 
         ActionPoint createdActionPoint = actionPointRepository.save(actionPoint);
         return createdActionPoint;

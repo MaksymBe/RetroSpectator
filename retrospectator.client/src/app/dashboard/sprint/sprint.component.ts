@@ -95,6 +95,7 @@ export class SprintComponent implements OnInit {
   getMyPoints(teamKey) {
     this.pointService.getMyPoints(teamKey).subscribe((points) => {
       this.points = points;
+      console.log(this.points)
     });
   }
 

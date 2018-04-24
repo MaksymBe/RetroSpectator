@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +26,7 @@ public class PointService {
 
     @Autowired
     TeamRepository teamRepository;
+
     @PersistenceContext
     EntityManager entityManager;
 
@@ -33,6 +36,7 @@ public class PointService {
         Retro retro = team.getRetro();
         point.setUser(user);
         point.setRetro(retro);
+        point.setDate(new Date());
         repository.save(point);
         return point;
 
@@ -74,7 +78,8 @@ public class PointService {
         if(!repository.existsById(id)) {
             return null;
         }
-        Point pointToUpdate = repository.getOne(id);
+
+        Point pointToUpdate = repository.findById(id).get();
         pointToUpdate.setTitle(point.getTitle());
         repository.save(pointToUpdate);
 
