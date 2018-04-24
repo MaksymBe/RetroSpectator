@@ -46,12 +46,12 @@
   <div class="points-wrapper">
     <app-points-list
       type="plus"
-      [points]="points.plus"
+      [points]="getOrderedPoints(points.plus)"
       (edit)="switchEditMode($event, 'edit')"
       [(pointToEdit)]="pointToEdit"></app-points-list>
     <app-points-list
       type="minus"
-      [points]="points.minus"
+      [points]="getOrderedPoints(points.minus)"
       (edit)="switchEditMode($event, 'edit')"
       [(pointToEdit)]="pointToEdit"></app-points-list>
   </div>

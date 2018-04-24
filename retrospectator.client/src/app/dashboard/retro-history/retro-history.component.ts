@@ -36,4 +36,14 @@ export class RetroHistoryComponent implements OnInit {
       this.router.navigate(['dashboard', params.teamKey, 'retro', retro.id]);
     });
   }
+
+  sortRetros(retros: Retro[]): Retro[] {
+    const orderedRetros = retros;
+
+    orderedRetros.sort((a, b) => {
+      return (a.finishDate < b.finishDate) ? 1 : -1;
+    });
+
+    return orderedRetros;
+  }
 }

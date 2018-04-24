@@ -1,8 +1,18 @@
 <div class="container">
-  <button class="btn btn-dark" (click)="finishRetro('heello')">Finish retro</button>
-  <a class="btn btn-dark" routerLink="/dashboard/{{teamKey}}/retro-history">Retros history</a>
+  <div class="d-flex justify-content-center mb-2">
+    <button *ngIf="retro === undefined"
+            class="btn btn-dark mr-2"
+            (click)="finishRetro('heello')">Finish retro </button>
+    <a class="btn btn-dark ml-2"
+       routerLink="/dashboard/{{teamKey}}/retro-history">Retros history</a>
+  </div>
 
-  <div class="input-group mb-3">
+  <div *ngIf="retro !== undefined" class="d-flex align-items-center mb-1 mt-3">
+    <p>{{retro.impression}}</p>
+    <p>{{retro.finishDate}}</p>
+  </div>
+
+  <div class="input-group mb-3" *ngIf="retro === undefined">
     <div class="input-group-prepend">
       <span class="input-group-text" id="point-title">
         Title
@@ -13,7 +23,7 @@
            aria-label="Title"
            aria-describedby="point-title"
            [(ngModel)]="titleInput">
-    <button class="btn btn-dark" (click)="addActionPoint()">Add</button>
+    <button class="btn btn-dark" style="width: 25%" (click)="addActionPoint()">Add</button>
   </div>
 
   <app-action-points-list title="Action Points" [actionPoints]="actionPoints"></app-action-points-list>

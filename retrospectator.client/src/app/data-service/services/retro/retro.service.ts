@@ -29,11 +29,11 @@ export class RetroService {
     return this.http.patch(environment.apiHost + `${this.urlModifier}/${teamId}/finish`, impression);
   }
 
-  private getRetro(route: string) {
+  private getRetro(route: string): Observable<any> {
     return this.http.get(environment.apiHost + route);
   }
 
-  getRetroById(teamIdentifier: string, id: number) {
+  getRetroById(teamIdentifier: string, id: number): Observable<any> {
     return this.http.get(environment.apiHost + `retro/${teamIdentifier}/${id}`);
   }
 }

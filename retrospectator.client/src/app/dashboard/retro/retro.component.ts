@@ -18,6 +18,7 @@ export class RetroComponent implements OnInit {
   public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
+  public retro: Retro;
   private teamKey: string;
 
   constructor(private activetedRouter: ActivatedRoute,
@@ -32,6 +33,7 @@ export class RetroComponent implements OnInit {
       if (params.retroId !== undefined && params.retroId !== null) {
         this.retroService.getRetroById(params.teamKey, params.retroId).subscribe(retro => {
           this.getRetroPoints(retro);
+          this.retro = retro;
         });
       } else {
         this.getTeamPoints(params.teamKey);
