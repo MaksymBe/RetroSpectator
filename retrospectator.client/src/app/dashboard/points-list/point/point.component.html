@@ -1,3 +1,5 @@
-<p>
-  point works!
-</p>
+<li *ngIf="!enableFormToEdit" class="list-group-item " > {{point.title}}  <button class="float-right"  #li (click)="editPoint(li.value)">Edit</button></li>
+
+<app-edit-point-form *ngIf="enableFormToEdit"
+                     [pointTitle]="point.title"
+(cancel)="cancelEditMode($event)" (changeTitle)="updatePoint($event)">  </app-edit-point-form>

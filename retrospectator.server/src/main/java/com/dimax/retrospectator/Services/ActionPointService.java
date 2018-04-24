@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class ActionPointService {
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = team.getRetro();
         actionPoint.setRetro(retro);
+        actionPoint.setDate(new Date());
 
         ActionPoint createdActionPoint = actionPointRepository.save(actionPoint);
         return createdActionPoint;
@@ -43,17 +45,11 @@ public class ActionPointService {
     }
 
     @Transactional
-    public List<ActionPoint> getActionPointsForRetro(int id, String identifier){
-        Team team = teamRepository.findByIdentifier(identifier);
-        List<Retro> retroes = team.getRetroes();
-        for(Retro retro : retroes){
-            if(retro.getId() == id){
-                return retro.getActionPoint();
-            }
-        }
+    public List<ActionPoint> getActionPointsForRetro(int id){
+        Retro retro = retroRepository.findById(id).get();
+        List<ActionPoint> actionPoints = actionPointRepository.findAllByRetro(retro);
 
-        Retro retro = retroRepository.getOne(id);
-        return  null;
+        return  actionPoints;
     }
 
     @Transactional

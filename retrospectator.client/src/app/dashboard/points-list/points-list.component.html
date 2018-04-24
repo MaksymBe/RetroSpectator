@@ -4,11 +4,6 @@
 
     <span *ngIf="!noButton" class="btn-dark "> {{getButtonLabel()}}</span>
 
-
-    <li *ngFor="let point of points"
-        (click)="editTitle(point)"
-        class="list-group-item {{ checkEditing(point) }}">
-      {{point.title}}
-    </li>
+    <app-point *ngFor="let point of points" [point]="point"></app-point>
   </ul>
 </div>

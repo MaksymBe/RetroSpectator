@@ -18,7 +18,7 @@ public class ActionPoint {
     @Column
     private String title;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Column

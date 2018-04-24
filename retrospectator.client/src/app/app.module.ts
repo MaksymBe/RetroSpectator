@@ -34,6 +34,8 @@ import {RetroService} from './data-service/services/retro/retro.service';
 import {environment} from '../environments/environment';
 import { PointComponent } from './dashboard/points-list/point/point.component';
 import { HeaderBarComponent } from './header-bar/header-bar.component';
+import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-form.component';
+
 
 
 
@@ -51,7 +53,8 @@ import { HeaderBarComponent } from './header-bar/header-bar.component';
     NewTeamComponent,
     ActionPointsListComponent,
     PointComponent,
-    HeaderBarComponent
+    HeaderBarComponent,
+    EditPointFormComponent
   ],
   imports: [
     BrowserModule,

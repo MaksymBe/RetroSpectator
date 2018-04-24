@@ -1,8 +1,36 @@
 <div class="container">
-  <button class="btn btn-dark" (click)="finishRetro('heello')">Finish retro</button>
-  <a class="btn btn-dark" routerLink="/dashboard/{{teamKey}}/retro-history">Retros history</a>
+  <div class="d-flex justify-content-center mb-2">
+    <button *ngIf="retro === undefined"
+            class="btn btn-dark mr-2"
+            (click)="finishingRetro = true">Finish retro</button>
+    <a class="btn btn-dark ml-2"
+       routerLink="/dashboard/{{teamKey}}/retro-history">Retros history</a>
+  </div>
+  <div *ngIf="finishingRetro" id="finishing-retro" class="d-flex flex-column justify-content-center">
+    <div class="container" style="width: 80%;">
+      <h3>Enter retro impression</h3>
 
-  <div class="input-group mb-3">
+      <div class="input-group input-group-sm mb-3" style="height: 10%">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup">Impression</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="inputGroup"
+               [(ngModel)]="retroImpression">
+      </div>
+
+      <div style="width: 100%" class="d-flex justify-content-around">
+        <a (click)="finishRetro(retroImpression)" class="btn btn-light">Finish Retro</a>
+        <a (click)="finishingRetro = false" class="btn btn-danger">Cancel</a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="retro !== undefined" class="border-bottom border-dark mb-3">
+    <h4 class="d-inline-block">{{retro.impression}}</h4>
+    <div class="d-inline-block float-right">{{retro.finishDate}}</div>
+  </div>
+
+  <div class="input-group mb-3" *ngIf="retro === undefined">
     <div class="input-group-prepend">
       <span class="input-group-text" id="point-title">
         Title
@@ -13,7 +41,7 @@
            aria-label="Title"
            aria-describedby="point-title"
            [(ngModel)]="titleInput">
-    <button class="btn btn-dark" (click)="addActionPoint()">Add</button>
+    <button class="btn btn-dark" style="width: 25%" (click)="addActionPoint()">Add</button>
   </div>
 
   <app-action-points-list title="Action Points" [actionPoints]="actionPoints"></app-action-points-list>

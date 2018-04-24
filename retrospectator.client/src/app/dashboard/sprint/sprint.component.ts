@@ -17,8 +17,6 @@ export class SprintComponent implements OnInit {
   private teamKey;
   public chooseMode = false;
   public createTeamMode = false;
-  public editPointMode = false;
-  public pointToEdit;
   public pointType = 'plus';
 
   constructor(private activatedRouter: ActivatedRoute,
@@ -65,15 +63,16 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  pointHandler() {
+  pointHandler(pointType: string) {
     if (this.titleInput !== '' && this.titleInput !== undefined && this.titleInput !== null) {
-      if (this.pointType === 'edit') {
-        this.editPoint();
-        this.pointType = 'plus';
-      } else if (this.pointType === 'minus' || this.pointType === 'plus') {
+      if (this.pointType === pointType) {
+        this.addPoint();
+      } else {
+        this.changePointType(pointType);
         this.addPoint();
       }
     }
+    this.changePointType(pointType);
   }
 
   changePoints() {
@@ -95,6 +94,7 @@ export class SprintComponent implements OnInit {
   getMyPoints(teamKey) {
     this.pointService.getMyPoints(teamKey).subscribe((points) => {
       this.points = points;
+      console.log(this.points);
     });
   }
 
@@ -109,24 +109,6 @@ export class SprintComponent implements OnInit {
     this.titleInput = '';
   }
 
-  switchEditMode(point, type) {
-    this.changePointType(type);
-    this.editPointMode = !this.editPointMode;
-    (this.editPointMode) ? this.pointToEdit = point : this.pointToEdit = {};
-    this.titleInput = this.pointToEdit.title;
-    if (!this.editPointMode) {
-      this.pointType = 'plus';
-    }
-  }
-
-  editPoint() {
-    this.pointToEdit.title = this.titleInput;
-    this.pointService.updatePoint(this.pointToEdit).subscribe(res => {
-      this.editPointMode = false;
-      this.titleInput = '';
-    });
-  }
-
   goToRetro() {
     this.activatedRouter.params.subscribe(params => {
       this.router.navigate(['dashboard', params.teamKey, 'retro']);
@@ -135,6 +117,16 @@ export class SprintComponent implements OnInit {
 
   changePointType(pointType: string) {
     this.pointType = pointType;
+  }
+
+  getOrderedPoints(points: Point[]): Point[] {
+    const orderedPoints = points;
+
+    orderedPoints.sort((a, b) => {
+      return (a.date < b.date) ? 1 : (a.date === b.date) ? 0 : -1;
+    });
+
+    return orderedPoints;
   }
 }
 

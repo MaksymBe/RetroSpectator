@@ -12,19 +12,13 @@ export class PointsListComponent implements OnInit {
   @Input() points: Point[];
   @Input() noButton: boolean;
   @Input() title: string;
-  @Input() pointToEdit: Point;
 
-  @Output('add') add: EventEmitter<string> = new EventEmitter<string>();
-  @Output('edit') edit: EventEmitter<Point> = new EventEmitter<Point>();
 
   constructor() {
     this.noButton = false;
   }
 
-  ngOnInit() {}
-
-  addPoint() {
-    this.add.emit(this.type);
+  ngOnInit() {
   }
 
   getButtonLabel(): string {
@@ -36,14 +30,4 @@ export class PointsListComponent implements OnInit {
     return 'add';
   }
 
-  editTitle(point) {
-    console.log(this.pointToEdit);
-    this.edit.emit(point);
-  }
-  checkEditing(point) {
-    if (point === this.pointToEdit) {
-      return 'editing';
-    }
-    return '';
-  }
 }
