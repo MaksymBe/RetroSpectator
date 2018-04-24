@@ -47,12 +47,10 @@ public class ActionPointController {
        return ResponseEntity.ok(updatedActionPoint);
     }
 
-    @GetMapping("/{identifier}/{retroId}")
-    public ResponseEntity<List<ActionPoint>> getActionPointForRetro(@PathVariable String identifier, @PathVariable int retroId){
-        List<ActionPoint> actionPointsForRetro = actionPointService.getActionPointsForRetro(retroId, identifier);
-        if(actionPointsForRetro == null){
-            ResponseEntity.status(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(actionPointsForRetro);
+    @GetMapping("/retro/{retroId}")
+    public ResponseEntity<List<ActionPoint>> getActionPointsByRetro(@PathVariable int retroId) {
+        List<ActionPoint> actionPoints = actionPointService.getActionPointsForRetro(retroId);
+
+        return ResponseEntity.ok().body(actionPoints);
     }
 }

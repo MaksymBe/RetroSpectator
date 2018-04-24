@@ -6,6 +6,7 @@ import {ActionPointService} from '../../data-service/services/action-point/actio
 import {PointService} from '../../data-service/services/point/point.service';
 import {RetroService} from '../../data-service/services/retro/retro.service';
 import {log} from 'util';
+import {Retro} from '../../data-service/model/Retro';
 
 @Component({
   selector: 'app-retro',
@@ -17,6 +18,9 @@ export class RetroComponent implements OnInit {
   public points: {minus: Point[], plus: Point[]};
   public actionPoints: APoint[];
   public titleInput: string;
+  public retro: Retro;
+  public retroImpression: string;
+  public finishingRetro: boolean;
   private teamKey: string;
 
   constructor(private activetedRouter: ActivatedRoute,
@@ -28,27 +32,34 @@ export class RetroComponent implements OnInit {
 
   ngOnInit() {
     this.activetedRouter.params.subscribe(params => {
-      /*if (params.retroId !== undefined && params.retroId !== null) {
-        this.retroService.getRetroById(params.retroId).subscribe(retro => {
-          this.points = {minus: retro.}
+      if (params.retroId !== undefined && params.retroId !== null) {
+        this.retroService.getRetroById(params.teamKey, params.retroId).subscribe(retro => {
+          this.getRetroPoints(retro);
+          this.retro = retro;
         });
-      }*/
-      this.getTeamPoints(params.teamKey);
+      } else {
+        this.getTeamPoints(params.teamKey);
+      }
       this.teamKey = params.teamKey;
-
     });
   }
 
   getTeamPoints(teamIdentifier) {
     this.pointService.getTeamPoints(teamIdentifier).subscribe(points => {
       this.points = points;
-      console.log(points);
     });
 
     this.actionPointService.getActionPointsByTeam(teamIdentifier).subscribe(actionPoints => {
       this.actionPoints = actionPoints;
-      console.log(actionPoints);
     });
+  }
+
+  getRetroPoints(retro) {
+    this.pointService.getPointsByRetro(retro).subscribe(points => {
+      this.points.plus = points.filter(point => point.type === 'plus');
+      this.points.minus = points.filter(point => point.type === 'minus')
+    });
+    this.actionPointService.getActionPointsByRetro(retro).subscribe(actionPoints => this.actionPoints = actionPoints);
   }
 
   addActionPoint() {
@@ -68,6 +79,8 @@ export class RetroComponent implements OnInit {
   }
 
   finishRetro(impression: string) {
-    this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
+    if (impression !== ''){
+      this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
+    }
   }
 }

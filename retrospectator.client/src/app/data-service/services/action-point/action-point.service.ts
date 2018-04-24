@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {APoint} from '../../model/APoint';
 import {environment} from '../../../../environments/environment';
+import {Retro} from '../../model/Retro';
 
 @Injectable()
 export class ActionPointService {
@@ -27,5 +28,9 @@ export class ActionPointService {
 
   deletePoint(id: number): Observable<any> {
     return this.http.delete(environment.apiHost + `${this.urlModifier}/${id}`);
+  }
+
+  getActionPointsByRetro(retro: Retro): Observable<any> {
+    return this.http.get(environment.apiHost + `${this.urlModifier}/retro/${retro.id}`);
   }
 }

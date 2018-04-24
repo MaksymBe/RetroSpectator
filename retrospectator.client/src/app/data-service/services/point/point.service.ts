@@ -6,6 +6,7 @@ import {Point} from '../../model/Point';
 import {environment} from '../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import {APoint} from '../../model/APoint';
+import {Retro} from '../../model/Retro';
 
 @Injectable()
 export class PointService {
@@ -41,6 +42,9 @@ export class PointService {
       .map(points => splitPointsByType(points));
   }
 
+  public getPointsByRetro(retro: Retro): Observable<any> {
+    return this.http.get(environment.apiHost + `point/retro/${retro.id}`);
+  }
 }
 
 function hasType(type) {

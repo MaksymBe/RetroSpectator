@@ -25,14 +25,13 @@ public class RetroService {
 
     @Transactional
     public Retro getRetroById(int id){
-        return  retroRepository.getOne(id);
+        return  retroRepository.findById(id).get();
     }
 
     @Transactional
     public void createNewRetro(String identifier){
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = new Retro(team);
-//        entityManager.persist(retro);
         retroRepository.save(retro);
     }
 

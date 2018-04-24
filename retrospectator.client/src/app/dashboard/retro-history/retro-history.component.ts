@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Retro} from '../../data-service/model/Retro';
 import {RetroService} from '../../data-service/services/retro/retro.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-retro-history',
@@ -13,7 +13,8 @@ export class RetroHistoryComponent implements OnInit {
   public retros: Retro[];
 
   constructor(private retroService: RetroService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -27,13 +28,22 @@ export class RetroHistoryComponent implements OnInit {
     });
   }
 
-  getLink(retroId) {
-    let teamIdentifier;
-
+  rotate(retro) {
     this.activatedRoute.params.subscribe(params => {
-      teamIdentifier = params.teamKey;
+      console.log(params.teamKey);
+      console.log(retro);
+      console.log(`/dashboard/${params.teamKey}/retro/${retro.id}`);
+      this.router.navigate(['dashboard', params.teamKey, 'retro', retro.id]);
+    });
+  }
+
+  sortRetros(retros: Retro[]): Retro[] {
+    const orderedRetros = retros;
+
+    orderedRetros.sort((a, b) => {
+      return (a.finishDate < b.finishDate) ? 1 : -1;
     });
 
-    return 'dashboard/' + teamIdentifier + '/retro/' + retroId;
+    return orderedRetros;
   }
 }

@@ -118,6 +118,16 @@ export class SprintComponent implements OnInit {
   changePointType(pointType: string) {
     this.pointType = pointType;
   }
+
+  getOrderedPoints(points: Point[]): Point[] {
+    const orderedPoints = points;
+
+    orderedPoints.sort((a, b) => {
+      return (a.date < b.date) ? 1 : (a.date === b.date) ? 0 : -1;
+    });
+
+    return orderedPoints;
+  }
 }
 
 function getDate(): string {
