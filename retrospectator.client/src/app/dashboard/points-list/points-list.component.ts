@@ -30,4 +30,12 @@ export class PointsListComponent implements OnInit {
     return 'add';
   }
 
+  deleteFromArray(point: Point) {
+    this.points.forEach((item: Point, index: number) => {
+      if (item.id === point.id) {
+        this.points.splice(index, 1);
+      }
+    });
+  }
+
 }

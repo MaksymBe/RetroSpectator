@@ -17,7 +17,7 @@ export class NewTeamComponent implements OnInit {
 
   public teamTitle: string;
 
-  constructor(private teamService: TeamService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -32,6 +32,7 @@ export class NewTeamComponent implements OnInit {
 
     team.title = this.teamTitle;
     this.newTeamTitle.emit(team);
+    this.changeMode();
   }
 
   changeMode() {

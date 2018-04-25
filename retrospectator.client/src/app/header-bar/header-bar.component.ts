@@ -16,16 +16,21 @@ export class HeaderBarComponent implements OnInit {
   public user: User;
   public authButtonHovered = false;
   public isCreatingMode = false;
+  public isJoinMode = false;
   public teams = [];
+  public authorized = false;
+  private currentTeam: Team;
 
   constructor(public auth: Auth0Service, public userService: UserService, public router: Router, public teamService: TeamService) {
     this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
       setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
     });
+    this.auth.isAuthenticated().subscribe(next => this.authorized = next);
+    this.teamService.teams.subscribe(teams => this.teams = teams);
+    this.teamService.getCurrentTeam().subscribe(team => this.currentTeam = team);
   }
 
   ngOnInit() {
-    this.teamService.teams.subscribe(teams => this.teams = teams);
   }
 
   addTeam(newTeam: Team) {
@@ -36,9 +41,18 @@ export class HeaderBarComponent implements OnInit {
       });
   }
 
+  joinTeam(teamWithId: Team) {
+    this.teamService.getTeam(teamWithId.identifier).subscribe(team => {
+      this.isJoinMode = !this.isJoinMode;
+      this.router.navigate(['dashboard', team.identifier, 'my']);
+    });
+  }
+
   changeTeam(team: Team) {
-    this.teamService.setCurrentTeam(team);
-    this.router.navigate(['dashboard/', team.identifier, '/my']);
+    if (team.identifier !== this.currentTeam.identifier) {
+      this.teamService.setCurrentTeam(team);
+      this.router.navigate(['dashboard/', team.identifier, '/my']);
+    }
   }
 
   deleteTeam(team: Team) {

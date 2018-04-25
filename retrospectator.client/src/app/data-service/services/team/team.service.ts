@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class TeamService {
@@ -11,7 +12,7 @@ export class TeamService {
   private urlModifier = 'team';
   private teamsArr: Team[] = [];
   public teams: Subject<Team[]> = new Subject<Team[]>();
-  public currentTeam: Subject<Team> = new Subject<Team>();
+  public currentTeam: BehaviorSubject<Team> = new BehaviorSubject<Team>({title: 'Team'});
   public currentTeamObj: Team = null;
 
   constructor(private http: HttpClient) {
