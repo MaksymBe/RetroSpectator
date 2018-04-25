@@ -30,17 +30,17 @@ public class TeamService {
     @Transactional
     public Team getTeamById(String identifier, User user) {
         Team team = repository.findByIdentifier(identifier);
-//        Set <User> users = team.getUser();
-//        boolean inTeam = false;
-//        for(User userInTeam : users){
-//
-//            if(userInTeam.getId() == user.getId()) inTeam = true;
-//        }
-//
-//        if (!inTeam){
-//            team.getUser().add(user);
-//            repository.save(team);
-//        }
+        Set <User> users = team.getUser();
+        boolean inTeam = false;
+        for(User userInTeam : users){
+
+            if(userInTeam.getId() == user.getId()) inTeam = true;
+        }
+
+        if (!inTeam){
+            team.getUser().add(user);
+            repository.save(team);
+        }
 
         return team;
     }
