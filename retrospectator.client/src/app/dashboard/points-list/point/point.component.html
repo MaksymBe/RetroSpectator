@@ -1,6 +1,5 @@
 <li *ngIf="!enableFormToEdit"
-    class="list-group-item "
->
+    class="list-group-item" >
   {{point.title}}
   <app-button-group (edit)="editPoint($event)" (delete)="deletePoint($event)" > </app-button-group>
 </li>

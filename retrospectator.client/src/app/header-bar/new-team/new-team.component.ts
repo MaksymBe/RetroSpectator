@@ -16,11 +16,15 @@ export class NewTeamComponent implements OnInit {
   @Output('newTeamTitle') newTeamTitle: EventEmitter<Team> = new EventEmitter<Team>();
 
   public teamTitle: string;
+  public inputN = 'Title';
 
   constructor() {
   }
 
   ngOnInit() {
+    if (this.title === 'Join') {
+      this.inputN = 'Team identifier';
+    }
   }
 
   createTeam() {

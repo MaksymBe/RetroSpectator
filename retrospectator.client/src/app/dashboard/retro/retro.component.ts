@@ -80,7 +80,7 @@ export class RetroComponent implements OnInit {
   }
 
   finishRetro(impression: string) {
-    if (impression !== ''){
+    if (impression !== '') {
       this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
     }
   }

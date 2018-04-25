@@ -1,31 +1,29 @@
-<div class="mb-3 dropdown count">
-  <div class="btn-group btn-group-verticals">
-    <button
-      class="btn btn-dark border-bottom border-white dropdown-toggle"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false">{{this.currentTeam.title}}
-    </button>
-    <div class="dropdown-menu">
-      <button type="button" class="dropdown-item border-top border-white"
-              *ngFor="let team of teams"
-              (click)="changeTeam(team)">{{team.title}}
+<div class="container" *ngIf="currentTeam">
+    <h2>{{ currentTeam.title }}
+      <button (click)="isRenamingMode = !isRenamingMode"
+               style="background-image: url('../../../assets/editTeam.svg')"
+      class="editor">
       </button>
-      <div class="dropdown-divider"></div>
-      <button type="button"
-              class="dropdown-item"
-              (click)="isRenamingMode = !isRenamingMode">RENAME CURRENT TEAM
+    </h2>
+
+    <div class="switchContainer">
+      <button (click)="switchPoints('my')"
+            style="background-image: url('../../../assets/man.svg')"
+            class="{{(currentActive === 'my') ? 'chosen' : 'not-chosen'}} switcher">
+      </button>
+
+      <button (click)="switchPoints('all')"
+            style="background-image: url('../../../assets/Team.svg')"
+            class="{{(currentActive === 'all') ? 'chosen' : 'not-chosen'}} switcher">
       </button>
     </div>
 
-  </div>
-  <app-new-team *ngIf="isRenamingMode"
-                (changeMode)="isRenamingMode = !isRenamingMode"
-                (newTeamTitle)="renameTeam($event)"
-                title="Rename"></app-new-team>
-
-  <app-new-team *ngIf="isCreatingMode"
-                (changeMode)="isCreatingMode = !isCreatingMode"
-                (newTeamTitle)="addTeam($event)"
-                title="Create"></app-new-team>
+    <button class="retro {{(currentActive === 'retro') ? 'chosen' : 'not-chosen'}}"
+            (click)="goToRetro()">
+    </button>
 </div>
+<app-new-team *ngIf="isRenamingMode"
+              (changeMode)="isRenamingMode = !isRenamingMode"
+              (newTeamTitle)="renameTeam($event)"
+              title="Rename">
+</app-new-team>

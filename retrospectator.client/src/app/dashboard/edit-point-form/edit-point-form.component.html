@@ -1,16 +1,15 @@
-<li class="mt-2">
+<li class="list-group-item">
   <form class="form-inline flex-row">
-    <input type="text" class="form-control" id="inputPointTitle"  [value]="pointTitle" #newTitleInput >
+    <input type="text" class="form-control" style="width: 70%" id="inputPointTitle"  [value]="pointTitle" #newTitleInput >
 
-    <div class="float-right">
-      <button type="submit"
-              class="mb-2 mr-1"
-              (click)="changePoint(newTitleInput.value)"
-              style="background-image: url('../../../assets/edit.svg')"></button>
+    <div>
       <button type="button"
-              class="mb-2 ml-1"
               (click)="cancelForm(true)"
               style="background-image: url('../../../assets/previous.svg')"></button>
+      <button type="submit"
+              (click)="changePoint(newTitleInput.value)"
+              class="mr-2"
+              style="background-image: url('../../../assets/edit.svg')"></button>
     </div>
   </form>
 </li>
