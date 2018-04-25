@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Point} from '../../../data-service/model/Point';
 import {PointService} from '../../../data-service/services/point/point.service';
 
@@ -16,11 +16,12 @@ export class PointComponent implements OnInit {
   }
 
   @Input() point: Point;
+  @Output('delete') deleteFromArray: EventEmitter<Point> = new EventEmitter();
 
   ngOnInit() {
   }
 
-  editPoint(pointTitle: string): void {
+  editPoint(): void {
     this.enableFormToEdit = true;
   }
 
@@ -32,9 +33,16 @@ export class PointComponent implements OnInit {
 
     const point: Point = Object.assign({}, this.point);
     point.title = newTitle;
-    this.pointService.updatePoint(point).subscribe(res => {this.point.title = res.title;
-    this.enableFormToEdit = false;
-    } );
+    this.pointService.updatePoint(point).subscribe(res => {
+      this.point.title = res.title;
+      this.enableFormToEdit = false;
+    });
 
+  }
+
+  deletePoint() {
+    this.pointService.deletePoint(this.point.id).subscribe((res: Point) => {
+      this.deleteFromArray.emit(res);
+    });
   }
 }

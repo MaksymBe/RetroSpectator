@@ -1,9 +1,7 @@
 <li *ngIf="!enableFormToEdit"
     class="list-group-item " >
   {{point.title}}
-  <button class="float-right"  #li
-          (click)="editPoint(li.value)"
-          src="assets/edit.svg"></button>
+  <app-button-group (edit)="editPoint($event)" (delete)="deletePoint($event)" > </app-button-group>
 </li>
 
 <app-edit-point-form *ngIf="enableFormToEdit"

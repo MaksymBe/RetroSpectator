@@ -1,0 +1,13 @@
+<li *ngIf="!enableFormToEdit" class="list-group-item ">
+  {{actionPoint.title}}
+  <app-button-group (edit)="editActionPoint($event)"
+                    (delete)="deleteActionPoint($event)">
+
+  </app-button-group>
+</li>
+
+<app-edit-point-form *ngIf="enableFormToEdit"
+                     [pointTitle]="actionPoint.title"
+                     (cancel)="cancelEditMode($event)"
+                     (changeTitle)="updatePoint($event)">
+</app-edit-point-form>
