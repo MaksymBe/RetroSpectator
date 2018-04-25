@@ -51,4 +51,12 @@ public class TeamController {
 
         return ResponseEntity.ok(updatedTeam);
     }
+
+    @DeleteMapping("/{identifier}")
+    public ResponseEntity exitFromTeam(@PathVariable String identifier, ServletRequest request ){
+        User user = (User)request.getAttribute("user");
+        Team team = teamService.deleteUserFromTeam(identifier, user);
+        return ResponseEntity.ok(team);
+    }
+
 }

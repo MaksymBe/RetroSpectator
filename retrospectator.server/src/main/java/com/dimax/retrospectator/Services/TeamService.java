@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +42,13 @@ public class TeamService {
             team.getUser().add(user);
             repository.save(team);
         }
+
+        return team;
+    }
+
+    @Transactional
+    public Team getTeamById(String identifier) {
+        Team team = repository.findByIdentifier(identifier);
 
         return team;
     }
@@ -80,5 +88,15 @@ public class TeamService {
         repository.save(updatedTeam);
 
         return updatedTeam;
+    }
+
+    @Transactional
+    public Team deleteUserFromTeam(String identifier, User user){
+        Team team = getTeamById(identifier);
+        Set <User> users = team.getUser();
+        users.remove(user);
+        team.setUser(users);
+        repository.save(team);
+        return team;
     }
 }
