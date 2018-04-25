@@ -36,6 +36,9 @@ export class HeaderBarComponent implements OnInit {
   addTeam(newTeam: Team) {
     this.teamService.createTeam({title: newTeam.title})
       .subscribe(team => {
+        if (team == null) {
+          return;
+        }
         this.isCreatingMode = false;
         this.router.navigate(['dashboard', team.identifier, 'my']);
       });

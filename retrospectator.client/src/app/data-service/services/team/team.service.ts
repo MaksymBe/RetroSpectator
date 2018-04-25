@@ -55,7 +55,7 @@ export class TeamService {
 
   createTeam(team: any): Observable<any> {
     this.http.post(environment.apiHost + `${this.urlModifier}/`, team).map(teams => <Team>teams).subscribe(teams => {
-      if (this.teamsArr.find(team => team.identifier === teams.identifier)) {
+      if (!this.teamsArr.find(teama => teama.identifier === teams.identifier)) {
         this.teamsArr.push(teams);
         this.teams.next(this.teamsArr);
       }
@@ -68,6 +68,8 @@ export class TeamService {
     this.http.delete(environment.apiHost + `${this.urlModifier}/${id}`).map(teams => <Team>teams).subscribe(team => {
       this.teamsArr = this.teamsArr.filter(item => item.identifier !== team.identifier);
       this.teams.next(this.teamsArr);
+      this.currentTeam.next(null);
+      localStorage.removeItem('teamKey');
     });
   }
 
