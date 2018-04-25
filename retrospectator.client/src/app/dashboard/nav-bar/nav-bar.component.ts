@@ -12,8 +12,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   public teams = [];
-  public currentTeam = {title: 'Team'};
-  isCreatingMode = false;
+  public currentTeam: Team = {title: 'Team'};
+  public currentActive: string;
   isRenamingMode = false;
 
   constructor(public teamService: TeamService,
@@ -28,31 +28,31 @@ export class NavBarComponent implements OnInit {
     this.teamService.getCurrentTeam().subscribe(team => {
       this.currentTeam = team;
     });
-    if (this.router.url === '/dashboard/new-team') {
-      this.isCreatingMode = true;
-    }
-  }
 
-  addTeam(newTeam: Team) {
-    this.teamService.createTeam({title: newTeam.title})
-      .subscribe(team => {
-        this.teams.push(team);
-        this.isCreatingMode = !this.isCreatingMode;
-        this.router.navigate(['dashboard', team.identifier, 'my']);
-      });
+    const link = this.router.url.split('/');
+    if (link[link.length - 1] === 'my') {
+      this.currentActive = 'all';
+    } else {
+      this.currentActive = 'my';
+    }
   }
 
   renameTeam(team: Team) {
     this.teamService.updateTeam({title: team.title, identifier: localStorage.getItem('teamKey')})
       .subscribe(resTeam => {
-        console.log(resTeam);
         this.isRenamingMode = !this.isRenamingMode;
         this.currentTeam = resTeam;
       });
   }
 
-  changeTeam(team: Team) {
-    this.teamService.setCurrentTeam(team);
-    this.router.navigate(['dashboard/', team.identifier, '/my']);
+  switchPoints(link: string) {
+    this.router.navigate(['dashboard', this.currentTeam.identifier, link]);
+    this.currentActive = link;
   }
+
+  goToRetro() {
+    this.currentActive = 'retro';
+    this.router.navigate(['dashboard', this.currentTeam.identifier, 'retro']);
+  }
+
 }

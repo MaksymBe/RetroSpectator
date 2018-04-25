@@ -13,7 +13,6 @@ export class SprintComponent implements OnInit {
   public titleInput: string;
 
   public points: { minus: Point[], plus: Point[] };
-  public isMine = true;
   private teamKey;
   public chooseMode = false;
   public createTeamMode = false;
@@ -75,18 +74,6 @@ export class SprintComponent implements OnInit {
     this.changePointType(pointType);
   }
 
-  changePoints() {
-    if (this.isMine) {
-      this.getTeamPoints(this.teamKey);
-      this.router.navigate(['dashboard', localStorage.getItem('teamKey'), 'all']);
-    } else {
-      this.getMyPoints(this.teamKey);
-      this.router.navigate(['dashboard', localStorage.getItem('teamKey'), 'my']);
-    }
-
-    this.isMine = !this.isMine;
-  }
-
   getTeamPoints(teamKey) {
     this.pointService.getTeamPoints(teamKey).subscribe(points => this.points = points);
   }
@@ -109,11 +96,6 @@ export class SprintComponent implements OnInit {
     this.titleInput = '';
   }
 
-  goToRetro() {
-    this.activatedRouter.params.subscribe(params => {
-      this.router.navigate(['dashboard', params.teamKey, 'retro']);
-    });
-  }
 
   changePointType(pointType: string) {
     this.pointType = pointType;
