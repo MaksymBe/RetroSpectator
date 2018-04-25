@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="currentTeam">
     <h2>{{ currentTeam.title }}
       <button (click)="isRenamingMode = !isRenamingMode"
                style="background-image: url('../../../assets/editTeam.svg')"

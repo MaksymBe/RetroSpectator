@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   public teams = [];
-  public currentTeam: Team = {title: 'Team'};
+  public currentTeam: Team;
   public currentActive: string;
   isRenamingMode = false;
 
