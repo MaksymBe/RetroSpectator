@@ -4,6 +4,8 @@ import * as auth0 from 'auth0-js';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {environment} from '../../../../environments/environment';
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class Auth0Service {
@@ -16,10 +18,9 @@ export class Auth0Service {
     redirectUri: environment.auth.callbackURL,
     scope: 'openid profile'
   });
-
+  public authorized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   userProfile: Observable<any> = null;
   accessToken: string = null;
-  authenticated: Observable<boolean> = of(false);
 
   constructor(public router: Router) {
     this.accessToken = localStorage.getItem('access_token');
@@ -65,7 +66,7 @@ export class Auth0Service {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     this.accessToken = authResult.accessToken;
     this.userProfile = authResult.userProfile;
-    this.authenticated = of(true);
+    this.authorized.next(true);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -74,7 +75,7 @@ export class Auth0Service {
   public logout(): void {
     this.accessToken = null;
     this.userProfile = null;
-    this.authenticated = of(false);
+    this.authorized.next(false);
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
@@ -82,9 +83,10 @@ export class Auth0Service {
     localStorage.removeItem('teamKey');
   }
 
-  public isAuthenticated(): boolean {
+  public isAuthenticated(): Observable<boolean> {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    this.authorized.next(new Date().getTime() < expiresAt);
+    return this.authorized;
   }
 
 

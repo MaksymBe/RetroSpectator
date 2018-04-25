@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Auth0Service} from '../data-service/services/auth/auth0.service';
-import {TeamService} from '../data-service/services/team/team.service';
-import {PointService} from '../data-service/services/point/point.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,9 +8,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  public authorized = false;
+
   constructor(public auth: Auth0Service, private router: Router) {
     auth.handleAuthentication();
-    if (this.auth.isAuthenticated()) {
+    auth.isAuthenticated().subscribe(next => this.authorized = next);
+    if (this.authorized) {
       this.router.navigate(['dashboard']);
     }
   }

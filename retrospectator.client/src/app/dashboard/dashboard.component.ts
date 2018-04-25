@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Auth0Service} from '../data-service/services/auth/auth0.service';
 
@@ -9,11 +9,15 @@ import {Auth0Service} from '../data-service/services/auth/auth0.service';
 })
 export class DashboardComponent implements OnInit {
 
+  private authorized = false;
+
   constructor(private userService: Auth0Service,
-              private router: Router, public auth: Auth0Service) { }
+              private router: Router, public auth: Auth0Service) {
+  }
 
   ngOnInit() {
-    if (!this.userService.isAuthenticated()) {
+    this.userService.isAuthenticated().subscribe(next => this.authorized = next);
+    if (!this.authorized) {
       this.router.navigate(['']);
     }
 
