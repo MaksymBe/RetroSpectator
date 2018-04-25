@@ -4,6 +4,6 @@
 
     <span *ngIf="!noButton" class="btn-dark "> {{getButtonLabel()}}</span>
 
-    <app-point *ngFor="let point of points" [point]="point"></app-point>
+    <app-point *ngFor="let point of points" [point]="point" (delete)="deleteFromArray($event)" ></app-point>
   </ul>
 </div>

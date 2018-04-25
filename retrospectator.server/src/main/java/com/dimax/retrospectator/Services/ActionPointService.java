@@ -54,7 +54,7 @@ public class ActionPointService {
 
     @Transactional
     public ActionPoint deleteActionPointById(int id) {
-        ActionPoint actionPoint = actionPointRepository.getOne(id);
+        ActionPoint actionPoint = actionPointRepository.findById(id).get();
         actionPointRepository.deleteById(id);
 
         return actionPoint;
@@ -62,13 +62,14 @@ public class ActionPointService {
 
     @Transactional
     public ActionPoint updateActionPointById(ActionPoint actionPoint, int id) {
-        if(!actionPointRepository.existsById(id)) {
+        if (!actionPointRepository.existsById(id)) {
             return null;
         }
 
-        actionPoint.setId(id);
-        ActionPoint updatedActionPoint = entityManager.merge(actionPoint);
+        ActionPoint pointToUpdate = actionPointRepository.findById(id).get();
+        pointToUpdate.setTitle(actionPoint.getTitle());
+        actionPointRepository.save(pointToUpdate);
 
-        return updatedActionPoint;
+        return pointToUpdate;
     }
 }

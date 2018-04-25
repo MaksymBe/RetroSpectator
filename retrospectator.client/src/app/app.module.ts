@@ -35,6 +35,8 @@ import {environment} from '../environments/environment';
 import { PointComponent } from './dashboard/points-list/point/point.component';
 import { HeaderBarComponent } from './header-bar/header-bar.component';
 import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-form.component';
+import {ActionPointComponent} from './dashboard/action-points-list/action-point/action-point.component';
+import { ButtonGroupComponent } from './dashboard/edit-point-form/button-group/button-group.component';
 
 
 
@@ -54,7 +56,9 @@ import { EditPointFormComponent } from './dashboard/edit-point-form/edit-point-f
     ActionPointsListComponent,
     PointComponent,
     HeaderBarComponent,
-    EditPointFormComponent
+    EditPointFormComponent,
+    ActionPointComponent,
+    ButtonGroupComponent
   ],
   imports: [
     BrowserModule,

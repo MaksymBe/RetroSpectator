@@ -1,0 +1,14 @@
+li {
+  list-style-type: none;
+}
+span {
+  display: flex;
+  justify-content: center;
+}
+button:first-child {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: none;
+  background-image: url("../../../../assets/edit.svg");
+}
