@@ -45,7 +45,8 @@
               class="dropdown-item"
               (click)="isCreatingMode = !isCreatingMode">Create new</button>
             <button
-              class="dropdown-item">Join to existing team</button>
+              class="dropdown-item"
+              (click)="isJoinMode = !isJoinMode">Join to existing team</button>
           </div>
         </div>
 
@@ -72,4 +73,4 @@
 <app-new-team *ngIf="isJoinMode"
               (changeMode)="isJoinMode = !isJoinMode"
               (newTeamTitle)="joinTeam($event)"
-              title="Create"></app-new-team>
+              title="Join"></app-new-team>

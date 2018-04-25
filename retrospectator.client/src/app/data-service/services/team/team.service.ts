@@ -10,9 +10,9 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class TeamService {
 
   private urlModifier = 'team';
-  private teamsArr: Team[] = [];
+  private teamsArr: Team[] = null;
   public teams: Subject<Team[]> = new Subject<Team[]>();
-  public currentTeam: BehaviorSubject<Team> = new BehaviorSubject<Team>({title: 'Team'});
+  public currentTeam: BehaviorSubject<Team> = new BehaviorSubject<Team>(null);
   public currentTeamObj: Team = null;
 
   constructor(private http: HttpClient) {
@@ -35,7 +35,14 @@ export class TeamService {
   }
 
   getTeam(id: string): Observable<Team> {
-    return <Observable<Team>>this.http.get(environment.apiHost + `${this.urlModifier}/${id}`);
+    this.http.get(environment.apiHost + `${this.urlModifier}/${id}`).map(teams => <Team>teams).subscribe(teams => {
+      if (this.teamsArr.find(team => team.identifier === teams.identifier)) {
+        this.teamsArr.push(teams);
+        this.teams.next(this.teamsArr);
+      }
+      this.currentTeam.next(teams);
+    });
+    return this.currentTeam;
   }
 
   getCurrentTeam(): Observable<Team> {
@@ -48,9 +55,11 @@ export class TeamService {
 
   createTeam(team: any): Observable<any> {
     this.http.post(environment.apiHost + `${this.urlModifier}/`, team).map(teams => <Team>teams).subscribe(teams => {
-      this.teamsArr.push(teams);
+      if (this.teamsArr.find(team => team.identifier === teams.identifier)) {
+        this.teamsArr.push(teams);
+        this.teams.next(this.teamsArr);
+      }
       this.currentTeam.next(teams);
-      this.teams.next(this.teamsArr);
     });
     return this.currentTeam;
   }

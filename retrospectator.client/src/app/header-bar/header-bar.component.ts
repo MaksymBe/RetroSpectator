@@ -36,14 +36,17 @@ export class HeaderBarComponent implements OnInit {
   addTeam(newTeam: Team) {
     this.teamService.createTeam({title: newTeam.title})
       .subscribe(team => {
-        this.isCreatingMode = !this.isCreatingMode;
+        this.isCreatingMode = false;
         this.router.navigate(['dashboard', team.identifier, 'my']);
       });
   }
 
   joinTeam(teamWithId: Team) {
-    this.teamService.getTeam(teamWithId.identifier).subscribe(team => {
-      this.isJoinMode = !this.isJoinMode;
+    this.teamService.getTeam(teamWithId.title).subscribe((team) => {
+      if (team == null) {
+        return;
+      }
+      this.isJoinMode = false;
       this.router.navigate(['dashboard', team.identifier, 'my']);
     });
   }
