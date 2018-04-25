@@ -19,8 +19,8 @@ public class UserService {
     }
 
     @Transactional
-    public User getUser(AuthUser authUser) {
-        User user = new User(authUser);
+    public User createUser(User user) {
+
         return  repository.save(user);
     }
 

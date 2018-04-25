@@ -3,11 +3,9 @@ package com.dimax.retrospectator.Controllers;
 
 import com.dimax.retrospectator.Entity.AuthUser;
 import com.dimax.retrospectator.Entity.User;
-import com.dimax.retrospectator.Services.UserRepository;
 import com.dimax.retrospectator.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,8 +41,9 @@ public class AuthenticationUserFilter implements Filter {
             if(user == null) {
 
                 AuthUser authUser = getAuthUser(authentication);
-                user = userRepository.getUser(authUser);
-                request.setAttribute("user", user);
+                User u = new User(authUser);
+                User newUser = userRepository.createUser(u);
+                request.setAttribute("user", newUser);
 
             } else {
                 request.setAttribute("user", user);

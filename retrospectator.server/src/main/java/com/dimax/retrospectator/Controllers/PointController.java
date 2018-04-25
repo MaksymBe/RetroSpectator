@@ -22,7 +22,7 @@ public class PointController {
 
     @PostMapping("/{identifier}")
     public Point createPoint(@PathVariable String identifier,
-                                            @RequestBody Point point,
+                             @Valid @RequestBody Point point,
                                             ServletRequest request) {
 
         User user = (User) request.getAttribute("user");
