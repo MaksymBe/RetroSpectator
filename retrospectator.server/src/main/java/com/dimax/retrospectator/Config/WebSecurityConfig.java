@@ -31,23 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .forRS256(audience, issuer)
                 .configure(http)
                 .cors().and()
-//                .addFilterAfter(new AuthenticationUserFilter(), FilterSecurityInterceptor.class)
                 .authorizeRequests()
                 .anyRequest().authenticated();
     }
-
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder builder)
-//            throws Exception {
-//        builder.userDetailsService(new MyUserDetailsService());
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity security) throws Exception {
-//        security.httpBasic().disable();
-//        security.csrf().disable();
-//    }
 
 
 }

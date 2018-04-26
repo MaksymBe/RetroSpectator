@@ -39,7 +39,7 @@ public class AuthenticationUserFilter implements Filter {
         String  sub = authentication.getPrincipal().toString();
 
         if (authentication.isAuthenticated() && userRepository != null) {
-            User user = userRepository.getBySub(sub);
+            User user = userRepository.findBySub(sub);
             checkUser(request, authentication, sub, user);
         }
 
@@ -49,7 +49,7 @@ public class AuthenticationUserFilter implements Filter {
     private void checkUser(ServletRequest request, Authentication authentication, String sub, User user) {
         if(user == null) {
             synchronized(this) {
-                user = userRepository.getBySub(sub);
+                user = userRepository.findBySub(sub);
                 if(user == null) {
                     AuthUser authUser = getAuthUser(authentication);
                     user = userRepository.createUser(authUser);

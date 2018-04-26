@@ -16,10 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class PointService {
 
     @Autowired
-    PointRepository repository;
+    PointRepository pointRepository;
 
     @Autowired
     RetroRepository retroRepository;
@@ -27,69 +28,62 @@ public class PointService {
     @Autowired
     TeamRepository teamRepository;
 
-    @PersistenceContext
-    EntityManager entityManager;
 
-    @Transactional
-    public Point createPoint(Point point, User user, String identifier){
+    public Point createPoint(Point point, User user, String identifier) {
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = team.getRetro();
         point.setUser(user);
         point.setRetro(retro);
         point.setDate(new Date());
-        repository.save(point);
+        pointRepository.save(point);
         return point;
-
     }
 
-    @Transactional
-    public List<Point> getMyPointsForTeam(User user, String identifier){
-            Team team = teamRepository.findByIdentifier(identifier);
-            List<Point> points = team.getRetro().getPoint();
-            List<Point> pointForUser = new ArrayList<>();
-            for (Point point : points){
-                if(point.getUser().getId() == user.getId()){
-                    pointForUser.add(point);
-                }
+
+    public List<Point> getMyPointsForTeam(User user, String identifier) {
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Point> points = team.getRetro().getPoint();
+        List<Point> pointForUser = new ArrayList<>();
+        for (Point point : points) {
+            if (point.getUser().getId() == user.getId()) {
+                pointForUser.add(point);
             }
-            return pointForUser;
+        }
+        return pointForUser;
     }
 
-    @Transactional
-    public List<Point> getAllPointsForTeam(String identifier){
+
+    public List<Point> getAllPointsForTeam(String identifier) {
         Team team = teamRepository.findByIdentifier(identifier);
         List<Point> points = team.getRetro().getPoint();
         return points;
     }
 
-    @Transactional
     public Point deletePointById(int id) {
-        if(!repository.existsById(id))
+        if (!pointRepository.existsById(id))
             return null;
 
-        Point point = repository.findById(id).get();
-        repository.deleteById(id);
+        Point point = pointRepository.findById(id).get();
+        pointRepository.deleteById(id);
 
         return point;
     }
 
-    @Transactional
-    public Point updatePointById(Point point,int id) {
-        if(!repository.existsById(id)) {
+    public Point updatePointById(Point point, int id) {
+        if (!pointRepository.existsById(id)) {
             return null;
         }
 
-        Point pointToUpdate = repository.findById(id).get();
+        Point pointToUpdate = pointRepository.findById(id).get();
         pointToUpdate.setTitle(point.getTitle());
-        repository.save(pointToUpdate);
+        pointRepository.save(pointToUpdate);
 
         return pointToUpdate;
     }
 
-    @Transactional
     public List<Point> getAllPointsByRetro(int id) {
         Retro retro = retroRepository.findById(id).get();
-        List<Point> points = repository.findAllByRetro(retro);
+        List<Point> points = pointRepository.findAllByRetro(retro);
         return points;
     }
 }

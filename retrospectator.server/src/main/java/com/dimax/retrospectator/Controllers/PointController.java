@@ -21,13 +21,16 @@ public class PointController {
     PointService pointService;
 
     @PostMapping("/{identifier}")
-    public Point createPoint(@PathVariable String identifier,
+    public ResponseEntity createPoint(@PathVariable String identifier,
                              @Valid @RequestBody Point point,
                                             ServletRequest request) {
 
         User user = (User) request.getAttribute("user");
         Point createdPoint = pointService.createPoint(point, user, identifier);
-        return createdPoint;
+        if(createdPoint == null){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(createdPoint);
 
     }
 

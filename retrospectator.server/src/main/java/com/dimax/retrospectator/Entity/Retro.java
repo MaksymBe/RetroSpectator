@@ -1,10 +1,12 @@
 package com.dimax.retrospectator.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.sql.Date;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +19,7 @@ public class Retro {
     @Column
     private Integer id;
 
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date finishDate;
 
     @Column
@@ -25,12 +27,15 @@ public class Retro {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
+    @NotNull
     private Team team;
 
     @OneToMany(mappedBy = "retro")
+    @Nullable
     private List<Point> point = new ArrayList<>();
 
     @OneToMany(mappedBy = "retro")
+    @Nullable
     private List<ActionPoint> actionPoint = new ArrayList<>();
 
     public Retro(Team team) {

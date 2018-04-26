@@ -6,10 +6,11 @@ import com.dimax.retrospectator.Entity.Team;
 import com.dimax.retrospectator.Entity.User;
 import com.dimax.retrospectator.Services.RetroRepository;
 import com.dimax.retrospectator.Services.RetroService;
-import com.dimax.retrospectator.Services.TeamRepository;
 import com.dimax.retrospectator.Services.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
@@ -36,7 +37,7 @@ public class RetroController {
 
     @GetMapping("/{identifier}/{id}")
     public ResponseEntity<Retro> getRetroById(@PathVariable String identifier, @PathVariable int id){
-        Retro retro = retroService.getRetroById(id);
+        Retro retro = retroService.getRetroById(identifier, id);
         return ResponseEntity.ok(retro);
     }
 
@@ -48,8 +49,11 @@ public class RetroController {
     }
 
     @PatchMapping("/{identifier}/finish")
-    public ResponseEntity<Retro> startNewRetro(@Valid @RequestBody String impression, @PathVariable String identifier) {
-        Retro retro = retroService.startNewRetro(identifier, impression);
+    public ResponseEntity<Retro> startNewRetro(@Valid @RequestBody Retro endedRetro, @PathVariable String identifier, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Retro retro = retroService.startNewRetro(identifier, endedRetro.getImpression());
         return ResponseEntity.ok(retro);
     }
 
