@@ -2,7 +2,8 @@ div {
   height: 100vh;
   width: 100%;
   background-size: cover;
-  background-color: rgba(209, 218, 218, 0.33);
 }
 
-
+.main-container {
+  margin-top: 0.75em;
+}
