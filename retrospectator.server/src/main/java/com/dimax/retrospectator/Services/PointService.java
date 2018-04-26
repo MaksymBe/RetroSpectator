@@ -31,7 +31,11 @@ public class PointService {
     EntityManager entityManager;
 
     @Transactional
-    public Point createPoint(Point point, User user, String identifier){
+    public Point createPoint(Point point, User user, String identifier) {
+        if (identifier.equals("undefined") || user == null || point == null) {
+            return null;
+        }
+
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = team.getRetro();
         point.setUser(user);
@@ -43,20 +47,20 @@ public class PointService {
     }
 
     @Transactional
-    public List<Point> getMyPointsForTeam(User user, String identifier){
-            Team team = teamRepository.findByIdentifier(identifier);
-            List<Point> points = team.getRetro().getPoint();
-            List<Point> pointForUser = new ArrayList<>();
-            for (Point point : points){
-                if(point.getUser().getId() == user.getId()){
-                    pointForUser.add(point);
-                }
+    public List<Point> getMyPointsForTeam(User user, String identifier) {
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Point> points = team.getRetro().getPoint();
+        List<Point> pointForUser = new ArrayList<>();
+        for (Point point : points) {
+            if (point.getUser().getId() == user.getId()) {
+                pointForUser.add(point);
             }
-            return pointForUser;
+        }
+        return pointForUser;
     }
 
     @Transactional
-    public List<Point> getAllPointsForTeam(String identifier){
+    public List<Point> getAllPointsForTeam(String identifier) {
         Team team = teamRepository.findByIdentifier(identifier);
         List<Point> points = team.getRetro().getPoint();
         return points;
@@ -64,7 +68,7 @@ public class PointService {
 
     @Transactional
     public Point deletePointById(int id) {
-        if(!repository.existsById(id))
+        if (!repository.existsById(id))
             return null;
 
         Point point = repository.findById(id).get();
@@ -74,8 +78,8 @@ public class PointService {
     }
 
     @Transactional
-    public Point updatePointById(Point point,int id) {
-        if(!repository.existsById(id)) {
+    public Point updatePointById(Point point, int id) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
