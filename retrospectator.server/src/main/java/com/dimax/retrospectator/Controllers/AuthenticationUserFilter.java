@@ -1,9 +1,10 @@
 package com.dimax.retrospectator.Controllers;
 
-
 import com.dimax.retrospectator.Entity.AuthUser;
 import com.dimax.retrospectator.Entity.User;
 import com.dimax.retrospectator.Services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -25,6 +26,7 @@ public class AuthenticationUserFilter implements Filter {
     @Value("${auth0.audience}")
     String uri;
 
+    Logger logger = LoggerFactory.getLogger(AuthenticationUserFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,22 +37,30 @@ public class AuthenticationUserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String  sub = authentication.getPrincipal().toString();
+
         if (authentication.isAuthenticated() && userRepository != null) {
             User user = userRepository.getBySub(sub);
-
-            if(user == null) {
-
-                AuthUser authUser = getAuthUser(authentication);
-                User u = new User(authUser);
-                User newUser = userRepository.createUser(u);
-                request.setAttribute("user", newUser);
-
-            } else {
-                request.setAttribute("user", user);
-            }
+            checkUser(request, authentication, sub, user);
         }
 
         chain.doFilter(request, response);
+    }
+
+    private void checkUser(ServletRequest request, Authentication authentication, String sub, User user) {
+        if(user == null) {
+            synchronized(this) {
+                user = userRepository.getBySub(sub);
+                if(user == null) {
+                    AuthUser authUser = getAuthUser(authentication);
+                    user = userRepository.createUser(authUser);
+                    request.setAttribute("user", user);
+                }else {
+                    request.setAttribute("user", user);
+                }
+            }
+        } else {
+            request.setAttribute("user", user);
+        }
     }
 
     @Override
@@ -59,7 +69,6 @@ public class AuthenticationUserFilter implements Filter {
     }
 
     private AuthUser getAuthUser(Authentication authentication) {
-
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String tockenForIdentifier = authentication.getCredentials().toString();
@@ -74,4 +83,6 @@ public class AuthenticationUserFilter implements Filter {
 
 
     }
+
+
 }
