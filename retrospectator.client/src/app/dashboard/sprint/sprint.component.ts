@@ -40,7 +40,7 @@ export class SprintComponent implements OnInit {
       console.log(team);
       if ( this.currentTeam === null) {
         this.teamService.getTeams().subscribe(teams => {
-           if (teams.length === 0 || teams === null || teams === undefined) {
+           if ( teams === null || teams === undefined || teams.length === 0) {
              this.createTeamMode = true;
            } else {
              this.chooseMode = true;

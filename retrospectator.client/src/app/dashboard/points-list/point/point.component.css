@@ -1,5 +1,10 @@
 li {
   list-style-type: none;
+  padding-left: 0;
+}
+
+li:hover #userInfo {
+  visibility: visible;
 }
 span {
   display: flex;
@@ -11,4 +16,15 @@ button {
   background-color: white;
   border: none;
   background-image: url("../../../../assets/edit.svg");
+}
+
+#userInfo {
+  display: inline-block;
+  margin-left: 5px;
+  visibility: hidden;
+}
+#userInfo img {
+  width: 1.5em;
+  border-radius: 50%;
+  height: 1.5em;
 }

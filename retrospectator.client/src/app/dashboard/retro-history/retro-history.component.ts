@@ -24,7 +24,7 @@ export class RetroHistoryComponent implements OnInit {
 
   getRetros(teamIdentifier): void {
     this.retroService.getRetrosByTeam(teamIdentifier).subscribe(r => {
-      this.retros = r;
+      this.retros = r.slice(0, r.length - 1);
     });
   }
 

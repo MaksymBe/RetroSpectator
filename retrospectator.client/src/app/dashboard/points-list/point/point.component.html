@@ -1,5 +1,8 @@
 <li *ngIf="!enableFormToEdit"
     class="list-group-item" >
+  <div id="userInfo">
+    <img src="{{point.author.picUrl}}" alt="author">
+  </div>
   {{point.title}}
   <app-button-group (edit)="editPoint($event)" (delete)="deletePoint($event)" > </app-button-group>
 </li>

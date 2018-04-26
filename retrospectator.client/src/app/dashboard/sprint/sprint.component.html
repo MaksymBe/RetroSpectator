@@ -16,8 +16,12 @@
         Title
       </span>
     </div>
-    <input (keyup.enter)="pointHandler(pointType)" class="form-control" type="text" aria-label="Title"
-           aria-describedby="point-title" [(ngModel)]="titleInput">
+    <input (keyup.enter)="pointHandler(pointType)"
+           class="form-control" type="text"
+           aria-label="Title"
+           aria-describedby="point-title"
+           [(ngModel)]="titleInput"
+            autofocus>
     <div class="input-group-prepend">
     <span class="input-group-text" (click)=" pointHandler('plus')"
           [style.opacity]="pointType === 'plus' ? '1': '0.5'"
