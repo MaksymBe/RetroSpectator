@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
@@ -19,6 +20,8 @@ export class SprintComponent implements OnInit {
   public createTeamMode = false;
   public pointType = 'plus';
   public currentTeam: Team;
+  private params;
+  private teams;
 
   constructor(private activatedRouter: ActivatedRoute,
               private router: Router,
@@ -34,41 +37,39 @@ export class SprintComponent implements OnInit {
       return;
     }
 
+    this.activatedRouter.params.subscribe(params => this.params = params);
     this.teamService.getCurrentTeam().subscribe(team => {
       this.currentTeam = team;
-
-      console.log(team);
-      if ( this.currentTeam === null) {
-        this.teamService.getTeams().subscribe(teams => {
-           if ( teams === null || teams === undefined || teams.length === 0) {
-             this.createTeamMode = true;
-           } else {
-             this.chooseMode = true;
-           }
-        });
-      } else {
-        this.chooseMode = false;
-        this.createTeamMode = false;
-        this.activatedRouter.params.subscribe((params) => {
-          if (params.mode === undefined || params.mode === null) {
-            this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-          }
-
-          if (params.mode === 'all') {
-            this.getTeamPoints(params.teamKey);
-          } else if (params.mode === 'my') {
-            this.getMyPoints(params.teamKey);
-          } else {
-            if (params.mode !== 'retro') {
-              this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-            }
-          }
-
-          this.teamKey = params.teamKey;
-          localStorage.setItem('teamKey', this.teamKey);
-        });
-      }
+      this.render();
     });
+    this.teamService.getTeams().subscribe(teams => this.teams = teams);
+  }
+
+  render() {
+    if ( this.currentTeam === null) {
+        if ( this.teams === null || this.teams === undefined || this.teams.length === 0) {
+          this.createTeamMode = true;
+        } else {
+          this.chooseMode = true;
+        }
+    } else {
+      this.chooseMode = false;
+      this.createTeamMode = false;
+
+      if (this.params.mode === undefined || this.params.mode === null) {
+        this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
+      } else if (this.params.mode === 'all') {
+        this.getTeamPoints(this.params.teamKey);
+      } else if (this.params.mode === 'my') {
+        this.getMyPoints(this.params.teamKey);
+      } else {
+        if (this.params.mode !== 'retro') {
+          this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
+        }
+      }
+
+      localStorage.setItem('teamKey', this.teamKey);
+    }
   }
 
   pointHandler(pointType: string) {
