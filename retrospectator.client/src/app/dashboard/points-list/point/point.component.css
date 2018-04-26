@@ -28,3 +28,8 @@ button {
   border-radius: 50%;
   height: 1.5em;
 }
+
+.list-group-item:first-child {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
