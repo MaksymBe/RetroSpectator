@@ -6,9 +6,12 @@ ul{
 li {
   list-style-type: none;
 }
+
 span {
   display: flex;
   justify-content: center;
+  padding: 5px 0 7px 0;
+  color: white;
 }
 
 .editing {

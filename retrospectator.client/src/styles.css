@@ -1,3 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+textarea:focus, input:focus, .form-control:focus {
+  border-color: rgba(0, 0, 0, 0.77);
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: 2px 2px 15px 3px rgba(59, 70, 89, 0.75);
+}
+
+body {
+  background-color: rgba(209, 218, 218, 0.33);
+}
+
+

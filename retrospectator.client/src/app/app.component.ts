@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Auth0Service} from './data-service/services/auth/auth0.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,6 @@ import {Auth0Service} from './data-service/services/auth/auth0.service';
 export class AppComponent {
   title = 'RetroSpectator';
 
-  constructor(public auth: Auth0Service) {
-    auth.handleAuthentication();
+  constructor() {
   }
 }
