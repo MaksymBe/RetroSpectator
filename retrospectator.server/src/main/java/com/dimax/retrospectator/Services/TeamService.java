@@ -1,6 +1,7 @@
 package com.dimax.retrospectator.Services;
 
 import com.dimax.retrospectator.Base64Formater;
+import com.dimax.retrospectator.Entity.Point;
 import com.dimax.retrospectator.Entity.Retro;
 import com.dimax.retrospectator.Entity.Team;
 import com.dimax.retrospectator.Entity.User;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -57,9 +59,11 @@ public class TeamService {
     public Team saveTeam(Team team, User user) {
         Team createdTeam = repository.save(team);
         Retro retro = new Retro(createdTeam);
+        List<Point> points = new ArrayList<>();
         entityManager.persist(retro);
         createdTeam.setRetro(retro);
         createdTeam.getUser().add(user);
+        retro.setPoint(points);
         String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
         createdTeam.setIdentifier(identifier);
         return createdTeam;

@@ -31,8 +31,4 @@ public class UserController {
         return ResponseEntity.ok().body(teamRepository.getUsersForCurrentTeam(identifier));
     }
 
-//    @PostMapping("/user")
-//    public ResponseEntity<User> getUserById(@RequestBody User user) {
-//        return ResponseEntity.ok().body(service.getUser(user));
-//    }
 }
