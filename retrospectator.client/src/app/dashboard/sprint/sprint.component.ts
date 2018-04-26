@@ -51,7 +51,7 @@ export class SprintComponent implements OnInit {
         this.createTeamMode = false;
         this.activatedRouter.params.subscribe((params) => {
           if (params.mode === undefined || params.mode === null) {
-            this.router.navigate(['dashboard', params.teamKey, 'my']);
+            this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
           }
 
           if (params.mode === 'all') {
@@ -60,7 +60,7 @@ export class SprintComponent implements OnInit {
             this.getMyPoints(params.teamKey);
           } else {
             if (params.mode !== 'retro') {
-              this.router.navigate(['dashboard', params.teamKey, 'my']);
+              this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
             }
           }
 

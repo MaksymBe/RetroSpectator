@@ -18,7 +18,7 @@ public class ActionPointController {
     ActionPointService actionPointService;
 
     @PostMapping("/{identifier}")
-    public ResponseEntity<ActionPoint> createActionPoint(@PathVariable String identifier, @RequestBody ActionPoint actionPoint){
+    public ResponseEntity<ActionPoint> createActionPoint(@PathVariable String identifier, @Valid @RequestBody ActionPoint actionPoint){
         ActionPoint createdActionPoint = actionPointService.createActionPoint(actionPoint, identifier);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdActionPoint);
     }

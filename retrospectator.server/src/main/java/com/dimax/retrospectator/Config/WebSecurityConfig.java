@@ -2,6 +2,7 @@ package com.dimax.retrospectator.Config;
 
 import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import com.dimax.retrospectator.Controllers.AuthenticationUserFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,13 +21,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${auth0.issuer}")
     private String issuer;
 
+    @Autowired
+    AuthenticationUserFilter authenticationUserFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         JwtWebSecurityConfigurer
                 .forRS256(audience, issuer)
                 .configure(http)
-                .cors().and().addFilterAfter(new AuthenticationUserFilter(), FilterSecurityInterceptor.class)
+                .cors().and()
+//                .addFilterAfter(new AuthenticationUserFilter(), FilterSecurityInterceptor.class)
                 .authorizeRequests()
                 .anyRequest().authenticated();
     }
