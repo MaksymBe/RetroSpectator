@@ -10,8 +10,16 @@ li {
 span {
   display: flex;
   justify-content: center;
-  padding: 5px 0 7px 0;
+  padding: 0.1em 0 0.3em 0;
   color: white;
+}
+
+.bg-dark {
+  background: #224e7a !important;
+  background: -moz-linear-gradient(left, #224e7a 2%, #4c75aa 100%) !important;
+  background: -webkit-linear-gradient(left, #224e7a 2%,#4c75aa 100%) !important;
+  background: linear-gradient(to right, #224e7a 2%,#4c75aa 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#224e7a', endColorstr='#4c75aa',GradientType=1 ) !important;
 }
 
 .editing {

@@ -12,7 +12,7 @@
 
   <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <span class="input-group-text" id="point-title">
+      <span class="input-group-text">
         Title
       </span>
     </div>
@@ -23,12 +23,12 @@
            [(ngModel)]="titleInput"
             autofocus>
     <div class="input-group-prepend">
-    <span class="input-group-text" (click)=" pointHandler('plus')"
+    <span class="input-group-text inputButton" (click)=" pointHandler('plus')"
           [style.opacity]="pointType === 'plus' ? '1': '0.5'"
     >
         Plus
       </span>
-      <span class="input-group-text" (click)="pointHandler('minus')"
+      <span class="input-group-text inputButton" (click)="pointHandler('minus')"
             [style.opacity]="pointType === 'minus' ? '1': '0.5'">
         Minus
       </span>

@@ -2,7 +2,9 @@
   <h4>{{title}}</h4>
   <ul class="list-group">
 
-    <span *ngIf="!noButton" class="bg-dark"> {{getButtonLabel()}}</span>
+    <span *ngIf="!noButton"
+          class="bg-dark"
+          style="font-family: 'Permanent Marker'; font-size: x-large"> {{getButtonLabel()}}</span>
 
     <app-point *ngFor="let point of points"
                [point]="point"
