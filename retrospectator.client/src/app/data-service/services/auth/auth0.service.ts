@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import * as auth0 from 'auth0-js';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
 import {environment} from '../../../../environments/environment';
-import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -18,7 +16,9 @@ export class Auth0Service {
     redirectUri: environment.auth.callbackURL,
     scope: 'openid profile'
   });
-  public authorized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public authorized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    new Date().getTime() < JSON.parse(localStorage.getItem('expires_at'))
+  );
   userProfile: Observable<any> = null;
   accessToken: string = null;
 
