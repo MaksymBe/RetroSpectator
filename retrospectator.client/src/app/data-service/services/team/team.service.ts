@@ -3,15 +3,14 @@ import {Team} from '../../model/Team';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
-import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class TeamService {
 
   private urlModifier = 'team';
-  private teamsArr: Team[] = null;
-  public teams: Subject<Team[]> = new Subject<Team[]>();
+  private teamsArr: Team[] = [];
+  public teams: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>(null);
   public currentTeam: BehaviorSubject<Team> = new BehaviorSubject<Team>(null);
   public currentTeamObj: Team = null;
 
@@ -26,7 +25,8 @@ export class TeamService {
       if (this.currentTeamObj == null) {
         const teamId = localStorage.getItem('teamKey');
         if (teamId !== null) {
-          this.currentTeamObj = this.teamsArr.filter(team => team.identifier === teamId)[0];
+          const teamTmp = this.teamsArr.filter(team => team.identifier === teamId)[0];
+          this.currentTeamObj = teamTmp ? teamTmp : null;
           this.currentTeam.next(this.currentTeamObj);
         }
       }
@@ -36,7 +36,7 @@ export class TeamService {
 
   getTeam(id: string): Observable<Team> {
     this.http.get(environment.apiHost + `${this.urlModifier}/${id}`).map(teams => <Team>teams).subscribe(teams => {
-      if (this.teamsArr.find(team => team.identifier === teams.identifier)) {
+      if (!this.teamsArr.find(team => team.identifier === teams.identifier)) {
         this.teamsArr.push(teams);
         this.teams.next(this.teamsArr);
       }

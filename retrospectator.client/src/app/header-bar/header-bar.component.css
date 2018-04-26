@@ -67,6 +67,7 @@
 
 .team-item:hover {
   background-color: lightgrey;
+  cursor: pointer;
 }
 
 .team-item button {

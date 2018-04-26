@@ -5,6 +5,7 @@ import {User} from '../data-service/model/User';
 import {Router} from '@angular/router';
 import {Team} from '../data-service/model/Team';
 import {TeamService} from '../data-service/services/team/team.service';
+import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-header-bar',
@@ -21,16 +22,21 @@ export class HeaderBarComponent implements OnInit {
   public authorized = false;
   private currentTeam: Team;
 
-  constructor(public auth: Auth0Service, public userService: UserService, public router: Router, public teamService: TeamService) {
-    this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
-      setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
-    });
-    this.auth.isAuthenticated().subscribe(next => this.authorized = next);
-    this.teamService.teams.subscribe(teams => this.teams = teams);
-    this.teamService.getCurrentTeam().subscribe(team => this.currentTeam = team);
+  constructor(public auth: Auth0Service,
+              public userService: UserService,
+              public router: Router,
+              public teamService: TeamService) {
   }
 
   ngOnInit() {
+    this.teamService.teams.subscribe(teams => this.teams = teams);
+    this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
+      setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
+    });
+    this.auth.isAuthenticated().subscribe(next => {
+      this.authorized = next;
+    });
+    this.teamService.getCurrentTeam().subscribe(team => this.currentTeam = team);
   }
 
   addTeam(newTeam: Team) {
@@ -55,7 +61,7 @@ export class HeaderBarComponent implements OnInit {
   }
 
   changeTeam(team: Team) {
-    if (team.identifier !== this.currentTeam.identifier) {
+    if (this.currentTeam === null || team.identifier !== this.currentTeam.identifier) {
       this.teamService.setCurrentTeam(team);
       this.router.navigate(['dashboard/', team.identifier, '/my']);
     }
