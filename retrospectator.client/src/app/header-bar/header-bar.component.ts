@@ -32,11 +32,11 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
 
     this.teamService.teams.subscribe(teams => this.teams = teams);
-    this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
-      setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
-    });
     this.auth.isAuthenticated().subscribe(next => {
       this.authorized = next;
+      if (this.authorized && !this.user) {
+        this.userService.getUserInfo().subscribe(user => this.user = user);
+      }
     });
     this.teamService.getCurrentTeam().subscribe(team => this.currentTeam = team);
   }
