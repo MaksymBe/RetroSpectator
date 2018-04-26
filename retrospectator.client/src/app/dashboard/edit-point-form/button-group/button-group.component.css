@@ -2,13 +2,12 @@ li {
   list-style-type: none;
 }
 
-button:first-child {
+button {
   width: 25px;
   height: 25px;
   background-color: white;
   border: none;
-  background-image: url("../../../../assets/edit.svg");
-
+  background-size: cover;
 }
 
 

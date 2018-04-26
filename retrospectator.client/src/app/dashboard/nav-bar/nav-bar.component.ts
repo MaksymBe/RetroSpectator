@@ -27,6 +27,7 @@ export class NavBarComponent implements OnInit {
     });
     this.teamService.getCurrentTeam().subscribe(team => {
       this.currentTeam = team;
+      this.currentActive = 'my';
     });
 
     const link = this.router.url.split('/');
