@@ -31,9 +31,6 @@ export class Auth0Service {
   }
 
   public showProfileInfo(): void {
-    if (!this.accessToken) {
-      console.log('Access Token must exist to fetch profile');
-    }
     if (!this.userProfile) {
       this.auth0.client.userInfo(this.accessToken, (err, profile) => {
         if (profile) {

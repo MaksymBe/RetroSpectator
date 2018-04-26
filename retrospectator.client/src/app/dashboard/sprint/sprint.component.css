@@ -26,29 +26,25 @@
 
 }
 
-
-@media (orientation: landscape) {
-  .active-mode {
-    width: 35%;
-    margin-top: 3%;
-    margin: auto;
-  }
-
-  app-points-list {
-
-  }
-}
-
 .points-wrapper {
   display: block;
 }
 
-@media(orientation: landscape){
+@media(orientation: landscape), (min-width: 768px){
   .points-wrapper{
     display: flex;
   }
 
   .points-wrapper app-points-list{
     width: 50%;
+  }
+
+  .active-mode {
+    width: 35%;
+    margin: auto;
+  }
+
+  app-points-list {
+
   }
 }
