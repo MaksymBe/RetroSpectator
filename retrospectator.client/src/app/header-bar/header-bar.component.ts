@@ -5,6 +5,7 @@ import {User} from '../data-service/model/User';
 import {Router} from '@angular/router';
 import {Team} from '../data-service/model/Team';
 import {TeamService} from '../data-service/services/team/team.service';
+import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-header-bar',
@@ -28,16 +29,13 @@ export class HeaderBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.teamService.teams.subscribe(teams => this.teams = teams);
     this.userService.getUserInfo().subscribe(user => this.user = user, error1 => {
       setTimeout(() => this.userService.getUserInfo().subscribe(user => this.user = user));
     });
     this.auth.isAuthenticated().subscribe(next => {
       this.authorized = next;
-      if (next === false) {
-        this.router.navigate([]);
-      }
     });
-    this.teamService.teams.subscribe(teams => this.teams = teams);
     this.teamService.getCurrentTeam().subscribe(team => this.currentTeam = team);
   }
 
