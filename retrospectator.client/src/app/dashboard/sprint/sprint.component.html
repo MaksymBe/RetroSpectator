@@ -1,4 +1,4 @@
-<div *ngIf="chooseMode" class="d-flex flex-column justify-content-center align-items-center active-mode">
+<div *ngIf="!currentTeam && chooseMode" class="d-flex flex-column justify-content-center align-items-center active-mode">
   <h3>Choose team</h3>
   <img src="assets/team.svg" alt="team">
 </div>
@@ -8,7 +8,7 @@
   <img src="assets/createTeam.svg" alt="createTeam">
 </div>
 
-<div class="" *ngIf="!chooseMode && !createTeamMode">
+<div *ngIf="currentTeam">
 
   <div class="input-group mb-3">
     <div class="input-group-prepend">
