@@ -60,7 +60,13 @@ export class NavBarComponent implements OnInit {
   }
 
   getLink() {
-    return document.URL;
+    let link = document.URL;
+    let host = 'http://';
+    for (let i = 7; link[i] !== '/'; i++) {
+      host += link[i];
+    }
+
+    return host + '/' + this.currentTeam.identifier;
   }
 }
 
