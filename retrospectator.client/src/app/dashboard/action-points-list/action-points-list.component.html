@@ -1,6 +1,8 @@
 <div class="mb-2 ">
-  <h4>{{title}}</h4>
   <ul class="list-group">
+     <span class="bg-dark"
+           style="font-family: 'Permanent Marker'; font-size: x-large"> Action Points</span>
+
     <app-action-point *ngFor="let actionPoint of actionPoints"
                       [actionPoint]="actionPoint"
                       (delete)="deleteFromArray($event)" >

@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {TeamService} from '../../data-service/services/team/team.service';
 import {Team} from '../../data-service/model/Team';
 import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +15,9 @@ export class NavBarComponent implements OnInit {
   public teams = [];
   public currentTeam: Team;
   public currentActive: string;
+  public textToCopy: string;
   isRenamingMode = false;
+  public env = environment;
 
   constructor(public teamService: TeamService,
               private router: Router,
@@ -56,4 +59,8 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['dashboard', this.currentTeam.identifier, 'retro']);
   }
 
+  getLink() {
+    return document.URL;
+  }
 }
+

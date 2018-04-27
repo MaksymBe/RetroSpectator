@@ -10,6 +10,8 @@ import {RetroHistoryComponent} from './dashboard/retro-history/retro-history.com
 import {SprintComponent} from './dashboard/sprint/sprint.component';
 import {FormsModule} from '@angular/forms';
 import {PointsListComponent} from './dashboard/points-list/points-list.component';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 import {Auth0Service} from './data-service/services/auth/auth0.service';
 import {RouterModule} from '@angular/router';
@@ -40,7 +42,6 @@ import { ButtonGroupComponent } from './dashboard/edit-point-form/button-group/b
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { ButtonGroupComponent } from './dashboard/edit-point-form/button-group/b
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ClipboardModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: environment.getToken,

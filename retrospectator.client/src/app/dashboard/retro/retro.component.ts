@@ -23,7 +23,6 @@ export class RetroComponent implements OnInit {
   public retroImpression: string;
   public finishingRetro: boolean;
 
-
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,
               private pointService: PointService,

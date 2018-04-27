@@ -45,6 +45,6 @@
   </div>
 
   <app-action-points-list title="Action Points" [actionPoints]="actionPoints"></app-action-points-list>
-  <app-points-list title="Minuses" [noButton]="true" [points]="points.minus" type="minus"></app-points-list>
-  <app-points-list title="Pluses" [noButton]="true" [points]="points.plus" type="plus"></app-points-list>
+  <app-points-list [type]="'minus'" [points]="points.minus" type="minus"></app-points-list>
+  <app-points-list [type]="'plus'" [points]="points.plus" type="plus"></app-points-list>
 </div>

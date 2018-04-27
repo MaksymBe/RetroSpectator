@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 * {
-  font-family: 'Gloria Hallelujah', cursive;
+  font-family: 'Jua', sans-serif;
 }
 
 textarea:focus, input:focus, .form-control:focus {

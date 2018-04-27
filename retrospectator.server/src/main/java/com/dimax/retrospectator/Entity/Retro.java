@@ -27,7 +27,6 @@ public class Retro {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
-    @NotNull
     private Team team;
 
     @OneToMany(mappedBy = "retro")

@@ -4,6 +4,13 @@
                style="background-image: url('../../../assets/editTeam.svg')"
       class="editor">
       </button>
+      <button
+      class="editor"
+      ngxClipboard [cbContent]="getLink()"
+
+      style="background-image: url('../../../assets/unlink.svg'); margin-right: 10px">
+
+      </button>
     </h2>
 
     <div class="switchContainer">

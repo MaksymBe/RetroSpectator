@@ -5,7 +5,6 @@ import {User} from '../data-service/model/User';
 import {Router} from '@angular/router';
 import {Team} from '../data-service/model/Team';
 import {TeamService} from '../data-service/services/team/team.service';
-import {DashboardComponent} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-header-bar',
