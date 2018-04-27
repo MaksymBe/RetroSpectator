@@ -63,10 +63,10 @@ export class Auth0Service {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     this.accessToken = authResult.accessToken;
     this.userProfile = authResult.userProfile;
-    this.authorized.next(true);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    this.authorized.next(true);
   }
 
   public logout(): void {
