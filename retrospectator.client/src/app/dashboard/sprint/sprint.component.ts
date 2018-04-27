@@ -39,25 +39,28 @@ export class SprintComponent implements OnInit {
 
     this.activatedRouter.params.subscribe(params => {
       this.params = params;
-
-      if (this.params.mode === undefined || this.params.mode === null) {
-        this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-      } else if (this.params.mode === 'all') {
-        this.getTeamPoints(this.params.teamKey);
-      } else if (this.params.mode === 'my') {
-        this.getMyPoints(this.params.teamKey);
-      } else {
-        if (this.params.mode !== 'retro') {
-          this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-        }
-      }
     });
 
     this.teamService.getCurrentTeam().subscribe(team => {
-      this.currentTeam = team;
-      localStorage.setItem('teamKey', this.currentTeam.identifier);
+      if (team !== null) {
+        this.currentTeam = team;
+        this.teamKey = team.identifier;
+        localStorage.setItem('teamKey', this.currentTeam.identifier);
 
-      this.render();
+        this.render();
+
+        if (this.params.mode === undefined || this.params.mode === null) {
+          this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
+        } else if (this.params.mode === 'all') {
+          this.getTeamPoints(this.currentTeam.identifier);
+        } else if (this.params.mode === 'my') {
+          this.getMyPoints(this.currentTeam.identifier);
+        } else {
+          if (this.params.mode !== 'retro') {
+            this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
+          }
+        }
+      }
     });
     this.teamService.getTeams().subscribe(teams => {
       this.teams = teams;
