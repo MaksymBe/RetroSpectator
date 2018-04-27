@@ -37,8 +37,16 @@ export class SprintComponent implements OnInit {
       return;
     }
 
-    this.activatedRouter.params.subscribe(params => {
-      this.params = params;
+    this.teamService.teams.subscribe(teams => {
+      this.teams = teams;
+
+      if (this.teams !== null) {
+        if (this.teams === undefined || this.teams.length === 0) {
+          this.createTeamMode = true;
+        } else {
+          this.chooseMode = true;
+        }
+      }
     });
 
     this.teamService.getCurrentTeam().subscribe(team => {
@@ -47,38 +55,29 @@ export class SprintComponent implements OnInit {
         this.teamKey = team.identifier;
         localStorage.setItem('teamKey', this.currentTeam.identifier);
 
-        this.render();
+        this.chooseMode = false;
+        this.createTeamMode = false;
 
-        if (this.params.mode === undefined || this.params.mode === null) {
-          this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-        } else if (this.params.mode === 'all') {
-          this.getTeamPoints(this.currentTeam.identifier);
-        } else if (this.params.mode === 'my') {
-          this.getMyPoints(this.currentTeam.identifier);
-        } else {
-          if (this.params.mode !== 'retro') {
-            this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
-          }
+      } else {
+        this.currentTeam = null;
+      }
+    });
+
+    this.activatedRouter.params.subscribe(params => {
+      this.params = params;
+
+      if (this.params.mode === undefined || this.params.mode === null) {
+        this.router.navigate(['dashboard', this.currentTeam.identifier, 'my']);
+      } else if (this.params.mode === 'all') {
+        this.getTeamPoints(params.teamKey);
+      } else if (this.params.mode === 'my') {
+        this.getMyPoints(params.teamKey);
+      } else {
+        if (this.params.mode !== 'retro') {
+          this.router.navigate(['dashboard', params.teamKey, 'my']);
         }
       }
     });
-    this.teamService.getTeams().subscribe(teams => {
-      this.teams = teams;
-      this.render();
-    });
-  }
-
-  render() {
-    if (this.currentTeam === null) {
-      if (this.teams === null || this.teams === undefined || this.teams.length === 0) {
-        this.createTeamMode = true;
-      } else {
-        this.chooseMode = true;
-      }
-    } else {
-      this.chooseMode = false;
-      this.createTeamMode = false;
-    }
   }
 
   pointHandler(pointType: string) {
