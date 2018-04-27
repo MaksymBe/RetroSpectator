@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Point} from '../../data-service/model/Point';
 import {APoint} from '../../data-service/model/APoint';
 import {ActionPointService} from '../../data-service/services/action-point/action-point.service';
@@ -26,7 +26,8 @@ export class RetroComponent implements OnInit {
   constructor(private activetedRouter: ActivatedRoute,
               private actionPointService: ActionPointService,
               private pointService: PointService,
-              private retroService: RetroService) {
+              private retroService: RetroService,
+              private router: Router) {
     this.points = {minus: [], plus: []};
   }
 
@@ -81,6 +82,7 @@ export class RetroComponent implements OnInit {
   finishRetro(impression: string) {
     if (impression !== '') {
       this.retroService.closeRetro(this.teamKey, impression).subscribe(retro => console.log(retro));
+      this.router.navigate(['dashboard']);
     }
   }
 }
