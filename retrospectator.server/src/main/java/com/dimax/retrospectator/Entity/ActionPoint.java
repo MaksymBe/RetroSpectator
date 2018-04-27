@@ -28,11 +28,6 @@ public class ActionPoint {
     @JoinColumn(name = "retro_id")
     private Retro retro;
 
-//    @PrePersist
-//    protected void onCreate() {
-//        this.date = new Date();
-//    }
-
     public Integer getId() {
         return id;
     }

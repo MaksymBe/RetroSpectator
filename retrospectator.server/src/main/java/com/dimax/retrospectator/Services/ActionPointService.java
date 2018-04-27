@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class ActionPointService {
 
     @Autowired
@@ -25,9 +26,8 @@ public class ActionPointService {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Transactional
-    public ActionPoint createActionPoint(ActionPoint actionPoint, String identifier){
 
+    public ActionPoint createActionPoint(ActionPoint actionPoint, String identifier) {
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = team.getRetro();
         actionPoint.setRetro(retro);
@@ -38,21 +38,18 @@ public class ActionPointService {
 
     }
 
-    @Transactional
-    public List<ActionPoint> getActionPointsForTeam(String identifier){
+    public List<ActionPoint> getActionPointsForTeam(String identifier) {
         Team team = teamRepository.findByIdentifier(identifier);
         return team.getRetro().getActionPoint();
     }
 
-    @Transactional
-    public List<ActionPoint> getActionPointsForRetro(int id){
+    public List<ActionPoint> getActionPointsForRetro(int id) {
         Retro retro = retroRepository.findById(id).get();
         List<ActionPoint> actionPoints = actionPointRepository.findAllByRetro(retro);
 
-        return  actionPoints;
+        return actionPoints;
     }
 
-    @Transactional
     public ActionPoint deleteActionPointById(int id) {
         ActionPoint actionPoint = actionPointRepository.findById(id).get();
         actionPointRepository.deleteById(id);
@@ -60,7 +57,6 @@ public class ActionPointService {
         return actionPoint;
     }
 
-    @Transactional
     public ActionPoint updateActionPointById(ActionPoint actionPoint, int id) {
         if (!actionPointRepository.existsById(id)) {
             return null;

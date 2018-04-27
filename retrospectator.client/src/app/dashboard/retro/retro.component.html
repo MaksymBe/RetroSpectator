@@ -3,7 +3,7 @@
     <button *ngIf="retro === undefined"
             class="btn btn-dark mr-2"
             (click)="finishingRetro = true">Finish retro</button>
-    <a class="btn btn-dark ml-2"
+    <a class="btn ml-2"
        routerLink="/dashboard/{{teamKey}}/retro-history">Retros history</a>
   </div>
   <div *ngIf="finishingRetro" id="finishing-retro" class="d-flex flex-column justify-content-center">

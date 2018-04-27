@@ -12,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 
 @Service
+@Transactional
 public class TeamService {
 
     @Autowired
-    TeamRepository repository;
+    TeamRepository teamRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -30,77 +30,85 @@ public class TeamService {
     private EntityManager entityManager;
 
 
-    @Transactional
+
     public Team getTeamById(String identifier, User user) {
-        Team team = repository.findByIdentifier(identifier);
-        Set <User> users = team.getUser();
-        boolean inTeam = false;
-        for(User userInTeam : users){
-
-            if(userInTeam.getId() == user.getId()) inTeam = true;
-        }
-
-        if (!inTeam){
-            team.getUser().add(user);
-            repository.save(team);
-        }
+        Team team = teamRepository.findByIdentifier(identifier);
+        checkForUserInTeam(user, team);
 
         return team;
     }
 
-    @Transactional
+
     public Team getTeamById(String identifier) {
-        Team team = repository.findByIdentifier(identifier);
+        Team team = teamRepository.findByIdentifier(identifier);
 
         return team;
     }
 
-    @Transactional
+
     public Team saveTeam(Team team, User user) {
-        Team createdTeam = repository.save(team);
+        Team createdTeam = teamRepository.save(team);
+
         Retro retro = new Retro(createdTeam);
-        List<Point> points = new ArrayList<>();
         entityManager.persist(retro);
+
+        List<Point> points = new ArrayList<>();
+
         createdTeam.setRetro(retro);
         createdTeam.getUser().add(user);
         retro.setPoint(points);
+
         String identifier = Base64Formater.uuidToBase64(createdTeam.getUid());
         createdTeam.setIdentifier(identifier);
         return createdTeam;
     }
 
 
-    @Transactional
+
     public Set<Team> getTeam(User user){
         return user.getTeam();
     }
 
-    @Transactional
+
     public Set<User> getUsersForCurrentTeam(String identifier){
-        Team team = repository.findByIdentifier(identifier);
+        Team team = teamRepository.findByIdentifier(identifier);
         return team.getUser();
     }
 
-    @Transactional
+
     public Team updateTeamById(Team team, String id) {
-        if(repository.findByIdentifier(id) == null)
+        if(teamRepository.findByIdentifier(id) == null)
             return null;
 
-        Team updatedTeam = repository.getByIdentifier(id);
+        Team updatedTeam = teamRepository.getByIdentifier(id);
 
         updatedTeam.setTitle(team.getTitle());
-        repository.save(updatedTeam);
+        teamRepository.save(updatedTeam);
 
         return updatedTeam;
     }
 
-    @Transactional
+
     public Team deleteUserFromTeam(String identifier, User user){
         Team team = getTeamById(identifier);
         Set <User> users = team.getUser();
         users.remove(user);
         team.setUser(users);
-        repository.save(team);
+        teamRepository.save(team);
         return team;
+    }
+
+    private void checkForUserInTeam(User user, Team team) {
+        Set<User> users = team.getUser();
+        boolean inTeam = false;
+
+        for(User userInTeam : users){
+
+            if(userInTeam.getId() == user.getId()) inTeam = true;
+        }
+        if (!inTeam){
+            team.getUser().add(user);
+            teamRepository.save(team);
+        }
     }
 }

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
+@Transactional
 public class RetroService {
 
     @Autowired
@@ -17,25 +19,26 @@ public class RetroService {
     @Autowired
     TeamRepository teamRepository;
 
-    @Transactional
+
     public Retro getCurrentRetro(String identifier){
         Team team = teamRepository.findByIdentifier(identifier);
         return team.getRetro();
     }
 
-    @Transactional
-    public Retro getRetroById(int id){
-        return  retroRepository.findById(id).get();
+    public Retro getRetroById(String identifier, int id){
+        Team team = teamRepository.findByIdentifier(identifier);
+        List<Retro> retroes = team.getRetroes();
+        Retro retroFromHistory = retroes.stream().filter( retro ->  retro.getId()==id).findAny().orElse(null);
+
+        return  retroFromHistory;
     }
 
-    @Transactional
     public void createNewRetro(String identifier){
         Team team = teamRepository.findByIdentifier(identifier);
         Retro retro = new Retro(team);
         retroRepository.save(retro);
     }
 
-    @Transactional
     public Retro startNewRetro(String identifier, String impression) {
         Retro lastRetro = getCurrentRetro(identifier);
 

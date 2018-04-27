@@ -2,6 +2,10 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+* {
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
 textarea:focus, input:focus, .form-control:focus {
   border-color: rgba(0, 0, 0, 0.77);
   outline: none;
@@ -11,6 +15,42 @@ textarea:focus, input:focus, .form-control:focus {
 
 body {
   background-color: rgba(209, 218, 218, 0.33);
+}
+
+input {
+  box-sizing: border-box !important;
+  background-color: rgb(197, 217, 251) !important;
+  border-bottom: 1px solid rgba(58, 112, 138, 0.66) !important;
+}
+
+.inputButton {
+  color: white;
+  background: #4c75aa !important;
+  background: radial-gradient(ellipse at center, #4c75aa 28%,#224e7a 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c75aa', endColorstr='#224e7a',GradientType=1 ) !important;
+}
+
+.btn {
+  color: white;
+  background: #224e7a !important;
+  background: -moz-linear-gradient(left, #224e7a 2%, #4c75aa 100%) !important;
+  background: -webkit-linear-gradient(left, #224e7a 2%,#4c75aa 100%) !important;
+  background: linear-gradient(to right, #224e7a 2%,#4c75aa 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#224e7a', endColorstr='#4c75aa',GradientType=1 ) !important;
+  border: 1px solid #223a80;
+}
+
+.input-group-text {
+  color: white !important;
+  background-color: #4C75AA !important;
+}
+
+.dropdown-item {
+  border-bottom: 1px inset rgba(133, 181, 249, 0.44);
+  padding-bottom: 0;
+}
+.team-item {
+  padding-bottom: 0;
 }
 
 

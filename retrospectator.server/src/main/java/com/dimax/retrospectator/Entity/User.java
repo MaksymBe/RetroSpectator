@@ -11,6 +11,7 @@ import java.util.*;
 @Table
 @JsonIgnoreProperties({"team", "points", "sub"})
 public class User {
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -21,7 +22,6 @@ public class User {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 
@@ -36,8 +36,7 @@ public class User {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Point> points = new ArrayList<>();
 
-    @Column
-//            (unique = true)
+    @Column(unique = true)
     private String sub;
 
     @Column

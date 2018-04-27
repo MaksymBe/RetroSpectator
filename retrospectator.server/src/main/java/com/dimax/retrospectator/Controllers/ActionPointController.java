@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/action-point")
 @CrossOrigin(origins = "*")
 public class ActionPointController {
+
     @Autowired
     ActionPointService actionPointService;
 

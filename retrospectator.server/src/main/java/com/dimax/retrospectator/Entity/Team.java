@@ -1,11 +1,11 @@
 package com.dimax.retrospectator.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.context.annotation.Primary;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,21 +20,21 @@ public class Team {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "uid" )
+    @Column(name = "uid")
     private String uid;
 
-    @Column
+    @Column(unique = true)
     private String identifier;
 
     @Column
+    @NotNull
     private String title;
-
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private List<Retro> retroes = new ArrayList<>();
 
-    @OneToOne( fetch = FetchType.EAGER)
-    @JoinColumn(name="retro_id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "retro_id")
     private Retro retro;
 
     @ManyToMany
